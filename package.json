@@ -9,9 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "15.5.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "^13.5.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sass": "^1.92.1"
   },
   "devDependencies": {

@@ -1,6 +1,9 @@
+"use client";
+
 import Sidebar from "./components/sidebar/Sidebar";
 import ProductCard from "./components/productCard/ProductCard";
 import styles from "./Dashboard.module.scss";
+import { useEffect, useState } from "react";
 
 interface Product {
   id: number;
@@ -10,24 +13,37 @@ interface Product {
   description?: string;
 }
 
-const mockProducts: Product[] = [
-  { id: 1, name: "Headphones", price: "$50", imageUrl: "/headphones.jpg" },
-  { id: 2, name: "Bag", price: "$120", imageUrl: "/bag.jpg" },
-  { id: 3, name: "Coat", price: "$200", imageUrl: "/coat.jpg" },
-  { id: 4, name: "Shoes", price: "$80", imageUrl: "/shoes.jpg" },
-];
-
 export default function DashboardPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5062/api/products")
+      .then((res) => res.json())
+      .then((data: Product[]) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className={styles.dashboardContainer}>
       <Sidebar />
       <main className={styles.dashboardMain}>
         <h1>Wishlist</h1>
-        <div className={styles.productsGrid}>
-          {mockProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className={styles.productsGrid}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );

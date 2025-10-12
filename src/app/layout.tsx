@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code } from "next/font/google"; // Geçerli Google fontları
+import { Manrope } from "next/font/google";
+
 import "./globals.css";
 
-// Font ayarları
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-});
-
-const firaCode = Fira_Code({
-  variable: "--font-fira-code",
-  subsets: ["latin"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,9 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${firaCode.variable}`}>
-        {children}
-      </body>
+      <body className={manrope.variable}>{children}</body>
     </html>
   );
 }

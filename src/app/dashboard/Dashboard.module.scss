@@ -1,0 +1,70 @@
+.dashboard-container {
+  display: flex;
+  font-family: "Manrope", sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f5f9f2;
+  padding: 2rem;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    color: #3a4a3a;
+    font-size: 1.5rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    a {
+      text-decoration: none;
+      color: #3a4a3a;
+      font-weight: 600;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #7da77d;
+      }
+    }
+  }
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4rem;
+  padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+  }
+}
+
+.dashboardContainer {
+  display: flex;
+}
+
+.dashboardMain {
+  flex: 1;
+  margin-left: 250px;
+  padding: 2rem;
+}

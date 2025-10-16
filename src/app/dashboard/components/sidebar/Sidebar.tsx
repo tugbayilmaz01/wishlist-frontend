@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styles from "./Sidebar.module.scss";
@@ -21,8 +19,17 @@ export default function Sidebar() {
           >
             {collapsed ? <FiChevronRight /> : <FiChevronLeft />}
           </button>
-          <h2>WishIt.</h2>
+
+          <h2>
+            <img
+              src="/assets/heart.png"
+              alt="Heart"
+              className={styles.logoIcon}
+            />
+            {!collapsed && <span>WishIt.</span>}
+          </h2>
         </div>
+
         <nav>
           <a href="/dashboard">Dashboard</a>
           <button
@@ -34,6 +41,7 @@ export default function Sidebar() {
           <a href="/dashboard/profile">Profile</a>
         </nav>
       </aside>
+
       <AddWishlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

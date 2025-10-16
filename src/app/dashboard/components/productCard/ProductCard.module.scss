@@ -32,4 +32,11 @@
     font-size: 0.8rem;
     color: #7a8a7a;
   }
+
+  .productImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }

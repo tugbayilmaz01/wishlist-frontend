@@ -1,0 +1,161 @@
+$primary-color: #9b6cff;
+$accent-color: #d8f5eb;
+$text-color: #2a2a2a;
+$bg-color: #f5f3fa;
+$section-bg-color: #e6e0f8;
+$cta-text-color: #1b1b1b;
+
+.landingContainer {
+  background-color: $bg-color;
+  color: $text-color;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(245, 243, 250, 0.95);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(155, 108, 255, 0.15);
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: $primary-color;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        text-decoration: none;
+        color: $text-color;
+        font-weight: 500;
+        transition: color 0.3s;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .wishlist {
+    height: 90vh;
+    background-color: $section-bg-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    margin-top: 60px;
+
+    .wishlistText {
+      max-width: 700px;
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: $primary-color;
+      }
+
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        color: $text-color;
+      }
+
+      .ctaButton {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        background-color: $accent-color;
+        color: $primary-color;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 0 12px rgba(155, 108, 255, 0.3);
+        }
+      }
+    }
+  }
+
+  .features {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $bg-color;
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: $primary-color;
+    }
+
+    .featureList {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      width: 100%;
+      max-width: 800px;
+
+      .featureItem {
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        border-left: 3px solid rgba(76, 255, 176, 0.5);
+        padding-left: 1.5rem;
+
+        h3 {
+          flex: 0 0 220px;
+          color: $primary-color;
+          font-size: 1.5rem;
+        }
+
+        p {
+          flex: 1;
+          color: $text-color;
+          font-size: 1.125rem;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  .footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: $bg-color;
+    color: $text-color;
+    border-top: 1px solid rgba(155, 108, 255, 0.15);
+
+    a {
+      color: $primary-color;
+      text-decoration: none;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+}

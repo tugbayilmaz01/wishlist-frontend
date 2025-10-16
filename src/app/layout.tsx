@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Poppins, Roboto } from "next/font/google";
 
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "600", "700"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={manrope.variable}>{children}</body>
+      <body className={`${poppins.variable} ${roboto.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

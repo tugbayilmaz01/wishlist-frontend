@@ -1,50 +1,66 @@
 "use client";
 
-import Sidebar from "./components/sidebar/Sidebar";
-import ProductCard from "./components/productCard/ProductCard";
+import Card from "@/components/Card";
+import AddWishlistCategoryModal from "./components/addWishlistCategoryModal/AddWishlistCategoryModal";
 import styles from "./Dashboard.module.scss";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-interface Product {
+interface Wishlist {
   id: number;
   name: string;
-  price: string;
-  imageUrl: string;
   description?: string;
 }
 
 export default function DashboardPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    fetch("http://localhost:5062/api/products")
+    fetch("http://localhost:5062/api/wishlists")
       .then((res) => res.json())
-      .then((data: Product[]) => {
-        setProducts(data);
+      .then((data: Wishlist[]) => {
+        setWishlists(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("Error fetching products:", err);
-        setLoading(false);
-      });
+      .catch(() => setLoading(false));
   }, []);
 
   return (
     <div className={styles.dashboardContainer}>
-      <Sidebar />
       <main className={styles.dashboardMain}>
-        <h1>Wishlist</h1>
+        <div className={styles.header}>
+          <h1>Wishlists</h1>
+          <button
+            className={styles.addWishlistBtn}
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add New Wishlist Category
+          </button>
+        </div>
+
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className={styles.productsGrid}>
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className={styles.wishlistGrid}>
+            {wishlists.map((wishlist) => (
+              <Card
+                key={wishlist.id}
+                title={wishlist.name}
+                description={wishlist.description}
+                onClick={() => router.push(`/dashboard/${wishlist.id}`)}
+              />
             ))}
           </div>
         )}
       </main>
+
+      <AddWishlistCategoryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

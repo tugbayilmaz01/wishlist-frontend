@@ -1,15 +1,19 @@
 import { useState } from "react";
-import styles from "./AddWishlistModal.module.scss";
+import styles from "./AddWishlistProductModal.module.scss";
 
-interface AddWishlistModalProps {
+interface AddWishlistProductModalProps {
+  wishlistId: number;
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
+  onAddProduct: (product: any) => void;
 }
 
-export default function AddWishlistModal({
+export default function AddWishlistProductModal({
   isOpen,
   onClose,
-}: AddWishlistModalProps) {
+  wishlistId,
+  onAddProduct,
+}: AddWishlistProductModalProps) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -26,8 +30,9 @@ export default function AddWishlistModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5062/api/products", {
+    const response = await fetch(
+      `http://localhost:5062/api/wishlists/${wishlistId}/products`,
+      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -36,17 +41,13 @@ export default function AddWishlistModal({
           price: parseFloat(formData.price),
           imageUrl: formData.imageUrl,
         }),
-      });
-
-      if (response.ok) {
-        alert("Product added successfully");
-        onClose?.();
-      } else {
-        alert("Failed to add product.");
       }
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong.");
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      onAddProduct?.(data.product);
+      onClose?.();
     }
   };
 
@@ -100,10 +101,10 @@ export default function AddWishlistModal({
           </label>
 
           <div className={styles.actions}>
-            <button type="submit">Save</button>
             <button type="button" onClick={onClose}>
               Cancel
             </button>
+            <button type="submit">Save</button>
           </div>
         </form>
       </div>

@@ -4,6 +4,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Card from "@/components/Card";
 import AddWishlistProductModal from "../components/addWishlistProductModal/AddWishlistProductModal";
+import Button from "@/components/Button/Button";
+import styles from "../Dashboard.module.scss";
 
 interface WishlistProduct {
   id: number;
@@ -36,9 +38,10 @@ export default function WishlistDetailPage() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Wishlist Detail</h1>
-      <button onClick={() => setIsModalOpen(true)}>Add Product</button>
-
+      <div className={styles.header}>
+        <h1>Wishlist Detail</h1>
+        <Button onClick={() => setIsModalOpen(true)}>Add Product</Button>
+      </div>
       <div
         style={{
           display: "flex",
@@ -52,6 +55,7 @@ export default function WishlistDetailPage() {
             key={product.id}
             title={product.name}
             description={product.description}
+            imageUrl={product.imageUrl}
           />
         ))}
       </div>

@@ -5,6 +5,7 @@ import AddWishlistCategoryModal from "./components/addWishlistCategoryModal/AddW
 import styles from "./Dashboard.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button/Button";
 
 interface Wishlist {
   id: number;
@@ -33,12 +34,9 @@ export default function DashboardPage() {
       <main className={styles.dashboardMain}>
         <div className={styles.header}>
           <h1>Wishlists</h1>
-          <button
-            className={styles.addWishlistBtn}
-            onClick={() => setIsModalOpen(true)}
-          >
+          <Button onClick={() => setIsModalOpen(true)}>
             Add New Wishlist Category
-          </button>
+          </Button>
         </div>
 
         {loading ? (

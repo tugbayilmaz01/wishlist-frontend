@@ -56,7 +56,7 @@ export default function LandingPage() {
             Track, share, and discover the products you love. Keep your wishlist
             organized and see what's trending.
           </p>
-          <a href="/wishlist" className={styles.ctaButton}>
+          <a href="/dashboard" className={styles.ctaButton}>
             Get Started
           </a>
         </div>

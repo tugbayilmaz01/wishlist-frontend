@@ -4,7 +4,6 @@
 }
 
 .dashboardMain {
-  width: 100%;
   padding: 2rem;
   padding-left: 120px;
 }
@@ -44,7 +43,6 @@
   padding: 1rem 0;
 }
 
-// responsive
 @media (max-width: 768px) {
   .dashboardMain {
     padding: 1rem;

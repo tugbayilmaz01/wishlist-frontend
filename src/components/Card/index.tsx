@@ -22,16 +22,14 @@ export default function Card({
 
   return (
     <div className={styles.card} onClick={onClick}>
-      {imageUrl && (
-        <img
-          src={imagePath}
-          alt={title || "Card image"}
-          className={styles.cardImage}
-          onError={(e) =>
-            ((e.currentTarget as HTMLImageElement).src = "/assets/default.png")
-          }
-        />
-      )}
+      <img
+        src={imagePath}
+        alt={title || "Card image"}
+        className={styles.cardImage}
+        onError={(e) =>
+          ((e.currentTarget as HTMLImageElement).src = "/assets/default.png")
+        }
+      />
 
       <div className={styles.cardBody}>
         {title && <h3 className={styles.cardTitle}>{title}</h3>}

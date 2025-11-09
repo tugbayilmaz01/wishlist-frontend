@@ -9,22 +9,36 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   font-weight: 500;
-  color: #ffffff;
-  background-color: #aa8ed6;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #bff0df;
-    color: #1b1b1b;
-  }
+  transition: all 0.2s ease;
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
-.icon {
-  display: inline-flex;
-  align-items: center;
+.primary {
+  color: #ffffff;
+  background-color: #aa8ed6;
+
+  &:hover {
+    background-color: #bff0df;
+    color: #1b1b1b;
+  }
+}
+
+.secondary {
+  color: #aa8ed6;
+  background-color: transparent;
+  border: 2px solid #aa8ed6;
+
+  &:hover {
+    background-color: #aa8ed6;
+    color: #ffffff;
+  }
 }

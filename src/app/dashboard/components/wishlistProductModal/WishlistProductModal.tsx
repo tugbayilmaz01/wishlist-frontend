@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./WishlistProductModal.module.scss";
 import Button from "@/components/Button/Button";
+import Select from "@/components/Select/Select";
 
 interface AddWishlistProductModalProps {
   wishlistId: number;
@@ -10,6 +11,21 @@ interface AddWishlistProductModalProps {
   onUpdateProduct: (product: any) => void;
   product?: any;
 }
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 export default function AddWishlistProductModal({
   isOpen,
@@ -25,6 +41,7 @@ export default function AddWishlistProductModal({
     description: "",
     price: "",
     imageUrl: "",
+    plannedMonth: "",
   });
 
   useEffect(() => {
@@ -34,9 +51,16 @@ export default function AddWishlistProductModal({
         description: product.description || "",
         price: String(product.price || ""),
         imageUrl: product.imageUrl || "",
+        plannedMonth: product.plannedMonth || "",
       });
     } else {
-      setFormData({ name: "", description: "", price: "", imageUrl: "" });
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        imageUrl: "",
+        plannedMonth: "",
+      });
     }
   }, [product]);
 
@@ -50,10 +74,12 @@ export default function AddWishlistProductModal({
     e.preventDefault();
 
     const payload = {
+      id: product?.id,
       name: formData.name,
       description: formData.description,
       price: parseFloat(formData.price),
       imageUrl: formData.imageUrl,
+      plannedMonth: formData.plannedMonth,
     };
 
     const url = isEditMode
@@ -122,6 +148,18 @@ export default function AddWishlistProductModal({
               name="imageUrl"
               value={formData.imageUrl}
               onChange={handleChange}
+            />
+          </label>
+
+          <label>
+            Planned Month
+            <Select
+              options={months}
+              value={formData.plannedMonth}
+              onChange={(value) =>
+                setFormData({ ...formData, plannedMonth: value })
+              }
+              placeholder="Select Month"
             />
           </label>
 

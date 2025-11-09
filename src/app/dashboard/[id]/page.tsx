@@ -1,9 +1,10 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Card from "@/components/Card/Card";
 import AddWishlistProductModal from "../components/wishlistProductModal/WishlistProductModal";
+import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
@@ -14,6 +15,7 @@ interface WishlistProduct {
   price: number;
   description?: string;
   imageUrl?: string;
+  plannedMonth?: string;
 }
 
 export default function WishlistDetailPage() {
@@ -27,6 +29,8 @@ export default function WishlistDetailPage() {
   const [editingProduct, setEditingProduct] = useState<WishlistProduct | null>(
     null
   );
+
+  const [filters, setFilters] = useState<{ month: string }>({ month: "All" });
 
   useEffect(() => {
     fetch("http://localhost:5062/api/wishlists")
@@ -66,6 +70,16 @@ export default function WishlistDetailPage() {
     }
   };
 
+  const filteredProducts = useMemo(() => {
+    return wishlistProducts.filter(
+      (p) => filters.month === "All" || p.plannedMonth === filters.month
+    );
+  }, [wishlistProducts, filters]);
+
+  const monthOptions = Array.from(
+    new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean))
+  ) as string[];
+
   return (
     <div style={{ padding: "2rem" }}>
       <div className={styles.header}>
@@ -79,6 +93,11 @@ export default function WishlistDetailPage() {
           Add Product
         </Button>
       </div>
+      <FilterPanel
+        filters={filters}
+        options={{ month: monthOptions }}
+        onChange={setFilters}
+      />
       <div
         style={{
           display: "flex",
@@ -87,7 +106,7 @@ export default function WishlistDetailPage() {
           marginTop: "1rem",
         }}
       >
-        {wishlistProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <Card
             key={product.id}
             title={product.name}

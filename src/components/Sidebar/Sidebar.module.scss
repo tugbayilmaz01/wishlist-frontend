@@ -8,6 +8,7 @@
   padding: 1.5rem;
   transition: width 0.3s ease;
   border-right: 1px solid rgba(155, 108, 255, 0.3);
+  z-index: 999;
 
   .sidebarWrapper {
     display: flex;

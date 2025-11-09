@@ -1,11 +1,14 @@
-import { useState } from "react";
-import styles from "./AddWishlistProductModal.module.scss";
+import { useEffect, useState } from "react";
+import styles from "./WishlistProductModal.module.scss";
+import Button from "@/components/Button/Button";
 
 interface AddWishlistProductModalProps {
   wishlistId: number;
   isOpen: boolean;
   onClose: () => void;
   onAddProduct: (product: any) => void;
+  onUpdateProduct: (product: any) => void;
+  product?: any;
 }
 
 export default function AddWishlistProductModal({
@@ -13,13 +16,29 @@ export default function AddWishlistProductModal({
   onClose,
   wishlistId,
   onAddProduct,
+  onUpdateProduct,
+  product,
 }: AddWishlistProductModalProps) {
+  const isEditMode = !!product;
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     imageUrl: "",
   });
+
+  useEffect(() => {
+    if (product) {
+      setFormData({
+        name: product.name || "",
+        description: product.description || "",
+        price: String(product.price || ""),
+        imageUrl: product.imageUrl || "",
+      });
+    } else {
+      setFormData({ name: "", description: "", price: "", imageUrl: "" });
+    }
+  }, [product]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,24 +49,30 @@ export default function AddWishlistProductModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch(
-      `http://localhost:5062/api/wishlists/${wishlistId}/products`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          description: formData.description,
-          price: parseFloat(formData.price),
-          imageUrl: formData.imageUrl,
-        }),
-      }
-    );
+    const payload = {
+      name: formData.name,
+      description: formData.description,
+      price: parseFloat(formData.price),
+      imageUrl: formData.imageUrl,
+    };
+
+    const url = isEditMode
+      ? `http://localhost:5062/api/wishlists/${wishlistId}/products/${product.id}`
+      : `http://localhost:5062/api/wishlists/${wishlistId}/products`;
+
+    const method = isEditMode ? "PUT" : "POST";
+
+    const response = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
     if (response.ok) {
       const data = await response.json();
-      onAddProduct?.(data.product);
-      onClose?.();
+      if (isEditMode) onUpdateProduct(data);
+      else onAddProduct(data.product);
+      onClose();
     }
   };
 
@@ -101,10 +126,10 @@ export default function AddWishlistProductModal({
           </label>
 
           <div className={styles.actions}>
-            <button type="button" onClick={onClose}>
+            <Button variant="secondary" onClick={onClose}>
               Cancel
-            </button>
-            <button type="submit">Save</button>
+            </Button>
+            <Button variant="primary">{isEditMode ? "Update" : "Save"}</Button>
           </div>
         </form>
       </div>

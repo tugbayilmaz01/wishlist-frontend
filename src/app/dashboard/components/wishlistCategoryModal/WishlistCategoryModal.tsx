@@ -1,19 +1,39 @@
-import { useState } from "react";
-import styles from "./AddWishlistCategoryModal.module.scss";
+import { useEffect, useState } from "react";
+import styles from "./WishlistCategoryModal.module.scss";
+import Button from "@/components/Button/Button";
 
 interface AddWishlistCategoryModalProps {
   isOpen: boolean;
   onClose?: () => void;
+  initialData?: {
+    id: number;
+    name: string;
+    description?: string;
+  };
+  onSave: (data: { id?: number; name: string; description?: string }) => void;
 }
 
 export default function AddWishlistCategoryModal({
   isOpen,
   onClose,
+  initialData,
+  onSave,
 }: AddWishlistCategoryModalProps) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
   });
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        name: initialData.name,
+        description: initialData.description || "",
+      });
+    } else {
+      setFormData({ name: "", description: "" });
+    }
+  }, [initialData, isOpen]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,29 +41,16 @@ export default function AddWishlistCategoryModal({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5062/api/wishlists", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          description: formData.description,
-        }),
-      });
+    onSave({
+      id: initialData?.id,
+      name: formData.name,
+      description: formData.description,
+    });
 
-      if (response.ok) {
-        alert("Wishlist category added successfully");
-        onClose?.();
-      } else {
-        alert("Failed to add wishlist category.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong.");
-    }
+    onClose?.();
   };
 
   if (!isOpen) return null;
@@ -51,7 +58,9 @@ export default function AddWishlistCategoryModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <h2>Add Wishlist Category</h2>
+        <h2>
+          {initialData ? "Edit Wishlist Category" : "Add Wishlist Category"}
+        </h2>
         <form onSubmit={handleSubmit}>
           <label>
             Name
@@ -75,10 +84,10 @@ export default function AddWishlistCategoryModal({
           </label>
 
           <div className={styles.actions}>
-            <button type="button" onClick={onClose}>
+            <Button variant="secondary" onClick={onClose}>
               Cancel
-            </button>
-            <button type="submit">Save</button>
+            </Button>
+            <Button variant="primary">Save</Button>
           </div>
         </form>
       </div>

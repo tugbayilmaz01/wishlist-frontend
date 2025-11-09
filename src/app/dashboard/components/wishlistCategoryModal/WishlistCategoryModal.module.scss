@@ -44,29 +44,6 @@
       display: flex;
       justify-content: flex-end;
       gap: 0.8rem;
-
-      button {
-        background-color: #a7e7c9;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        font-weight: 500;
-
-        &:hover {
-          background-color: #a7e7c9;
-        }
-
-        &:nth-child(1) {
-          background-color: #e5e7eb;
-          color: #374151;
-
-          &:hover {
-            background-color: #d1d5db;
-          }
-        }
-      }
     }
   }
 }

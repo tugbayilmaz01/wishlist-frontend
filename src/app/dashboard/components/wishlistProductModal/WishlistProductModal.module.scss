@@ -12,7 +12,7 @@
   background: #fff;
   border-radius: 12px;
   padding: 1rem 2rem;
-  width: 400px;
+  width: 500px;
   display: flex;
   flex-direction: column;
 
@@ -44,29 +44,6 @@
       display: flex;
       justify-content: flex-end;
       gap: 0.8rem;
-
-      button {
-        background-color: #2563eb;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        font-weight: 500;
-
-        &:hover {
-          background-color: #1e40af;
-        }
-
-        &:nth-child(1) {
-          background-color: #e5e7eb;
-          color: #374151;
-
-          &:hover {
-            background-color: #d1d5db;
-          }
-        }
-      }
     }
   }
 }

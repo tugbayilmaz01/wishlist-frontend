@@ -8,6 +8,7 @@ interface CardProps {
   description?: string;
   children?: ReactNode;
   onClick?: () => void;
+  actions?: ReactNode;
 }
 
 export default function Card({
@@ -17,6 +18,7 @@ export default function Card({
   description,
   children,
   onClick,
+  actions,
 }: CardProps) {
   const imagePath = imageUrl ? `/assets${imageUrl}` : "/assets/default.png";
 
@@ -35,6 +37,7 @@ export default function Card({
         {title && <h3 className={styles.cardTitle}>{title}</h3>}
         {subtitle && <p className={styles.cardSubtitle}>{subtitle}</p>}
         {description && <p className={styles.cardDescription}>{description}</p>}
+        {actions && <div className={styles.cardActions}> {actions}</div>}
         {children && <div className={styles.cardChildren}>{children}</div>}
       </div>
     </div>

@@ -36,11 +36,76 @@
   }
 }
 
+.headerControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+
+  .viewToggle {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .filterPanelWrapper {
+    flex-grow: 1;
+    max-width: 300px;
+  }
+}
+
 .wishlistGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
-  padding: 1rem 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+  justify-items: start;
+}
+
+.monthlyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.monthColumn {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  align-items: center;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    color: #4b3c91;
+  }
+
+  .monthProducts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }
 
 @media (max-width: 768px) {

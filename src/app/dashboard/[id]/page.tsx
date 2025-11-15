@@ -18,6 +18,21 @@ interface WishlistProduct {
   plannedMonth?: string;
 }
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export default function WishlistDetailPage() {
   const params = useParams();
   const wishlistId = Number(params.id);
@@ -30,6 +45,7 @@ export default function WishlistDetailPage() {
     null
   );
 
+  const [view, setView] = useState<"list" | "month">("list");
   const [filters, setFilters] = useState<{ month: string }>({ month: "All" });
 
   useEffect(() => {
@@ -37,9 +53,7 @@ export default function WishlistDetailPage() {
       .then((res) => res.json())
       .then((data) => {
         const wishlist = data.find((w: any) => w.id === wishlistId);
-        if (wishlist) {
-          setWishlistProducts(wishlist.products || []);
-        }
+        if (wishlist) setWishlistProducts(wishlist.products || []);
       })
       .catch((err) => console.error(err));
   }, [wishlistId]);
@@ -80,8 +94,38 @@ export default function WishlistDetailPage() {
     new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean))
   ) as string[];
 
+  const renderProductCard = (product: WishlistProduct) => (
+    <Card
+      key={product.id}
+      title={product.name}
+      description={product.description}
+      imageUrl={product.imageUrl}
+      actions={
+        <>
+          <FiEdit
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              setEditingProduct(product);
+              setIsModalOpen(true);
+            }}
+            style={{ cursor: "pointer", marginRight: "8px" }}
+          />
+          <FiTrash2
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteProduct(product.id);
+            }}
+            style={{ cursor: "pointer", color: "#234588" }}
+          />
+        </>
+      }
+    />
+  );
+
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className={styles.dashboardMain}>
       <div className={styles.header}>
         <h1>Wishlist Detail</h1>
         <Button
@@ -93,49 +137,65 @@ export default function WishlistDetailPage() {
           Add Product
         </Button>
       </div>
-      <FilterPanel
-        filters={filters}
-        options={{ month: monthOptions }}
-        onChange={setFilters}
-      />
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          flexWrap: "wrap",
-          marginTop: "1rem",
-        }}
-      >
-        {filteredProducts.map((product) => (
-          <Card
-            key={product.id}
-            title={product.name}
-            description={product.description}
-            imageUrl={product.imageUrl}
-            actions={
-              <>
-                <FiEdit
-                  size={18}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setEditingProduct(product);
-                    setIsModalOpen(true);
-                  }}
-                  style={{ cursor: "pointer", marginRight: "8px" }}
-                />
-                <FiTrash2
-                  size={18}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteProduct(product.id);
-                  }}
-                  style={{ cursor: "pointer", color: "#234588" }}
-                />
-              </>
+
+      <div className={styles.headerControls}>
+        <div className={styles.viewToggle}>
+          <Button onClick={() => setView("list")}>List View</Button>
+          <Button onClick={() => setView("month")}>Monthly View</Button>
+        </div>
+
+        <div className={styles.filterPanelWrapper}>
+          <FilterPanel
+            filters={filters}
+            options={{ month: monthOptions }}
+            onChange={(newFilters) =>
+              setFilters((prev) => ({ ...prev, ...newFilters }))
             }
           />
-        ))}
+        </div>
       </div>
+
+      {view === "list" ? (
+        <div className={styles.wishlistGrid}>
+          {filteredProducts.map(renderProductCard)}
+        </div>
+      ) : (
+        <div className={styles.monthlyGrid}>
+          {months
+            .filter((month) =>
+              filteredProducts.some((p) => p.plannedMonth === month)
+            )
+            .map((month) => {
+              const productsOfMonth = filteredProducts.filter(
+                (p) => p.plannedMonth === month
+              );
+
+              const totalPrice = productsOfMonth.reduce(
+                (sum, p) => sum + (p.price || 0),
+                0
+              );
+              return (
+                <div key={month} className={styles.monthColumn}>
+                  <h3>
+                    {month}{" "}
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        fontSize: "0.9rem",
+                        color: "#555",
+                      }}
+                    >
+                      (${totalPrice.toFixed(2)})
+                    </span>
+                  </h3>
+                  <div className={styles.monthProducts}>
+                    {productsOfMonth.map(renderProductCard)}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      )}
 
       <AddWishlistProductModal
         isOpen={isModalOpen}

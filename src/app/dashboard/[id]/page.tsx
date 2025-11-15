@@ -140,8 +140,20 @@ export default function WishlistDetailPage() {
 
       <div className={styles.headerControls}>
         <div className={styles.viewToggle}>
-          <Button onClick={() => setView("list")}>List View</Button>
-          <Button onClick={() => setView("month")}>Monthly View</Button>
+          <Button
+            variant="primary"
+            active={view === "list"}
+            onClick={() => setView("list")}
+          >
+            List View
+          </Button>
+          <Button
+            variant="primary"
+            active={view === "month"}
+            onClick={() => setView("month")}
+          >
+            Monthly View
+          </Button>
         </div>
 
         <div className={styles.filterPanelWrapper}>

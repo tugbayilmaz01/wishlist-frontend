@@ -8,6 +8,7 @@
   overflow: hidden;
   transition: transform 0.2s ease;
   width: 15rem;
+  max-height: 15rem;
   cursor: pointer;
 
   &:hover {

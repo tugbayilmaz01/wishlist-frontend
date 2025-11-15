@@ -30,6 +30,11 @@
     background-color: #bff0df;
     color: #1b1b1b;
   }
+
+  &.active {
+    background-color: #bff0df;
+    color: #1b1b1b;
+  }
 }
 
 .secondary {
@@ -38,6 +43,11 @@
   border: 2px solid #aa8ed6;
 
   &:hover {
+    background-color: #aa8ed6;
+    color: #ffffff;
+  }
+
+  &.active {
     background-color: #aa8ed6;
     color: #ffffff;
   }

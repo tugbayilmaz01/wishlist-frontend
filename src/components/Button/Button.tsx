@@ -5,6 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   variant?: "primary" | "secondary";
+  active?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -12,10 +13,13 @@ const Button: React.FC<ButtonProps> = ({
   startIcon,
   endIcon,
   variant = "primary",
+  active = false,
   className = "",
   ...rest
 }) => {
-  const buttonClass = `${styles.button} ${styles[variant]} ${className}`;
+  const buttonClass = `${styles.button} ${styles[variant]} ${
+    active ? styles.active : ""
+  }`;
 
   return (
     <button className={buttonClass} {...rest}>

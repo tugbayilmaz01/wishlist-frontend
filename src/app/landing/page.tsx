@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Button from "@/components/Button/Button";
 import styles from "./LandingPage.module.scss";
 
 interface Feature {
@@ -39,14 +41,9 @@ export default function LandingPage() {
     <main className={styles.landingContainer}>
       <header className={styles.header}>
         <div className={styles.logo}>Wishlist</div>
-        <nav>
-          <a href="#features" data-scroll>
-            Features
-          </a>
-          <a href="#footer" data-scroll>
-            Footer
-          </a>
-        </nav>
+        <Link href="/login">
+          <Button variant="secondary">Login</Button>
+        </Link>
       </header>
 
       <section className={styles.wishlist}>

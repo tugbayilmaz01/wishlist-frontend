@@ -7,9 +7,10 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1.2rem;
   font-weight: 500;
   transition: all 0.2s ease;
+  font-family: inherit;
 
   &:disabled {
     opacity: 0.5;
@@ -23,32 +24,32 @@
 }
 
 .primary {
-  color: #ffffff;
-  background-color: #aa8ed6;
+  background-color: #ff425d;
+  color: #fcf4f1;
 
   &:hover {
-    background-color: #bff0df;
-    color: #1b1b1b;
+    background-color: #faebf5;
+    color: #38161f;
   }
 
   &.active {
-    background-color: #bff0df;
-    color: #1b1b1b;
+    background-color: #faebf5;
+    color: #38161f;
   }
 }
 
 .secondary {
-  color: #aa8ed6;
   background-color: transparent;
-  border: 2px solid #aa8ed6;
+  border: 2px solid #38161f;
+  color: #38161f;
 
   &:hover {
-    background-color: #aa8ed6;
-    color: #ffffff;
+    background-color: #f0ebe9;
+    color: #38161f;
   }
 
   &.active {
-    background-color: #aa8ed6;
-    color: #ffffff;
+    background-color: #f0ebe9;
+    color: #38161f;
   }
 }

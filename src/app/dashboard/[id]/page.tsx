@@ -117,7 +117,7 @@ export default function WishlistDetailPage() {
               e.stopPropagation();
               handleDeleteProduct(product.id);
             }}
-            style={{ cursor: "pointer", color: "#234588" }}
+            style={{ cursor: "pointer", color: "#FF425D" }}
           />
         </>
       }

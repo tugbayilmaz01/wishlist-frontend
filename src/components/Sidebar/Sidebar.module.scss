@@ -1,13 +1,13 @@
 .sidebar {
-  width: 240px;
-  background: #f5f3fa;
+  width: 140px;
+  background: #fcf4f1;
   height: 100vh;
   position: fixed;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   transition: width 0.3s ease;
-  border-right: 1px solid rgba(155, 108, 255, 0.3);
+  border-right: 1px solid rgba(56, 22, 31, 0.1);
   z-index: 999;
 
   .sidebarWrapper {
@@ -22,15 +22,9 @@
     align-items: center;
     font-size: 1.6rem;
     font-weight: 700;
-    color: #9b6cff;
+    color: #38161f;
     gap: 0.5rem;
     transition: opacity 0.3s ease;
-
-    .logoIcon {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-    }
 
     span {
       display: inline-block;
@@ -41,13 +35,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #2a2a2a;
+    color: #47474a;
     font-size: 1.4rem;
     transition: transform 0.2s ease;
 
     &:hover {
       transform: scale(1.1);
-      color: #9b6cff;
+      color: #ff425d;
     }
   }
 
@@ -62,7 +56,7 @@
       background: none;
       border: none;
       text-decoration: none;
-      color: #2a2a2a;
+      color: #38161f;
       font-weight: 500;
       padding: 0.7rem 0.8rem;
       border-radius: 8px;
@@ -72,15 +66,15 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #e6e0f8;
-        color: #9b6cff;
+        background-color: #f0ebe9;
+        color: #ff425d;
       }
     }
   }
 }
 
 .collapsed {
-  width: 60px;
+  width: 30px;
   align-items: center;
 
   h2 span {

@@ -18,14 +18,7 @@ export default function Sidebar() {
             {collapsed ? <FiChevronRight /> : <FiChevronLeft />}
           </button>
 
-          <h2>
-            <img
-              src="/assets/heart.png"
-              alt="Heart"
-              className={styles.logoIcon}
-            />
-            {!collapsed && <span>WishIt.</span>}
-          </h2>
+          <h2>{!collapsed && <span>WishIt.</span>}</h2>
         </div>
       </aside>
     </>

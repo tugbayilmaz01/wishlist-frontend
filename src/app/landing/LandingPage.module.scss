@@ -1,8 +1,8 @@
-$primary-color: #9b6cff;
-$accent-color: #d8f5eb;
-$text-color: #2a2a2a;
-$bg-color: #f5f3fa;
-$section-bg-color: #e6e0f8;
+$primary-color: #38161f;
+$accent-color: #ff425d;
+$text-color: #38161f;
+$bg-color: #fcf4f1;
+$section-bg-color: #fcf4f1;
 $cta-text-color: #1b1b1b;
 
 .landingContainer {
@@ -19,7 +19,7 @@ $cta-text-color: #1b1b1b;
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: rgba(245, 243, 250, 0.95);
+    background-color: #fcf4f1;
     backdrop-filter: blur(6px);
     display: flex;
     justify-content: space-between;
@@ -27,7 +27,6 @@ $cta-text-color: #1b1b1b;
     padding: 0 2rem;
     box-sizing: border-box;
     z-index: 1000;
-    border-bottom: 1px solid rgba(155, 108, 255, 0.15);
 
     .logo {
       font-weight: 700;
@@ -75,14 +74,14 @@ $cta-text-color: #1b1b1b;
       p {
         font-size: 1.25rem;
         margin-bottom: 2rem;
-        color: $text-color;
+        color: #47474a;
       }
 
       .ctaButton {
         display: inline-block;
         padding: 0.75rem 2rem;
         background-color: $accent-color;
-        color: $primary-color;
+        color: white;
         font-weight: 500;
         border-radius: 0.5rem;
         text-decoration: none;
@@ -123,7 +122,7 @@ $cta-text-color: #1b1b1b;
         display: flex;
         align-items: flex-start;
         gap: 2rem;
-        border-left: 3px solid rgba(76, 255, 176, 0.5);
+        border-left: 3px solid #ff425d;
         padding-left: 1.5rem;
 
         h3 {
@@ -134,7 +133,7 @@ $cta-text-color: #1b1b1b;
 
         p {
           flex: 1;
-          color: $text-color;
+          color: #47474a;
           font-size: 1.125rem;
           line-height: 1.6;
         }

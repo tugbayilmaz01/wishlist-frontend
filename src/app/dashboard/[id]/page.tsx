@@ -7,8 +7,9 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2 } from "react-icons/fi";
 import { api } from "@/utils/api";
+import Alert from "@/components/Alert/Alert";
 
 interface WishlistProduct {
   id: number;
@@ -48,6 +49,22 @@ export default function WishlistDetailPage() {
 
   const [view, setView] = useState<"list" | "month">("list");
   const [filters, setFilters] = useState<{ month: string }>({ month: "All" });
+
+  const [alertMessage, setAlertMessage] = useState("");
+
+  const handleShare = async () => {
+    try {
+      const response: any = await api.post(`/wishlists/${wishlistId}/share`, {});
+      const token = response.token;
+      const shareUrl = `${window.location.origin}/shared/${token}`;
+
+      await navigator.clipboard.writeText(shareUrl);
+      setAlertMessage("Link copied to clipboard! Share it with the world ✨");
+    } catch (err) {
+      console.error("Failed to share wishlist:", err);
+      alert("Failed to generate share link");
+    }
+  };
 
   useEffect(() => {
     api
@@ -136,8 +153,36 @@ export default function WishlistDetailPage() {
 
   return (
     <div className={styles.dashboardMain}>
+      {alertMessage && (
+        <Alert
+          message={alertMessage}
+          type="success"
+          onClose={() => setAlertMessage("")}
+        />
+      )}
+
       <div className={styles.header}>
-        <h1>Wishlist Detail</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <h1>Wishlist Detail</h1>
+          <button
+            onClick={handleShare}
+            style={{
+              background: "none",
+              border: "1px solid #ddd",
+              padding: "8px",
+              borderRadius: "50%",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#38161f",
+              transition: "all 0.2s",
+            }}
+            title="Share Wishlist"
+          >
+            <FiShare2 size={20} />
+          </button>
+        </div>
         <Button
           onClick={() => {
             setEditingProduct(null);

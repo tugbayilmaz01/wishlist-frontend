@@ -19,7 +19,11 @@ export default function LoginPage() {
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertType, setAlertType] = useState<"success" | "error">("success");
 
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
+
   const handleLogin = async () => {
+    setLoginLoading(true);
     try {
       const data = await api.post("/users/login", {
         email: loginEmail,
@@ -31,10 +35,13 @@ export default function LoginPage() {
     } catch (err: any) {
       setAlertType("error");
       setAlertMessage(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoginLoading(false);
     }
   };
 
   const handleSignup = async () => {
+    setSignupLoading(true);
     try {
       await api.post("/users/register", {
         email: signupEmail,
@@ -47,6 +54,8 @@ export default function LoginPage() {
     } catch (err: any) {
       setAlertType("error");
       setAlertMessage(err.message || "Signup failed. Please check your info.");
+    } finally {
+      setSignupLoading(false);
     }
   };
 
@@ -88,7 +97,9 @@ export default function LoginPage() {
             onChange={(e) => setLoginPassword(e.target.value)}
             className={styles.input}
           />
-          <Button onClick={handleLogin}>Login</Button>
+          <Button onClick={handleLogin} loading={loginLoading}>
+            {loginLoading ? "Logging in..." : "Login"}
+          </Button>
 
           <p className={styles.switch} onClick={() => setIsFlipped(true)}>
             Don't have an account? Sign up
@@ -111,7 +122,9 @@ export default function LoginPage() {
             onChange={(e) => setSignupPassword(e.target.value)}
             className={styles.input}
           />
-          <Button onClick={handleSignup}>Create Account</Button>
+          <Button onClick={handleSignup} loading={signupLoading}>
+            {signupLoading ? "Creating..." : "Create Account"}
+          </Button>
           <p className={styles.switch} onClick={() => setIsFlipped(false)}>
             Already have an account? Login
           </p>

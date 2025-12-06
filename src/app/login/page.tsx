@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Button from "@/components/Button/Button";
+import Alert from "@/components/Alert/Alert";
 import styles from "./Login.module.scss";
 
 export default function LoginPage() {
@@ -15,6 +17,9 @@ export default function LoginPage() {
   const [signupPassword, setSignupPassword] = useState("");
   const [signupError, setSignupError] = useState("");
 
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [alertType, setAlertType] = useState<"success" | "error">("success");
+
   const handleLogin = async () => {
     try {
       const res = await fetch("http://localhost:5062/api/users/login", {
@@ -22,20 +27,22 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: loginEmail,
-          passwordHash: loginPassword,
+          password: loginPassword,
         }),
       });
+      const data = await res.json();
 
       if (!res.ok) {
-        const data = await res.json();
-        setLoginError(data.message || "Login failed");
+        setAlertType("error");
+        setAlertMessage(data.message || "Login failed. Please try again.");
         return;
       }
 
+      localStorage.setItem("token", data.token);
       window.location.href = "/dashboard";
     } catch (err) {
-      console.error(err);
-      setLoginError("Something went wrong");
+      setAlertType("error");
+      setAlertMessage("An unexpected error occurred during login.");
     }
   };
 
@@ -46,7 +53,7 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: signupEmail,
-          passwordHash: signupPassword,
+          password: signupPassword,
         }),
       });
 
@@ -56,15 +63,37 @@ export default function LoginPage() {
         return;
       }
 
-      alert("Account created! You can log in now.");
+      setAlertType("success");
+      setAlertMessage("Account created! You can log in now.");
       setIsFlipped(false);
     } catch (err) {
-      setSignupError("Something went wrong");
+      setAlertType("error");
+      setAlertMessage("An unexpected error occurred during signup.");
     }
   };
 
   return (
     <div className={styles.wrapper}>
+      {alertMessage && (
+        <Alert
+          message={alertMessage}
+          type={alertType}
+          onClose={() => setAlertMessage("")}
+        />
+      )}
+
+      {/* Logo sol üst */}
+      <div className={styles.logoTop}>
+        <Image
+          src="/logo-horizontal.svg"
+          alt="WishIt"
+          width={150}
+          height={42}
+          priority
+        />
+      </div>
+
+      {/* Ortadaki kart */}
       <div className={`${styles.card} ${isFlipped ? styles.flipped : ""}`}>
         <div className={styles.front}>
           <h2 className={styles.title}>Login</h2>
@@ -75,20 +104,21 @@ export default function LoginPage() {
             value={loginEmail}
             onChange={(e) => setLoginEmail(e.target.value)}
             className={styles.input}
-          ></input>
+          />
           <input
             type="password"
             placeholder="Password"
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}
             className={styles.input}
-          ></input>
+          />
           <Button onClick={handleLogin}>Login</Button>
           {loginError && <p className={styles.error}>{loginError}</p>}
           <p className={styles.switch} onClick={() => setIsFlipped(true)}>
             Don't have an account? Sign up
           </p>
         </div>
+
         <div className={styles.back}>
           <h2 className={styles.title}>Sign Up</h2>
           <input

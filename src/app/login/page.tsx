@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { api } from "@/utils/api";
 import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import styles from "./Login.module.scss";
@@ -20,57 +21,32 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://localhost:5062/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: loginEmail,
-          password: loginPassword,
-        }),
+      const data = await api.post("/users/login", {
+        email: loginEmail,
+        password: loginPassword,
       });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setAlertType("error");
-        setAlertMessage(data.message || "Login failed. Please try again.");
-        return;
-      }
 
       localStorage.setItem("token", data.token);
       window.location.href = "/dashboard";
-    } catch (err) {
+    } catch (err: any) {
       setAlertType("error");
-      setAlertMessage("An unexpected error occurred during login.");
+      setAlertMessage(err.message || "Login failed. Please try again.");
     }
   };
 
   const handleSignup = async () => {
     try {
-      const res = await fetch("http://localhost:5062/api/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: signupEmail,
-          password: signupPassword,
-        }),
+      await api.post("/users/register", {
+        email: signupEmail,
+        password: signupPassword,
       });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setAlertType("error");
-        setAlertMessage(
-          data.message || "Signup failed. Please chech your info."
-        );
-        return;
-      }
 
       setAlertType("success");
       setAlertMessage("Account created! You can log in now.");
       setIsFlipped(false);
-    } catch (err) {
+    } catch (err: any) {
       setAlertType("error");
-      setAlertMessage("An unexpected error occurred during signup.");
+      setAlertMessage(err.message || "Signup failed. Please check your info.");
     }
   };
 

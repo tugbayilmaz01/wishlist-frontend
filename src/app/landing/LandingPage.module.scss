@@ -65,6 +65,17 @@ $cta-text-color: #1b1b1b;
     .wishlistText {
       max-width: 700px;
 
+      .heroIcon {
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .floatingHeart {
+        animation: float 3s ease-in-out infinite;
+        filter: drop-shadow(0 4px 6px rgba(255, 66, 93, 0.3));
+      }
+
       h1 {
         font-size: 3rem;
         margin-bottom: 1rem;
@@ -148,6 +159,13 @@ $cta-text-color: #1b1b1b;
     color: $text-color;
     border-top: 1px solid rgba(155, 108, 255, 0.15);
 
+    .footerHeart {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-left: 0.25rem;
+    }
+
     a {
       color: $primary-color;
       text-decoration: none;
@@ -155,6 +173,18 @@ $cta-text-color: #1b1b1b;
       &:hover {
         color: $accent-color;
       }
+    }
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
     }
   }
 }

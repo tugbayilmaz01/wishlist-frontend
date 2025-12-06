@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import Button from "@/components/Button/Button";
 import styles from "./LandingPage.module.scss";
 
@@ -27,7 +28,7 @@ const features: Feature[] = [
   {
     title: "Social Influence",
     description:
-      "Comment on other users’ wishlists and influence their choices.",
+      "Comment on other users' wishlists and influence their choices.",
   },
   {
     title: "Trending Products",
@@ -40,7 +41,15 @@ export default function LandingPage() {
   return (
     <main className={styles.landingContainer}>
       <header className={styles.header}>
-        <div className={styles.logo}>Wishlist</div>
+        <div className={styles.logo}>
+          <Image
+            src="/logo-horizontal.svg"
+            alt="WishIt"
+            width={150}
+            height={42}
+            priority
+          />
+        </div>
         <Link href="/login">
           <Button variant="secondary">Login</Button>
         </Link>
@@ -48,12 +57,21 @@ export default function LandingPage() {
 
       <section className={styles.wishlist}>
         <div className={styles.wishlistText}>
+          <div className={styles.heroIcon}>
+            <Image
+              src="/icon.svg"
+              alt="Heart"
+              width={60}
+              height={60}
+              className={styles.floatingHeart}
+            />
+          </div>
           <h1>Your Wishlist, Your Style</h1>
           <p>
             Track, share, and discover the products you love. Keep your wishlist
             organized and see what's trending.
           </p>
-          <a href="/dashboard" className={styles.ctaButton}>
+          <a href="/login" className={styles.ctaButton}>
             Get Started
           </a>
         </div>
@@ -72,7 +90,10 @@ export default function LandingPage() {
       </section>
 
       <footer id="footer" className={styles.footer}>
-        &copy; 2025 Fashion Wishlist. All rights reserved. ♥
+        &copy; 2025 Fashion Wishlist. All rights reserved.{" "}
+        <span className={styles.footerHeart}>
+          <Image src="/icon.svg" alt="Heart" width={16} height={16} />
+        </span>
       </footer>
     </main>
   );

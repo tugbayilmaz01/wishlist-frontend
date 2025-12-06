@@ -100,6 +100,10 @@ export default function DashboardPage() {
 
         {loading ? (
           <p>Loading...</p>
+        ) : wishlists.length === 0 ? (
+          <div className={styles.emptyState}>
+            <p>No wishlists yet.</p>
+          </div>
         ) : (
           <div className={styles.wishlistGrid}>
             {wishlists.map((wishlist) => (

@@ -3,6 +3,7 @@
 import Card from "@/components/Card/Card";
 import WishlistCategoryModal from "./components/wishlistCategoryModal/WishlistCategoryModal";
 import styles from "./Dashboard.module.scss";
+import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
@@ -28,11 +29,11 @@ export default function DashboardPage() {
   const loadWishlists = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5062/api/wishlists");
-      const data: Wishlist[] = await res.json();
+      const data: Wishlist[] = await api.get("/wishlists");
+
       setWishlists(data);
     } catch (err) {
-      console.error(err);
+      console.error("Dashboard failed to load wishlists:", err);
     } finally {
       setLoading(false);
     }
@@ -41,14 +42,12 @@ export default function DashboardPage() {
   const handleDeleteWishlist = async (id: number) => {
     if (!confirm("Are you sure you want to delete this wishlist category?"))
       return;
-
     try {
-      await fetch(`http://localhost:5062/api/wishlists/${id}`, {
-        method: "DELETE",
-      });
+      await api.delete(`/wishlists/${id}`);
+
       setWishlists((prev) => prev.filter((w) => w.id !== id));
     } catch (err) {
-      console.error(err);
+      console.error(`Dashboard failed to delete wishlist ${id}:`, err);
     }
   };
 
@@ -57,29 +56,26 @@ export default function DashboardPage() {
     name: string;
     description?: string;
   }) => {
-    if (data.id) {
-      await fetch(`http://localhost:5062/api/wishlists/${data.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+    try {
+      if (data.id) {
+        await api.put(`/wishlists/${data.id}`, {
           name: data.name,
           description: data.description,
-        }),
-      });
-    } else {
-      await fetch("http://localhost:5062/api/wishlists", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        });
+      } else {
+        await api.post("/wishlists", {
           name: data.name,
           description: data.description,
-        }),
-      });
-    }
+        });
+      }
 
-    loadWishlists();
-    setIsModalOpen(false);
-    setEditingWishlist(null);
+      loadWishlists();
+      setIsModalOpen(false);
+      setEditingWishlist(null);
+    } catch (err) {
+      console.error(`Dashboard failed to save wishlist:`, err);
+      alert("Failed to save wishlist");
+    }
   };
 
   const openEditModal = (wishlist: Wishlist) => {

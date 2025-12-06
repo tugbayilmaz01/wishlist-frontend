@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./WishlistProductModal.module.scss";
 import Button from "@/components/Button/Button";
 import Select from "@/components/Select/Select";
+import { api } from "@/utils/api";
 
 interface AddWishlistProductModalProps {
   wishlistId: number;
@@ -82,23 +83,22 @@ export default function AddWishlistProductModal({
       plannedMonth: formData.plannedMonth,
     };
 
-    const url = isEditMode
-      ? `http://localhost:5062/api/wishlists/${wishlistId}/products/${product.id}`
-      : `http://localhost:5062/api/wishlists/${wishlistId}/products`;
-
-    const method = isEditMode ? "PUT" : "POST";
-
-    const response = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      if (isEditMode) onUpdateProduct(data);
-      else onAddProduct(data.product);
+    try {
+      let data;
+      if (isEditMode) {
+        data = await api.put(
+          `/wishlists/${wishlistId}/products/${product.id}`,
+          payload
+        );
+        onUpdateProduct(data);
+      } else {
+        data = await api.post(`/wishlists/${wishlistId}/products`, payload);
+        onAddProduct(data.product);
+      }
       onClose();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save product");
     }
   };
 

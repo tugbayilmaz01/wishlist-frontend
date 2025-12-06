@@ -8,6 +8,7 @@ import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { api } from "@/utils/api";
 
 interface WishlistProduct {
   id: number;
@@ -49,13 +50,21 @@ export default function WishlistDetailPage() {
   const [filters, setFilters] = useState<{ month: string }>({ month: "All" });
 
   useEffect(() => {
-    fetch("http://localhost:5062/api/wishlists")
-      .then((res) => res.json())
-      .then((data) => {
+    api
+      .get("/wishlists")
+      .then((data: any) => {
         const wishlist = data.find((w: any) => w.id === wishlistId);
-        if (wishlist) setWishlistProducts(wishlist.products || []);
+        if (wishlist) {
+          if (wishlist.products && wishlist.products.length > 0) {
+          }
+          setWishlistProducts(wishlist.products || []);
+        } else {
+          console.warn(`WishlistDetail Wishlist ID ${wishlistId} not found!`);
+        }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(`WishlistDetail Failed to load wishlist:`, err);
+      });
   }, [wishlistId]);
 
   const handleAddProduct = (product: WishlistProduct) => {
@@ -74,13 +83,14 @@ export default function WishlistDetailPage() {
     );
     if (!confirmDelete) return;
 
-    const response = await fetch(
-      `http://localhost:5062/api/wishlists/${wishlistId}/products/${productId}`,
-      { method: "DELETE" }
-    );
-
-    if (response.ok) {
+    try {
+      await api.delete(`/wishlists/${wishlistId}/products/${productId}`);
       setWishlistProducts((prev) => prev.filter((p) => p.id !== productId));
+    } catch (err) {
+      console.error(
+        `WishlistDetail Failed to delete product ${productId}:`,
+        err
+      );
     }
   };
 

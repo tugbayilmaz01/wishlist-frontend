@@ -11,11 +11,9 @@ export default function LoginPage() {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  const [signupError, setSignupError] = useState("");
 
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertType, setAlertType] = useState<"success" | "error">("success");
@@ -57,9 +55,13 @@ export default function LoginPage() {
         }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
-        setSignupError(data.message || "Signup failed");
+        setAlertType("error");
+        setAlertMessage(
+          data.message || "Signup failed. Please chech your info."
+        );
         return;
       }
 
@@ -82,7 +84,6 @@ export default function LoginPage() {
         />
       )}
 
-      {/* Logo sol üst */}
       <div className={styles.logoTop}>
         <Image
           src="/logo-horizontal.svg"
@@ -93,7 +94,6 @@ export default function LoginPage() {
         />
       </div>
 
-      {/* Ortadaki kart */}
       <div className={`${styles.card} ${isFlipped ? styles.flipped : ""}`}>
         <div className={styles.front}>
           <h2 className={styles.title}>Login</h2>
@@ -113,7 +113,7 @@ export default function LoginPage() {
             className={styles.input}
           />
           <Button onClick={handleLogin}>Login</Button>
-          {loginError && <p className={styles.error}>{loginError}</p>}
+
           <p className={styles.switch} onClick={() => setIsFlipped(true)}>
             Don't have an account? Sign up
           </p>
@@ -139,7 +139,6 @@ export default function LoginPage() {
           <p className={styles.switch} onClick={() => setIsFlipped(false)}>
             Already have an account? Login
           </p>
-          {signupError && <p className={styles.error}>{signupError}</p>}
         </div>
       </div>
     </div>

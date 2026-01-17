@@ -1,0 +1,130 @@
+$heart-color: #ff425d;
+$text-color: #38161f;
+
+$star-color-1: #f4bf00;
+$star-color-2: #234588;
+$star-color-3: #20c997;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  min-height: 150px;
+
+  &.fullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(252, 244, 241, 0.95);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+  }
+}
+
+.loaderWrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heartSvg {
+  fill: $heart-color;
+  width: 42px;
+  height: 42px;
+  filter: drop-shadow(0 4px 6px rgba($heart-color, 0.3));
+  animation: softBreath 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.starsWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  animation: wiggleAndTwinkle 2.5s ease-in-out infinite alternate;
+}
+
+.star1 {
+  fill: $star-color-1;
+  top: 15%;
+  right: 20%;
+  width: 12px;
+  height: 12px;
+  animation-delay: 0s;
+}
+
+.star2 {
+  fill: $star-color-2;
+  bottom: 25%;
+  left: 20%;
+  width: 10px;
+  height: 10px;
+  animation-delay: 0.8s;
+  transform: rotate(-15deg);
+}
+
+.star3 {
+  fill: $star-color-3;
+  top: 60%;
+  right: 15%;
+  width: 16px;
+  height: 16px;
+  animation-delay: 1.5s;
+}
+
+.text {
+  position: absolute;
+  bottom: -30px;
+  color: $text-color;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  animation: fadeText 2s ease-in-out infinite alternate;
+}
+
+@keyframes softBreath {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 6px rgba($heart-color, 0.3));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 8px 12px rgba($heart-color, 0.4));
+  }
+}
+
+@keyframes wiggleAndTwinkle {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.9) rotate(0deg) translate(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1) rotate(10deg) translate(2px, -2px);
+  }
+}
+
+@keyframes fadeText {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.8;
+  }
+}

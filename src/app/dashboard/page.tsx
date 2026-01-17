@@ -1,6 +1,7 @@
 "use client";
 
 import Card from "@/components/Card/Card";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import WishlistCategoryModal from "./components/wishlistCategoryModal/WishlistCategoryModal";
 import styles from "./Dashboard.module.scss";
 import { api } from "@/utils/api";
@@ -99,7 +100,9 @@ export default function DashboardPage() {
         </div>
 
         {loading ? (
-          <p>Loading...</p>
+          <div style={{ marginTop: "3rem" }}>
+            <LoadingSpinner showText={false} />
+          </div>
         ) : wishlists.length === 0 ? (
           <div className={styles.emptyState}>
             <p>No wishlists yet.</p>

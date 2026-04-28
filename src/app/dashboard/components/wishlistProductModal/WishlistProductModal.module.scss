@@ -1,23 +1,96 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(56, 22, 31, 0.25);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  animation: overlayFadeIn 0.25s ease;
 }
 
 .modal {
   background: #fff;
-  border-radius: 12px;
-  padding: 1rem 2rem;
+  border-radius: 20px;
+  padding: 1.5rem 2rem 2rem;
   width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 20px 50px rgba(56, 22, 31, 0.15);
+  animation: modalSlideIn 0.3s ease;
 
   h2 {
     font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #38161f;
+  }
+
+  .scraperSection {
+    margin-bottom: 1.5rem;
+    background: #fff8f6;
+    padding: 1rem;
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 66, 93, 0.3);
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+      color: #374151;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .scraperInputGroup {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+
+      input {
+        flex: 1;
+        padding: 0.5rem 0.8rem;
+        border: 1.5px solid #e8d0d8;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &:focus {
+          border-color: #ff425d;
+          box-shadow: 0 0 0 3px rgba(255, 66, 93, 0.12);
+        }
+      }
+      
+      button {
+        white-space: nowrap;
+      }
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin-top: 1rem;
+      color: #c0a0b0;
+      font-size: 0.8rem;
+      
+      &::before,
+      &::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #f0d8e0;
+      }
+      
+      &:not(:empty)::before {
+        margin-right: .5em;
+      }
+      &:not(:empty)::after {
+        margin-left: .5em;
+      }
+    }
   }
 
   form {
@@ -34,10 +107,23 @@
 
     input,
     textarea {
-      padding: 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
+      padding: 0.55rem 0.8rem;
+      border: 1.5px solid #e8d0d8;
+      border-radius: 10px;
       font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        border-color: #ff425d;
+        box-shadow: 0 0 0 3px rgba(255, 66, 93, 0.12);
+      }
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
     }
 
     .actions {
@@ -45,5 +131,21 @@
       justify-content: flex-end;
       gap: 0.8rem;
     }
+  }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

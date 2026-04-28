@@ -1,23 +1,29 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(56, 22, 31, 0.25);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  animation: overlayFadeIn 0.25s ease;
 }
 
 .modal {
   background: #fff;
-  border-radius: 12px;
-  padding: 1rem 2rem;
+  border-radius: 20px;
+  padding: 1.5rem 2rem 2rem;
   width: 400px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 20px 50px rgba(56, 22, 31, 0.15);
+  animation: modalSlideIn 0.3s ease;
 
   h2 {
     font-size: 1.3rem;
+    color: #38161f;
+    margin-bottom: 0.8rem;
   }
 
   form {
@@ -34,10 +40,23 @@
 
     input,
     textarea {
-      padding: 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
+      padding: 0.55rem 0.8rem;
+      border: 1.5px solid #e8d0d8;
+      border-radius: 10px;
       font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        border-color: #ff425d;
+        box-shadow: 0 0 0 3px rgba(255, 66, 93, 0.12);
+      }
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
     }
 
     .actions {
@@ -45,5 +64,21 @@
       justify-content: flex-end;
       gap: 0.8rem;
     }
+  }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

@@ -1,7 +1,7 @@
 .dashboardContainer {
   display: flex;
   flex-direction: column;
-  background-color: #fcf4f1;
+  background-color: transparent;
   color: #38161f;
 }
 
@@ -59,16 +59,18 @@
 
 .monthColumn {
   background-color: #f0ebe9;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 1rem;
   min-height: 200px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(255, 66, 93, 0.08);
 
   &:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 66, 93, 0.1);
   }
 
   h3 {
@@ -108,10 +110,26 @@
 
 .emptyState {
   text-align: center;
-  padding: 40px 0;
-  opacity: 0.7;
+  padding: 60px 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
+  animation: fadeInUp 0.6s ease both;
+
+  p {
+    color: #9a7080;
+    font-size: 1.05rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

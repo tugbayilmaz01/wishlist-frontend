@@ -3,7 +3,6 @@ $accent-color: #ff425d;
 $text-color: #38161f;
 $bg-color: #fcf4f1;
 $section-bg-color: #fcf4f1;
-$cta-text-color: #1b1b1b;
 
 .landingContainer {
   background-color: $bg-color;
@@ -19,14 +18,15 @@ $cta-text-color: #1b1b1b;
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: #fcf4f1;
-    backdrop-filter: blur(6px);
+    background-color: rgba(252, 244, 241, 0.85);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
     box-sizing: border-box;
     z-index: 1000;
+    border-bottom: 1px solid rgba(255, 66, 93, 0.08);
 
     .logo {
       font-weight: 700;
@@ -46,24 +46,33 @@ $cta-text-color: #1b1b1b;
         transition: color 0.3s;
 
         &:hover {
-          color: $primary-color;
+          color: $accent-color;
         }
       }
     }
   }
 
+
   .wishlist {
     height: 90vh;
-    background-color: $section-bg-color;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 0 2rem;
     margin-top: 60px;
+    background-color: $bg-color;
+    background-image: 
+      radial-gradient(rgba(56, 22, 31, 0.15) 12%, transparent 12%),
+      radial-gradient(rgba(56, 22, 31, 0.15) 12%, transparent 12%);
+    background-size: 140px 140px;
+    background-position: 0 0, 70px 70px;
+    position: relative;
 
     .wishlistText {
       max-width: 700px;
+      animation: fadeInUp 0.8s ease both;
+      z-index: 2;
 
       .heroIcon {
         margin-bottom: 1.5rem;
@@ -73,91 +82,139 @@ $cta-text-color: #1b1b1b;
 
       .floatingHeart {
         animation: float 3s ease-in-out infinite;
-        filter: drop-shadow(0 4px 6px rgba(255, 66, 93, 0.3));
+        filter: drop-shadow(0 4px 12px rgba(255, 66, 93, 0.35));
       }
 
       h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
         margin-bottom: 1rem;
         color: $primary-color;
+        font-weight: 800;
       }
 
       p {
         font-size: 1.25rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
         color: #47474a;
+        animation: fadeInUp 0.8s ease 0.15s both;
       }
 
       .ctaButton {
         display: inline-block;
-        padding: 0.75rem 2rem;
+        padding: 1rem 2.5rem;
         background-color: $accent-color;
         color: white;
-        font-weight: 500;
-        border-radius: 0.5rem;
+        font-weight: 600;
+        border-radius: 50px; /* pill shape */
         text-decoration: none;
         transition: transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 16px rgba(255, 66, 93, 0.3);
+        animation: fadeInUp 0.8s ease 0.3s both;
 
         &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 0 12px rgba(155, 108, 255, 0.3);
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 24px rgba(255, 66, 93, 0.4);
+        }
+
+        &:active {
+          transform: scale(0.97);
         }
       }
     }
   }
 
+
   .features {
-    padding: 6rem 2rem;
+    padding: 8rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: $bg-color;
+    background-color: transparent;
 
     h2 {
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
+      font-size: 2.8rem;
+      margin-bottom: 4rem;
       text-align: center;
       color: $primary-color;
+      font-weight: 800;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background-color: $accent-color;
+        border-radius: 2px;
+      }
     }
 
     .featureList {
-      display: flex;
-      flex-direction: column;
-      gap: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       width: 100%;
-      max-width: 800px;
 
       .featureItem {
+        background: white;
+        padding: 2.5rem 2rem;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(56, 22, 31, 0.05);
+        border: 1px solid rgba(255, 66, 93, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        border-left: 3px solid #ff425d;
-        padding-left: 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadeInUp 0.6s ease both;
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 40px rgba(255, 66, 93, 0.1);
+          border-color: $accent-color;
+        }
+
+        .iconWrapper {
+          font-size: 2.5rem;
+          color: $accent-color;
+          margin-bottom: 1.5rem;
+          background: #fff0f3;
+          width: 70px;
+          height: 70px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 20px;
+        }
 
         h3 {
-          flex: 0 0 220px;
           color: $primary-color;
-          font-size: 1.5rem;
+          font-size: 1.4rem;
+          margin-bottom: 1rem;
+          font-weight: 700;
         }
 
         p {
-          flex: 1;
-          color: #47474a;
-          font-size: 1.125rem;
+          color: #6b7280;
+          font-size: 1rem;
           line-height: 1.6;
         }
       }
     }
   }
 
+
   .footer {
     padding: 3rem 2rem;
     text-align: center;
     background-color: $bg-color;
     color: $text-color;
-    border-top: 1px solid rgba(155, 108, 255, 0.15);
+    border-top: 1px solid rgba(255, 66, 93, 0.12);
 
     .footerHeart {
       display: inline-flex;
@@ -176,15 +233,32 @@ $cta-text-color: #1b1b1b;
     }
   }
 
+  
   @keyframes float {
-    0% {
-      transform: translateY(0px);
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    50% {
-      transform: translateY(-10px);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-    100% {
-      transform: translateY(0px);
-    }
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes ctaPulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(255, 66, 93, 0.3); }
+    50%      { box-shadow: 0 4px 28px rgba(255, 66, 93, 0.5); }
   }
 }

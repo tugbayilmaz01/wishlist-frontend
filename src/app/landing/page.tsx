@@ -4,34 +4,41 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
 import styles from "./LandingPage.module.scss";
+import { FiGrid, FiPlusCircle, FiCalendar, FiMessageCircle, FiTrendingUp } from "react-icons/fi";
 
 interface Feature {
   title: string;
   description: string;
+  icon: React.ReactNode;
 }
 
 const features: Feature[] = [
   {
     title: "Multiple Wishlist Categories",
+    icon: <FiGrid />,
     description:
       "Create different wishlists for files, occasions, or interests.",
   },
   {
     title: "Add & Remove Products",
+    icon: <FiPlusCircle />,
     description:
       "Easily manage products in your wishlist, add or remove anytime.",
   },
   {
     title: "Monthly Planning",
+    icon: <FiCalendar />,
     description: "Organize your purchases by month and track what to buy.",
   },
   {
     title: "Social Influence",
+    icon: <FiMessageCircle />,
     description:
       "Comment on other users' wishlists and influence their choices.",
   },
   {
     title: "Trending Products",
+    icon: <FiTrendingUp />,
     description:
       "Discover popular products that many users are adding to their wishlists.",
   },
@@ -61,8 +68,8 @@ export default function LandingPage() {
             <Image
               src="/icon.svg"
               alt="Heart"
-              width={60}
-              height={60}
+              width={80}
+              height={80}
               className={styles.floatingHeart}
             />
           </div>
@@ -82,6 +89,7 @@ export default function LandingPage() {
         <div className={styles.featureList}>
           {features.map((f, idx) => (
             <div key={idx} className={styles.featureItem}>
+              <div className={styles.iconWrapper}>{f.icon}</div>
               <h3>{f.title}</h3>
               <p>{f.description}</p>
             </div>

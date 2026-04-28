@@ -125,6 +125,7 @@ export default function WishlistDetailPage() {
     <Card
       key={product.id}
       title={product.name}
+      subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
       description={product.description}
       imageUrl={product.imageUrl}
       actions={

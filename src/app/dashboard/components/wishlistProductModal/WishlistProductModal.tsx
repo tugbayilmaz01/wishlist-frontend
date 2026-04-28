@@ -44,6 +44,8 @@ export default function AddWishlistProductModal({
     imageUrl: "",
     plannedMonth: "",
   });
+  const [scrapingUrl, setScrapingUrl] = useState("");
+  const [isScraping, setIsScraping] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -69,6 +71,33 @@ export default function AddWishlistProductModal({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleScrape = async () => {
+    if (!scrapingUrl) return;
+    setIsScraping(true);
+    try {
+     
+      const res = await api.get(`/scraper?url=${encodeURIComponent(scrapingUrl)}`);
+      const data = res; 
+
+      if (data && !data.Error) {
+        setFormData((prev) => ({
+          ...prev,
+          name: data.title || prev.name,
+          description: data.description || prev.description,
+          price: data.price ? String(data.price) : prev.price,
+          imageUrl: data.imageUrl || prev.imageUrl,
+        }));
+      } else if (data?.Error) {
+        alert(data.Error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to fetch product details from URL");
+    } finally {
+      setIsScraping(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -107,7 +136,28 @@ export default function AddWishlistProductModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <h2>Add Product</h2>
+        <h2>{isEditMode ? "Edit Product" : "Add Product"}</h2>
+        
+        {!isEditMode && (
+          <div className={styles.scraperSection}>
+            <label>
+              Auto-fill from Link (Trendyol, Shopier, etc.)
+              <div className={styles.scraperInputGroup}>
+                <input
+                  type="url"
+                  placeholder="Paste product link here..."
+                  value={scrapingUrl}
+                  onChange={(e) => setScrapingUrl(e.target.value)}
+                />
+                <Button variant="primary" onClick={handleScrape} disabled={isScraping || !scrapingUrl}>
+                  {isScraping ? "Fetching..." : "Fetch Info"}
+                </Button>
+              </div>
+            </label>
+            <div className={styles.divider}><span>OR</span></div>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <label>
             Name
@@ -135,6 +185,7 @@ export default function AddWishlistProductModal({
             <input
               type="number"
               name="price"
+              step="any"
               value={formData.price}
               onChange={handleChange}
               required
@@ -150,6 +201,8 @@ export default function AddWishlistProductModal({
               onChange={handleChange}
             />
           </label>
+
+
 
           <label>
             Planned Month

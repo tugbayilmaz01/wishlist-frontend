@@ -3,6 +3,7 @@ import styles from "./WishlistProductModal.module.scss";
 import Button from "@/components/Button/Button";
 import Select from "@/components/Select/Select";
 import { api } from "@/utils/api";
+import { FiX } from "react-icons/fi";
 
 interface AddWishlistProductModalProps {
   wishlistId: number;
@@ -46,6 +47,7 @@ export default function AddWishlistProductModal({
   });
   const [scrapingUrl, setScrapingUrl] = useState("");
   const [isScraping, setIsScraping] = useState(false);
+  const [showManualForm, setShowManualForm] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -56,6 +58,7 @@ export default function AddWishlistProductModal({
         imageUrl: product.imageUrl || "",
         plannedMonth: product.plannedMonth || "",
       });
+      setShowManualForm(true);
     } else {
       setFormData({
         name: "",
@@ -64,8 +67,10 @@ export default function AddWishlistProductModal({
         imageUrl: "",
         plannedMonth: "",
       });
+      setShowManualForm(false);
+      setScrapingUrl("");
     }
-  }, [product]);
+  }, [product, isOpen]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -89,6 +94,7 @@ export default function AddWishlistProductModal({
           price: data.price ? String(data.price) : prev.price,
           imageUrl: data.imageUrl || prev.imageUrl,
         }));
+        setShowManualForm(true);
       } else if (data?.Error) {
         alert(data.Error);
       }
@@ -136,6 +142,9 @@ export default function AddWishlistProductModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
+        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <FiX size={22} />
+        </button>
         <h2>{isEditMode ? "Edit Product" : "Add Product"}</h2>
         
         {!isEditMode && (
@@ -154,11 +163,20 @@ export default function AddWishlistProductModal({
                 </Button>
               </div>
             </label>
-            <div className={styles.divider}><span>OR</span></div>
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        {(!isEditMode && !showManualForm) && (
+          <div className={styles.manualToggle}>
+            <div className={styles.divider}><span>OR</span></div>
+            <button type="button" onClick={() => setShowManualForm(true)} className={styles.manualBtn}>
+              Enter details manually
+            </button>
+          </div>
+        )}
+
+        {(isEditMode || showManualForm) && (
+          <form onSubmit={handleSubmit} className={styles.productForm}>
           <label>
             Name
             <input
@@ -217,12 +235,10 @@ export default function AddWishlistProductModal({
           </label>
 
           <div className={styles.actions}>
-            <Button variant="secondary" onClick={onClose}>
-              Cancel
-            </Button>
             <Button variant="primary">{isEditMode ? "Update" : "Save"}</Button>
           </div>
         </form>
+        )}
       </div>
     </div>
   );

@@ -6,15 +6,18 @@ import { api } from "@/utils/api";
 import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import styles from "./Login.module.scss";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function LoginPage() {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
 
   const [alertMessage, setAlertMessage] = useState<string>("");
   const [alertType, setAlertType] = useState<"success" | "error">("success");
@@ -90,13 +93,22 @@ export default function LoginPage() {
             onChange={(e) => setLoginEmail(e.target.value)}
             className={styles.input}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-            className={styles.input}
-          />
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showLoginPassword ? "text" : "password"}
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              className={styles.input}
+            />
+            <button
+              type="button"
+              className={styles.eyeIcon}
+              onClick={() => setShowLoginPassword(!showLoginPassword)}
+            >
+              {showLoginPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </button>
+          </div>
           <Button onClick={handleLogin} loading={loginLoading}>
             {loginLoading ? "Logging in..." : "Login"}
           </Button>
@@ -115,13 +127,22 @@ export default function LoginPage() {
             onChange={(e) => setSignupEmail(e.target.value)}
             className={styles.input}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={signupPassword}
-            onChange={(e) => setSignupPassword(e.target.value)}
-            className={styles.input}
-          />
+          <div className={styles.passwordWrapper}>
+            <input
+              type={showSignupPassword ? "text" : "password"}
+              placeholder="Password"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+              className={styles.input}
+            />
+            <button
+              type="button"
+              className={styles.eyeIcon}
+              onClick={() => setShowSignupPassword(!showSignupPassword)}
+            >
+              {showSignupPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </button>
+          </div>
           <Button onClick={handleSignup} loading={signupLoading}>
             {signupLoading ? "Creating..." : "Create Account"}
           </Button>

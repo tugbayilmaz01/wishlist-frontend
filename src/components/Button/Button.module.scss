@@ -1,20 +1,24 @@
 .button {
   font-size: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.55rem 1.2rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: all 0.25s ease;
   font-family: inherit;
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
   }
 
   .icon {
@@ -25,16 +29,19 @@
 
 .primary {
   background-color: #ff425d;
-  color: #fcf4f1;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 66, 93, 0.2);
 
   &:hover {
-    background-color: #faebf5;
-    color: #38161f;
+    background-color: #ff2d4b;
+    box-shadow: 0 4px 18px rgba(255, 66, 93, 0.38);
+    transform: translateY(-1px);
   }
 
   &.active {
-    background-color: #faebf5;
+    background: #faebf5;
     color: #38161f;
+    box-shadow: none;
   }
 }
 
@@ -46,6 +53,7 @@
   &:hover {
     background-color: #f0ebe9;
     color: #38161f;
+    box-shadow: 0 2px 10px rgba(56, 22, 31, 0.1);
   }
 
   &.active {

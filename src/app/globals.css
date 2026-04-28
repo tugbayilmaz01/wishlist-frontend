@@ -3,6 +3,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fcf4f1;
+  min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -16,4 +18,30 @@ h4,
 button,
 .ctaButton {
   font-family: var(--font-poppins), sans-serif;
+}
+
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #fcf4f1; }
+::-webkit-scrollbar-thumb {
+  background-color: #ff425d;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover { background: darken(#ff425d, 5%); }
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
 }

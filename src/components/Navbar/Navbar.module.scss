@@ -1,7 +1,8 @@
 .navbar {
   width: 100%;
   height: 60px;
-  background: #fcf4f1;
+  background: rgba(252, 244, 241, 0.85);
+  backdrop-filter: blur(12px);
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  border-bottom: 1px solid rgba(56, 22, 31, 0.1);
+  border-bottom: 1px solid rgba(255, 66, 93, 0.08);
   z-index: 999;
 
   .logo {
@@ -41,15 +42,25 @@
     color: #38161f;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.2s;
+    border-radius: 10px;
+    transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(255, 66, 93, 0.1);
+      background: rgba(255, 66, 93, 0.08);
+      color: #ff425d;
+    }
+
+    &:active {
+      transform: scale(0.96);
     }
 
     svg {
       font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover svg {
+      transform: scale(1.12);
     }
 
     span {

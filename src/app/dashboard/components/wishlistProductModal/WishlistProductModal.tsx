@@ -15,20 +15,23 @@ interface Product {
   url: string;
   imageUrl: string;
   category: string;
+  plannedMonth?: string;
 }
 
 interface WishlistProductModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
-  wishlistId: string;
+  onAddProduct: (product: any) => void;
+  onUpdateProduct: (product: any) => void;
+  wishlistId: number;
   product?: Product;
 }
 
 const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   isOpen,
   onClose,
-  onSuccess,
+  onAddProduct,
+  onUpdateProduct,
   wishlistId,
   product,
 }) => {
@@ -36,11 +39,11 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   const isEditMode = !!product;
   
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [price, setPrice] = useState<string>("");
   const [url, setUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [category, setCategory] = useState("");
+  const [plannedMonth, setPlannedMonth] = useState("");
   
   const [scrapeUrl, setScrapeUrl] = useState("");
   const [scraping, setScraping] = useState(false);
@@ -49,18 +52,18 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   useEffect(() => {
     if (product) {
       setName(product.name || "");
-      setDescription(product.description || "");
       setPrice(product.price?.toString() || "");
       setUrl(product.url || "");
       setImageUrl(product.imageUrl || "");
       setCategory(product.category || "");
+      setPlannedMonth(product.plannedMonth || "");
     } else {
       setName("");
-      setDescription("");
       setPrice("");
       setUrl("");
       setImageUrl("");
       setCategory("");
+      setPlannedMonth("");
       setScrapeUrl("");
     }
   }, [product, isOpen]);
@@ -71,17 +74,6 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
     try {
       const { data } = await api.post("/scrape", { url: scrapeUrl });
       setName(data.title || "");
-      
-      let cleanDesc = data.description || "";
-      const junkPatterns = [
-        /tıklayın!/gi,
-        /online sipariş vermek için/gi,
-        /ürünün fiyatını öğrenmek/gi,
-        /ile süslemeli/gi,
-        /öğrenmek ve online/gi
-      ];
-      junkPatterns.forEach(p => cleanDesc = cleanDesc.replace(p, ""));
-      setDescription(cleanDesc.trim());
       
       setPrice(data.price?.toString() || "");
       setImageUrl(data.image || "");
@@ -99,20 +91,22 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
     try {
       const payload = {
         name,
-        description,
+        description: "", // Set empty or remove if backend allows
         price: parseFloat(price) || 0,
         url,
         imageUrl,
         category,
+        plannedMonth: plannedMonth || null,
         wishlistId,
       };
 
       if (isEditMode) {
-        await api.put(`/products/${product.id}`, payload);
+        const response: any = await api.put(`/wishlists/${wishlistId}/products/${product.id}`, payload);
+        onUpdateProduct(response);
       } else {
-        await api.post("/products", payload);
+        const response: any = await api.post(`/wishlists/${wishlistId}/products`, payload);
+        onAddProduct(response.product || response);
       }
-      onSuccess();
       onClose();
     } catch (error) {
       console.error("Submit error:", error);
@@ -180,15 +174,6 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
                 />
               </label>
 
-              <label className={styles.fullWidth}>
-                {t("wishlistDetail.description")}
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder={t("wishlistDetail.description")}
-                />
-              </label>
-
               <label>
                 {t("wishlistDetail.price")}
                 <input
@@ -206,6 +191,15 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   placeholder={t("wishlistDetail.category")}
+                />
+              </label>
+
+              <label>
+                {t("wishlistDetail.plannedMonth")}
+                <input
+                  type="month"
+                  value={plannedMonth}
+                  onChange={(e) => setPlannedMonth(e.target.value)}
                 />
               </label>
 

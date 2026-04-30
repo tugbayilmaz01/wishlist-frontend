@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   ...rest
 }) => {
-  const buttonClass = `${styles.button} ${styles[variant]} ${
+  const buttonClass = `${styles.btn} ${styles[variant]} ${
     active ? styles.active : ""
   } ${loading ? styles.loading : ""}`;
 
@@ -28,12 +28,12 @@ const Button: React.FC<ButtonProps> = ({
       {loading ? (
         <span className={styles.spinner}></span>
       ) : (
-        startIcon && <span className={styles.icon}>{startIcon}</span>
+        <>
+          {startIcon && <span className={styles.icon}>{startIcon}</span>}
+          {children}
+          {endIcon && <span className={styles.icon}>{endIcon}</span>}
+        </>
       )}
-
-      {loading ? "Loading..." : children}
-
-      {!loading && endIcon && <span className={styles.icon}>{endIcon}</span>}
     </button>
   );
 };

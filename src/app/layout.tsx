@@ -23,6 +23,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from "@/context/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

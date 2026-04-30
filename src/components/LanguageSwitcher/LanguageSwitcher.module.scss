@@ -1,0 +1,36 @@
+.switcher {
+  display: flex;
+  align-items: center;
+  background: rgba(56, 22, 31, 0.05);
+  padding: 4px;
+  border-radius: 10px;
+  gap: 2px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #b0929a;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #38161f;
+  }
+
+  &.active {
+    background: #ffffff;
+    color: #ff425d;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 12px;
+  background: rgba(56, 22, 31, 0.1);
+}

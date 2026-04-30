@@ -78,6 +78,9 @@ export const translations = {
       signupSuccess: "Account created! You can log in now.",
       signupError: "Signup failed. Please check your info.",
       loginError: "Login failed. Please try again.",
+      invalidEmail: "Please enter a valid email address.",
+      weakPassword: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
+      emptyFields: "Please enter both your email and password.",
     },
     dashboard: {
       hi: "Hi",
@@ -201,6 +204,9 @@ export const translations = {
       signupSuccess: "Hesap oluşturuldu! Giriş yapabilirsiniz.",
       signupError: "Kayıt başarısız. Bilgilerinizi kontrol edin.",
       loginError: "Giriş başarısız. Lütfen tekrar deneyin.",
+      invalidEmail: "Lütfen geçerli bir e-posta adresi girin.",
+      weakPassword: "Şifreniz en az 8 karakter uzunluğunda olmalı; en az bir büyük harf, bir küçük harf ve bir rakam içermelidir.",
+      emptyFields: "Lütfen e-posta ve şifrenizi girin.",
     },
     dashboard: {
       hi: "Selam",
@@ -253,7 +259,7 @@ export type TranslationKey =
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
   | "landing.story3.tagline" | "landing.story3.title1" | "landing.story3.title2" | "landing.story3.desc"
-  | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError"
+  | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
   | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl"

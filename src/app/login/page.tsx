@@ -6,7 +6,7 @@ import { api } from "@/utils/api";
 import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import styles from "./Login.module.scss";
-import { FiEye, FiEyeOff, FiArrowRight } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiArrowRight, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function LoginPage() {
@@ -33,7 +33,19 @@ export default function LoginPage() {
   }, []);
 
   const handleLogin = async () => {
-    if (!loginEmail || !loginPassword) return;
+    if (!loginEmail || !loginPassword) {
+      setAlertType("error");
+      setAlertMessage(t("auth.emptyFields"));
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(loginEmail)) {
+      setAlertType("error");
+      setAlertMessage(t("auth.invalidEmail"));
+      return;
+    }
+
     setLoginLoading(true);
     try {
       const data = await api.post("/users/login", {
@@ -52,7 +64,27 @@ export default function LoginPage() {
   };
 
   const handleSignup = async () => {
-    if (!signupEmail || !signupPassword) return;
+    if (!signupEmail || !signupPassword) {
+      setAlertType("error");
+      setAlertMessage(t("auth.emptyFields"));
+      return;
+    }
+
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(signupEmail)) {
+      setAlertType("error");
+      setAlertMessage(t("auth.invalidEmail"));
+      return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(signupPassword)) {
+      setAlertType("error");
+      setAlertMessage(t("auth.weakPassword"));
+      return;
+    }
+
     setSignupLoading(true);
     try {
       await api.post("/users/register", {
@@ -79,20 +111,12 @@ export default function LoginPage() {
       <div className={`${styles.blob} ${styles.blob2}`}></div>
       <div className={`${styles.blob} ${styles.blob3}`}></div>
 
-      {alertMessage && (
-        <Alert
-          message={alertMessage}
-          type={alertType}
-          onClose={() => setAlertMessage("")}
-        />
-      )}
-
       <div className={styles.logoTop}>
         <Image
           src="/logo-horizontal.svg"
           alt="WishIt"
-          width={110}
-          height={32}
+          width={140}
+          height={40}
           priority
         />
       </div>
@@ -100,6 +124,12 @@ export default function LoginPage() {
       <div className={`${styles.card} ${isFlipped ? styles.flipped : ""}`}>
         <div className={styles.front}>
           <h2 className={styles.title}>{t("auth.welcomeBack")}</h2>
+          {alertMessage && !isFlipped && (
+            <div className={`${styles.inlineAlert} ${alertType === "error" ? styles.errorAlert : styles.successAlert}`}>
+              {alertType === "error" ? <FiAlertCircle className={styles.alertIcon} /> : <FiCheckCircle className={styles.alertIcon} />}
+              <p>{alertMessage}</p>
+            </div>
+          )}
           <div className={styles.inputGroup}>
             <input
               type="email"
@@ -134,13 +164,19 @@ export default function LoginPage() {
             {loginLoading ? t("auth.signingIn") : t("auth.signIn")}
           </Button>
 
-          <p className={styles.switch} onClick={() => setIsFlipped(true)}>
+          <p className={styles.switch} onClick={() => { setIsFlipped(true); setAlertMessage(""); }}>
             {t("auth.newHere")} <span>{t("auth.createAccount")}</span>
           </p>
         </div>
 
         <div className={styles.back}>
           <h2 className={styles.title}>{t("auth.joinTitle")}</h2>
+          {alertMessage && isFlipped && (
+            <div className={`${styles.inlineAlert} ${alertType === "error" ? styles.errorAlert : styles.successAlert}`}>
+              {alertType === "error" ? <FiAlertCircle className={styles.alertIcon} /> : <FiCheckCircle className={styles.alertIcon} />}
+              <p>{alertMessage}</p>
+            </div>
+          )}
           <div className={styles.inputGroup}>
             <input
               type="email"
@@ -174,7 +210,7 @@ export default function LoginPage() {
           >
             {signupLoading ? t("auth.creating") : t("auth.startWishing")}
           </Button>
-          <p className={styles.switch} onClick={() => setIsFlipped(false)}>
+          <p className={styles.switch} onClick={() => { setIsFlipped(false); setAlertMessage(""); }}>
             {t("auth.alreadyHave")} <span>{t("auth.loginNow")}</span>
           </p>
         </div>

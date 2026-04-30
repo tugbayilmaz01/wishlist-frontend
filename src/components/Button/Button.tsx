@@ -25,15 +25,12 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={buttonClass} {...rest} disabled={loading}>
-      {loading ? (
-        <span className={styles.spinner}></span>
-      ) : (
-        <>
-          {startIcon && <span className={styles.icon}>{startIcon}</span>}
-          {children}
-          {endIcon && <span className={styles.icon}>{endIcon}</span>}
-        </>
-      )}
+      <>
+        {startIcon && !loading && <span className={styles.icon}>{startIcon}</span>}
+        {loading && <span className={styles.spinner}></span>}
+        {children}
+        {endIcon && !loading && <span className={styles.icon}>{endIcon}</span>}
+      </>
     </button>
   );
 };

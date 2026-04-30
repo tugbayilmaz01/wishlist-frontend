@@ -100,6 +100,27 @@
   max-width: 580px;
 }
 
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 66, 93, 0.08);
+  color: #ff425d;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 66, 93, 0.2);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(255, 66, 93, 0.05);
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
 .heroTitle {
   font-size: 4.2rem;
   line-height: 1.1;

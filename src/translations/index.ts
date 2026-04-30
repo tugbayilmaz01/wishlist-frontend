@@ -111,6 +111,8 @@ export const translations = {
       category: "Category",
       selectCategory: "Select Category",
       occasion: "Occasion / Tag",
+      productPreview: "Product Preview",
+      productUrl: "Product Link",
     },
     profile: {
       title: "Profile Settings",
@@ -232,6 +234,8 @@ export const translations = {
       category: "Kategori",
       selectCategory: "Kategori Seçiniz",
       occasion: "Durum / Etiket",
+      productPreview: "Ürün Önizleme",
+      productUrl: "Ürün Linki",
     },
     profile: {
       title: "Profil Ayarları",
@@ -252,5 +256,5 @@ export type TranslationKey =
   | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
   | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
-  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion"
+  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl"
   | "profile.title" | "profile.name" | "profile.email" | "profile.update" | "profile.success";

@@ -1,151 +1,218 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(56, 22, 31, 0.4);
-  backdrop-filter: blur(8px);
+  background: rgba(45, 42, 38, 0.45);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  animation: overlayFadeIn 0.3s ease;
-  padding: 20px; 
+  animation: overlayFadeIn 0.4s ease-out;
+  padding: 1rem;
 }
 
 .modal {
   background: #ffffff;
-  border-radius: 28px;
-  width: 860px;
+  border-radius: 40px;
+  width: 1000px;
   max-width: 100%;
-  max-height: 95vh; 
+  max-height: 95vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 40px 100px rgba(56, 22, 31, 0.2);
-  animation: modalSlideIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 50px 120px rgba(56, 22, 31, 0.15), 0 10px 40px rgba(0, 0, 0, 0.05);
+  animation: modalSlideIn 0.5s cubic-bezier(0.2, 1, 0.3, 1);
   position: relative;
-  overflow-y: auto; 
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .closeBtn {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  background: #fff;
-  border: none;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #fdfaf7;
+  border: 1px solid #f0e6e9;
   color: #a09098;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  padding: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  z-index: 10;
+  z-index: 30;
 
   &:hover {
     color: #ff425d;
     background: #fff0f3;
     transform: rotate(90deg) scale(1.1);
+    border-color: rgba(255, 66, 93, 0.2);
   }
 }
 
 .modalHeader {
-  padding: 1.8rem 2rem 0.8rem; 
+  width: 100%;
+  padding: 2.5rem 3rem 1.5rem;
+  
   h2 {
-    font-size: 1.5rem; 
+    font-size: 2rem;
     font-weight: 800;
-    color: #2d2a26;
+    color: #1a1816;
     margin: 0;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
   }
 }
 
 .modalContent {
+  width: 100%;
+  padding: 0 3rem 3rem;
   display: flex;
-  padding: 0 2rem 1.8rem; 
-  gap: 2rem; 
-  
-  @media (max-height: 700px) {
-    gap: 1.2rem;
-  }
+  gap: 3.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff425d #faf6f4;
 
-  @media (max-width: 768px) {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #faf6f4;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ff425d;
+    border-radius: 6px;
+  }
+  
+  @media (max-width: 900px) {
     flex-direction: column;
+    padding: 0 2rem 2.5rem;
+    gap: 2rem;
   }
 }
 
-
 .leftCol {
-  flex: 0.8; 
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
+  position: sticky;
+  top: 0;
+  min-width: 320px;
+
+  @media (max-width: 900px) {
+    position: static;
+    min-width: unset;
+  }
 }
 
 .imagePreview {
   width: 100%;
-  height: 220px; 
+  height: 280px;
   background: #fdfaf7;
-  border-radius: 20px;
+  border-radius: 32px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #f0e6e9;
+  position: relative;
+  transition: all 0.4s ease;
   
+  &:hover {
+    border-color: rgba(255, 66, 93, 0.3);
+    background: #fff8f9;
+  }
+
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 1.5rem;
+    animation: fadeIn 0.5s ease;
   }
 
   .noImage {
     color: #c0a0b0;
-    font-size: 0.85rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1.5rem;
+
+    svg {
+      color: #ffccd4;
+      margin-bottom: 0.25rem;
+    }
+
+    span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #9d8a94;
+    }
   }
 }
 
 .scraperSection {
-  background: #fff8f6;
-  padding: 1rem 1.2rem; 
-  border-radius: 18px;
-  border: 1px dashed rgba(255, 66, 93, 0.2);
+  background: linear-gradient(145deg, #fffcfb, #fef2f4);
+  padding: 1.5rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 66, 93, 0.1);
+  box-shadow: 0 10px 30px rgba(56, 22, 31, 0.03);
 
   label {
     display: flex;
     flex-direction: column;
-    font-weight: 700;
+    font-weight: 800;
     color: #38161f;
-    font-size: 0.9rem;
-    gap: 0.6rem;
+    font-size: 0.95rem;
+    gap: 0.75rem;
+    letter-spacing: -0.01em;
   }
 
   .scraperInputGroup {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.5rem;
+    background: #fff;
+    padding: 0.4rem;
+    border-radius: 16px;
+    border: 1.5px solid #e8d0d8;
+    transition: all 0.3s;
+    align-items: center;
+
+    &:focus-within {
+      border-color: #ff425d;
+      box-shadow: 0 0 0 4px rgba(255, 66, 93, 0.08);
+    }
 
     input {
       flex: 1;
-      padding: 0.6rem 1rem; 
-      border: 1.5px solid #e8d0d8;
-      border-radius: 10px;
+      min-width: 0;
+      padding: 0.4rem 0.6rem;
+      border: none;
       font-size: 0.9rem;
       outline: none;
-      transition: all 0.3s;
+      background: transparent;
+      color: #2d2a26;
 
-      &:focus {
-        border-color: #ff425d;
-        box-shadow: 0 0 0 4px rgba(255, 66, 93, 0.1);
+      &::placeholder {
+        color: #c0a0b0;
       }
+    }
+
+    button {
+      flex-shrink: 0;
+      border-radius: 12px;
+      white-space: nowrap;
+      padding: 0.5rem 1rem !important;
+      font-size: 0.85rem !important;
     }
   }
 }
 
 .rightCol {
-  flex: 1.2;
+  flex: 1.4;
   display: flex;
   flex-direction: column;
 }
@@ -153,15 +220,16 @@
 .productForm {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem; 
+  gap: 1.5rem;
   
   label {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.5rem;
     font-weight: 700;
-    color: #38161f;
-    font-size: 0.85rem;
+    color: #2d2a26;
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
   }
 
   .fullWidth {
@@ -170,77 +238,54 @@
 
   input,
   textarea {
-    padding: 0.6rem 1rem;
+    padding: 0.85rem 1rem;
     border: 1.5px solid #e8d0d8;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
     font-family: inherit;
     outline: none;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fafaf9;
+    color: #1a1816;
+    width: 100%;
+
+    &::placeholder {
+      color: #c0a0b0;
+    }
 
     &:focus {
+      background: #fff;
       border-color: #ff425d;
-      box-shadow: 0 0 0 4px rgba(255, 66, 93, 0.1);
+      box-shadow: 0 0 0 5px rgba(255, 66, 93, 0.08);
     }
   }
 
   textarea {
-    min-height: 70px; 
-    max-height: 100px;
+    min-height: 90px;
+    max-height: 150px;
+    line-height: 1.4;
+    resize: none;
   }
 
   .actions {
     grid-column: span 2;
     display: flex;
     justify-content: flex-end;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     
     button {
       width: 100%;
-      padding: 0.9rem;
-    }
-  }
-}
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(255, 66, 93, 0.2);
+      transition: all 0.3s;
 
-.manualToggle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-  margin: auto 0;
-
-  .divider {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #c0a0b0;
-    font-size: 0.8rem;
-    
-    &::before,
-    &::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #f0d8e0;
-    }
-    &::before { margin-right: 1em; }
-    &::after { margin-left: 1em; }
-  }
-
-  .manualBtn {
-    background: #fff0f3;
-    border: none;
-    color: #ff425d;
-    padding: 0.8rem 1.6rem;
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s;
-
-    &:hover {
-      background: #ff425d;
-      color: #fff;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(255, 66, 93, 0.25);
+      }
     }
   }
 }
@@ -253,10 +298,15 @@
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(10px);
+    transform: scale(0.96) translateY(20px);
   }
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

@@ -6,6 +6,8 @@ interface CardProps {
   subtitle?: string;
   imageUrl?: string;
   description?: string;
+  icon?: ReactNode;
+  tag?: string;
   children?: ReactNode;
   onClick?: () => void;
   actions?: ReactNode;
@@ -16,6 +18,8 @@ export default function Card({
   subtitle,
   imageUrl,
   description,
+  icon,
+  tag,
   children,
   onClick,
   actions,
@@ -38,9 +42,10 @@ export default function Card({
           />
         ) : (
           <div className={styles.cardImagePlaceholder}>
-            <span>🛍️</span>
+            {icon ? icon : <span>🛍️</span>}
           </div>
         )}
+        {tag && <span className={styles.cardTag}>{tag}</span>}
         {actions && <div className={styles.cardActions}>{actions}</div>}
       </div>
 

@@ -1,36 +1,91 @@
-import { FiLogOut, FiUser } from "react-icons/fi";
+"use client";
+
+import { FiLogOut, FiUser, FiChevronDown } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useRef } from "react";
 import styles from "./Navbar.module.scss";
+import { api } from "@/utils/api";
+import { useLanguage } from "../../context/LanguageContext";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 export default function Navbar() {
+  const router = useRouter();
+  const { t } = useLanguage();
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const data: any = await api.get("/users/me");
+        setAvatar(data.avatar);
+      } catch (err) {
+        console.error("Navbar profile fetch failed:", err);
+      }
+    };
+    
+    fetchProfile();
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
   };
 
   const goToProfile = () => {
-    window.location.href = "/profile";
+    setIsDropdownOpen(false);
+    router.push("/dashboard/profile");
   };
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>
+      <Link href="/dashboard" className={styles.logo}>
         <Image
           src="/logo-horizontal.svg"
           alt="WishIt"
-          width={150}
-          height={42}
+          width={130}
+          height={36}
           priority
         />
-      </div>
+      </Link>
 
-      <div className={styles.navButtons}>
-        <button className={styles.navBtn} onClick={goToProfile}>
-          <FiUser /> <span>Profile</span>
-        </button>
-        <button className={styles.navBtn} onClick={handleLogout}>
-          <FiLogOut /> <span>Log Out</span>
-        </button>
+      <div className={styles.navActions}>
+        <LanguageSwitcher />
+        
+        <div className={styles.userMenu} ref={dropdownRef}>
+          <div 
+            className={`${styles.userToggle} ${isDropdownOpen ? styles.active : ""}`}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
+            <div className={styles.avatarWrapper}>
+              {avatar ? <span>{avatar}</span> : <FiUser />}
+            </div>
+            <FiChevronDown className={styles.chevron} />
+          </div>
+
+          {isDropdownOpen && (
+            <div className={styles.dropdown}>
+              <button className={styles.dropdownItem} onClick={goToProfile}>
+                <FiUser /> <span>{t('profile.title')}</span>
+              </button>
+              <div className={styles.divider} />
+              <button className={`${styles.dropdownItem} ${styles.logout}`} onClick={handleLogout}>
+                <FiLogOut /> <span>{t('common.logout')}</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

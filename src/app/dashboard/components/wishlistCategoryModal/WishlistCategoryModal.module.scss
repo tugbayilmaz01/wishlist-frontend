@@ -1,87 +1,115 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(56, 22, 31, 0.25);
-  backdrop-filter: blur(6px);
+  background: rgba(45, 42, 38, 0.4);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
-  animation: overlayFadeIn 0.25s ease;
+  z-index: 2000;
+  animation: overlayFadeIn 0.4s ease-out;
+  padding: 1rem;
 }
 
 .modal {
   background: #ffffff;
-  border-radius: 28px;
-  padding: 2.5rem;
+  border-radius: 40px;
   width: 100%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 60px rgba(56, 22, 31, 0.18);
-  animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) both;
-  border: 1px solid rgba(255, 66, 93, 0.05);
+  box-shadow: 0 50px 120px rgba(56, 22, 31, 0.15), 0 10px 40px rgba(0, 0, 0, 0.05);
+  animation: modalSlideIn 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 3rem;
 
   h2 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: #38161f;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.5px;
+    color: #1a1816;
+    margin: 0 0 2rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.75rem;
 
     label {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      font-weight: 600;
-      color: #38161f;
+      gap: 0.65rem;
+      font-weight: 700;
+      color: #2d2a26;
       font-size: 0.95rem;
-
-      span {
-        margin-left: 2px;
-      }
+      letter-spacing: -0.01em;
     }
 
-    input,
-    textarea {
-      padding: 0.9rem 1.1rem;
+    input {
+      padding: 1rem 1.25rem;
       border: 1.5px solid #e8d0d8;
-      border-radius: 14px;
+      border-radius: 16px;
       font-size: 1rem;
       font-family: inherit;
       outline: none;
-      background: #faf6f4;
-      transition: all 0.25s ease;
-      color: #38161f;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #fafaf9;
+      color: #1a1816;
 
       &::placeholder {
-        color: #b0a0a8;
+        color: #c0a0b0;
       }
 
       &:focus {
-        border-color: #ff425d;
         background: #fff;
-        box-shadow: 0 0 0 4px rgba(255, 66, 93, 0.12);
+        border-color: #ff425d;
+        box-shadow: 0 0 0 5px rgba(255, 66, 93, 0.08);
+        transform: translateY(-1px);
       }
-    }
-
-    textarea {
-      min-height: 110px;
-      resize: vertical;
     }
 
     .actions {
       display: flex;
-      justify-content: flex-end;
       gap: 1rem;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+
+      button {
+        flex: 1;
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 18px;
+        transition: all 0.3s;
+      }
     }
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #fdfaf7;
+  border: 1px solid #f0e6e9;
+  color: #a09098;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px;
+  border-radius: 50%;
+  z-index: 30;
+
+  &:hover {
+    color: #ff425d;
+    background: #fff0f3;
+    transform: rotate(90deg) scale(1.1);
+    border-color: rgba(255, 66, 93, 0.2);
   }
 }
 
@@ -93,7 +121,7 @@
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: scale(0.92) translateY(10px);
+    transform: scale(0.96) translateY(20px);
   }
   to {
     opacity: 1;

@@ -67,18 +67,18 @@ export default function DashboardPage() {
   const handleSaveWishList = async (data: {
     id?: number;
     name: string;
-    description?: string;
   }) => {
     try {
       if (data.id) {
         await api.put(`/wishlists/${data.id}`, {
+          id: data.id,
           name: data.name,
-          description: data.description,
+          description: "",
         });
       } else {
         await api.post("/wishlists", {
           name: data.name,
-          description: data.description,
+          description: "",
         });
       }
 
@@ -129,7 +129,6 @@ export default function DashboardPage() {
               key={wishlist.id}
               title={wishlist.name}
               subtitle={`${wishlist.products?.length || 0} ${t('common.items')}`}
-              description={wishlist.description}
               icon={<FiHeart size={32} />}
               onClick={() => router.push(`/dashboard/${wishlist.id}`)}
               actions={

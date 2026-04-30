@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./WishlistCategoryModal.module.scss";
 import Button from "@/components/Button/Button";
+import { useLanguage } from "@/context/LanguageContext";
+import { FiX } from "react-icons/fi";
 
 interface AddWishlistCategoryModalProps {
   isOpen: boolean;
@@ -8,9 +10,8 @@ interface AddWishlistCategoryModalProps {
   initialData?: {
     id: number;
     name: string;
-    description?: string;
   };
-  onSave: (data: { id?: number; name: string; description?: string }) => void;
+  onSave: (data: { id?: number; name: string }) => void;
 }
 
 export default function AddWishlistCategoryModal({
@@ -19,35 +20,23 @@ export default function AddWishlistCategoryModal({
   initialData,
   onSave,
 }: AddWishlistCategoryModalProps) {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-  });
+  const { t } = useLanguage();
+  const [name, setName] = useState("");
 
   useEffect(() => {
     if (initialData) {
-      setFormData({
-        name: initialData.name,
-        description: initialData.description || "",
-      });
+      setName(initialData.name);
     } else {
-      setFormData({ name: "", description: "" });
+      setName("");
     }
   }, [initialData, isOpen]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     onSave({
       id: initialData?.id,
-      name: formData.name,
-      description: formData.description,
+      name: name,
     });
 
     onClose?.();
@@ -58,36 +47,29 @@ export default function AddWishlistCategoryModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
+        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <FiX size={22} />
+        </button>
+
         <h2>
-          {initialData ? "Edit Wishlist Category" : "Add Wishlist Category"}
+          {initialData ? t("dashboard.createNew") : t("dashboard.createNew")}
         </h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Name
+            {t("dashboard.categoryName")}
             <input
               type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Description
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t("dashboard.categoryPlaceholder")}
               required
             />
           </label>
 
           <div className={styles.actions}>
-            <Button variant="secondary" onClick={onClose}>
-              Cancel
+            <Button variant="primary" type="submit">
+              {t("common.save")}
             </Button>
-            <Button variant="primary">Save</Button>
           </div>
         </form>
       </div>

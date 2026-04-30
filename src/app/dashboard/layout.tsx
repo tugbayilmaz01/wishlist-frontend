@@ -23,7 +23,9 @@ export default function DashboardLayout({
   return (
     <div className={styles.dashboardContainer}>
       <Navbar />
-      <main className={styles.dashboardMain}>{children}</main>
+      <div className={styles.contentWrapper}>
+        <main className={styles.dashboardMain}>{children}</main>
+      </div>
     </div>
   );
 }

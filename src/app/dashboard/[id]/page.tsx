@@ -7,9 +7,10 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2 } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2, FiTag } from "react-icons/fi";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface WishlistProduct {
   id: number;
@@ -18,24 +19,16 @@ interface WishlistProduct {
   description?: string;
   imageUrl?: string;
   plannedMonth?: string;
+  category?: string;
 }
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
 ];
 
 export default function WishlistDetailPage() {
+  const { t } = useLanguage();
   const params = useParams();
   const wishlistId = Number(params.id);
 
@@ -48,7 +41,10 @@ export default function WishlistDetailPage() {
   );
 
   const [view, setView] = useState<"list" | "month">("list");
-  const [filters, setFilters] = useState<{ month: string }>({ month: "All" });
+  const [filters, setFilters] = useState<{ month: string; category: string }>({ 
+    month: "All", 
+    category: "All" 
+  });
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -62,7 +58,6 @@ export default function WishlistDetailPage() {
       setAlertMessage("Link copied to clipboard! Share it with the world ✨");
     } catch (err) {
       console.error("Failed to share wishlist:", err);
-      alert("Failed to generate share link");
     }
   };
 
@@ -72,11 +67,7 @@ export default function WishlistDetailPage() {
       .then((data: any) => {
         const wishlist = data.find((w: any) => w.id === wishlistId);
         if (wishlist) {
-          if (wishlist.products && wishlist.products.length > 0) {
-          }
           setWishlistProducts(wishlist.products || []);
-        } else {
-          console.warn(`WishlistDetail Wishlist ID ${wishlistId} not found!`);
         }
       })
       .catch((err) => {
@@ -95,10 +86,7 @@ export default function WishlistDetailPage() {
   };
 
   const handleDeleteProduct = async (productId: number) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
-    if (!confirmDelete) return;
+    if (!confirm(t('common.delete') + "?")) return;
 
     try {
       await api.delete(`/wishlists/${wishlistId}/products/${productId}`);
@@ -113,12 +101,18 @@ export default function WishlistDetailPage() {
 
   const filteredProducts = useMemo(() => {
     return wishlistProducts.filter(
-      (p) => filters.month === "All" || p.plannedMonth === filters.month
+      (p) => 
+        (filters.month === "All" || p.plannedMonth === filters.month) &&
+        (filters.category === "All" || p.category === filters.category)
     );
   }, [wishlistProducts, filters]);
 
   const monthOptions = Array.from(
     new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean))
+  ) as string[];
+
+  const categoryOptions = Array.from(
+    new Set(wishlistProducts.map((p) => p.category).filter(Boolean))
   ) as string[];
 
   const renderProductCard = (product: WishlistProduct) => (
@@ -128,6 +122,7 @@ export default function WishlistDetailPage() {
       subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
       description={product.description}
       imageUrl={product.imageUrl}
+      tag={product.category}
       actions={
         <>
           <FiEdit
@@ -153,7 +148,7 @@ export default function WishlistDetailPage() {
   );
 
   return (
-    <div className={styles.dashboardMain}>
+    <>
       {alertMessage && (
         <Alert
           message={alertMessage}
@@ -164,7 +159,7 @@ export default function WishlistDetailPage() {
 
       <div className={styles.header}>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <h1>Wishlist Detail</h1>
+          <h1>{t('wishlistDetail.title')}</h1>
           <button
             onClick={handleShare}
             style={{
@@ -179,7 +174,7 @@ export default function WishlistDetailPage() {
               color: "#38161f",
               transition: "all 0.2s",
             }}
-            title="Share Wishlist"
+            title={t('common.share')}
           >
             <FiShare2 size={20} />
           </button>
@@ -190,40 +185,61 @@ export default function WishlistDetailPage() {
             setIsModalOpen(true);
           }}
         >
-          Add Product
+          {t('wishlistDetail.addProduct')}
         </Button>
       </div>
 
-      <div className={styles.headerControls}>
-        <div className={styles.viewToggle}>
+      {wishlistProducts.length > 0 && (
+        <div className={styles.headerControls}>
+          <div className={styles.viewToggle}>
+            <Button
+              variant="primary"
+              active={view === "list"}
+              onClick={() => setView("list")}
+            >
+              {t('wishlistDetail.listView')}
+            </Button>
+            <Button
+              variant="primary"
+              active={view === "month"}
+              onClick={() => setView("month")}
+            >
+              {t('wishlistDetail.monthlyView')}
+            </Button>
+          </div>
+
+          <div className={styles.filterPanelWrapper}>
+            <FilterPanel
+              filters={filters}
+              options={{ 
+                month: monthOptions,
+                category: categoryOptions
+              }}
+              onChange={(newFilters) =>
+                setFilters((prev) => ({ ...prev, ...newFilters }))
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      {wishlistProducts.length === 0 ? (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyIcon}>✨</div>
+          <h2 className={styles.emptyTitle}>{t('wishlistDetail.emptyTitle')}</h2>
+          <p className={styles.emptySubtitle}>
+            {t('wishlistDetail.emptySubtitle')}
+          </p>
           <Button
-            variant="primary"
-            active={view === "list"}
-            onClick={() => setView("list")}
+            onClick={() => {
+              setEditingProduct(null);
+              setIsModalOpen(true);
+            }}
           >
-            List View
-          </Button>
-          <Button
-            variant="primary"
-            active={view === "month"}
-            onClick={() => setView("month")}
-          >
-            Monthly View
+            {t('wishlistDetail.addFirst')}
           </Button>
         </div>
-
-        <div className={styles.filterPanelWrapper}>
-          <FilterPanel
-            filters={filters}
-            options={{ month: monthOptions }}
-            onChange={(newFilters) =>
-              setFilters((prev) => ({ ...prev, ...newFilters }))
-            }
-          />
-        </div>
-      </div>
-
-      {view === "list" ? (
+      ) : view === "list" ? (
         <div className={styles.wishlistGrid}>
           {filteredProducts.map(renderProductCard)}
         </div>
@@ -253,7 +269,7 @@ export default function WishlistDetailPage() {
                         color: "#555",
                       }}
                     >
-                      (${totalPrice.toFixed(2)})
+                      ({totalPrice.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL)
                     </span>
                   </h3>
                   <div className={styles.monthProducts}>
@@ -273,6 +289,6 @@ export default function WishlistDetailPage() {
         onAddProduct={handleAddProduct}
         onUpdateProduct={handleUpdateProduct}
       />
-    </div>
+    </>
   );
 }

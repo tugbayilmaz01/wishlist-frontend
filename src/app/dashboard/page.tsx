@@ -8,16 +8,20 @@ import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiHeart } from "react-icons/fi";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Wishlist {
   id: number;
   name: string;
   description?: string;
+  products?: any[];
 }
 
 export default function DashboardPage() {
+  const { t } = useLanguage();
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWishlist, setEditingWishlist] = useState<Wishlist | null>(null);
@@ -25,13 +29,22 @@ export default function DashboardPage() {
 
   useEffect(() => {
     loadWishlists();
+    fetchUser();
   }, []);
+
+  const fetchUser = async () => {
+    try {
+      const data: any = await api.get("/users/me");
+      setUserName(data.name || "there");
+    } catch (err) {
+      console.error("Failed to fetch user name:", err);
+    }
+  };
 
   const loadWishlists = async () => {
     setLoading(true);
     try {
       const data: Wishlist[] = await api.get("/wishlists");
-
       setWishlists(data);
     } catch (err) {
       console.error("Dashboard failed to load wishlists:", err);
@@ -41,11 +54,10 @@ export default function DashboardPage() {
   };
 
   const handleDeleteWishlist = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this wishlist category?"))
+    if (!confirm(t('common.delete') + "?"))
       return;
     try {
       await api.delete(`/wishlists/${id}`);
-
       setWishlists((prev) => prev.filter((w) => w.id !== id));
     } catch (err) {
       console.error(`Dashboard failed to delete wishlist ${id}:`, err);
@@ -75,7 +87,6 @@ export default function DashboardPage() {
       setEditingWishlist(null);
     } catch (err) {
       console.error(`Dashboard failed to save wishlist:`, err);
-      alert("Failed to save wishlist");
     }
   };
 
@@ -85,61 +96,66 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className={styles.dashboardContainer}>
-      <main className={styles.dashboardMain}>
-        <div className={styles.header}>
-          <h1>Wishlists</h1>
+    <>
+      <div className={styles.header}>
+        <div className={styles.welcomeText}>
+          <h1>{t('dashboard.hi')}, {userName}! ✨</h1>
+          <p>{t('dashboard.subtitle')}</p>
+        </div>
+        <div className={styles.actions}>
           <Button
             onClick={() => {
               setEditingWishlist(null);
               setIsModalOpen(true);
             }}
           >
-            Add New Wishlist Category
+            + {t('dashboard.createNew')}
           </Button>
         </div>
+      </div>
 
-        {loading ? (
-          <div style={{ marginTop: "3rem" }}>
-            <LoadingSpinner showText={false} />
-          </div>
-        ) : wishlists.length === 0 ? (
-          <div className={styles.emptyState}>
-            <p>No wishlists yet.</p>
-          </div>
-        ) : (
-          <div className={styles.wishlistGrid}>
-            {wishlists.map((wishlist) => (
-              <Card
-                key={wishlist.id}
-                title={wishlist.name}
-                description={wishlist.description}
-                onClick={() => router.push(`/dashboard/${wishlist.id}`)}
-                actions={
-                  <>
-                    <FiEdit
-                      size={18}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openEditModal(wishlist);
-                      }}
-                      style={{ cursor: "pointer" }}
-                    />
-                    <FiTrash2
-                      size={18}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteWishlist(wishlist.id);
-                      }}
-                      style={{ cursor: "pointer", color: "#234588" }}
-                    />
-                  </>
-                }
-              />
-            ))}
-          </div>
-        )}
-      </main>
+      {loading ? (
+        <div style={{ marginTop: "3rem" }}>
+          <LoadingSpinner showText={false} />
+        </div>
+      ) : wishlists.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p>{t('dashboard.noWishlists')}</p>
+        </div>
+      ) : (
+        <div className={styles.wishlistGrid}>
+          {wishlists.map((wishlist) => (
+            <Card
+              key={wishlist.id}
+              title={wishlist.name}
+              subtitle={`${wishlist.products?.length || 0} ${t('common.items')}`}
+              description={wishlist.description}
+              icon={<FiHeart size={32} />}
+              onClick={() => router.push(`/dashboard/${wishlist.id}`)}
+              actions={
+                <>
+                  <FiEdit
+                    size={18}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openEditModal(wishlist);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <FiTrash2
+                    size={18}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteWishlist(wishlist.id);
+                    }}
+                    style={{ cursor: "pointer", color: "#FF425D" }}
+                  />
+                </>
+              }
+            />
+          ))}
+        </div>
+      )}
 
       <WishlistCategoryModal
         isOpen={isModalOpen}
@@ -150,6 +166,6 @@ export default function DashboardPage() {
         initialData={editingWishlist || undefined}
         onSave={handleSaveWishList}
       />
-    </div>
+    </>
   );
 }

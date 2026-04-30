@@ -13,8 +13,8 @@ import {
   FiFolder,
 } from "react-icons/fi";
 import styles from "./LandingPage.module.scss";
-import { useLanguage } from "@/context/LanguageContext";
-import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import { useLanguage } from "../../context/LanguageContext";
+import LanguageSwitcher from "../../components/LanguageSwitcher/LanguageSwitcher";
 
 export default function LandingPage() {
   const { t, language } = useLanguage();

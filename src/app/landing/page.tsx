@@ -1,95 +1,152 @@
 "use client";
 
-import Link from "next/link";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
-import Button from "@/components/Button/Button";
+import Link from "next/link";
+import {
+  FiArrowRight,
+  FiHeart,
+  FiZap,
+  FiShare2,
+  FiTrendingUp,
+  FiCalendar,
+  FiFolder,
+} from "react-icons/fi";
 import styles from "./LandingPage.module.scss";
-import { FiGrid, FiPlusCircle, FiCalendar, FiMessageCircle, FiTrendingUp } from "react-icons/fi";
-
-interface Feature {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}
-
-const features: Feature[] = [
-  {
-    title: "Multiple Wishlist Categories",
-    icon: <FiGrid />,
-    description:
-      "Create different wishlists for files, occasions, or interests.",
-  },
-  {
-    title: "Add & Remove Products",
-    icon: <FiPlusCircle />,
-    description:
-      "Easily manage products in your wishlist, add or remove anytime.",
-  },
-  {
-    title: "Monthly Planning",
-    icon: <FiCalendar />,
-    description: "Organize your purchases by month and track what to buy.",
-  },
-  {
-    title: "Social Influence",
-    icon: <FiMessageCircle />,
-    description:
-      "Comment on other users' wishlists and influence their choices.",
-  },
-  {
-    title: "Trending Products",
-    icon: <FiTrendingUp />,
-    description:
-      "Discover popular products that many users are adding to their wishlists.",
-  },
-];
+import { useLanguage } from "@/context/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 
 export default function LandingPage() {
+  const { t, language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+
+  const features = useMemo(() => [
+    {
+      title: t("landing.features.categories.title"),
+      description: t("landing.features.categories.desc"),
+      icon: <FiFolder />,
+    },
+    {
+      title: t("landing.features.planning.title"),
+      description: t("landing.features.planning.desc"),
+      icon: <FiCalendar />,
+    },
+    {
+      title: t("landing.features.share.title"),
+      description: t("landing.features.share.desc"),
+      icon: <FiShare2 />,
+    },
+    {
+      title: t("landing.features.trending.title"),
+      description: t("landing.features.trending.desc"),
+      icon: <FiTrendingUp />,
+    },
+  ], [t]);
+
+  useEffect(() => {
+    setMounted(true);
+    setTimeout(() => setIsHeroVisible(true), 100);
+  }, []);
+
+  if (!mounted) {
+    return <div style={{ background: '#fdfaf7', minHeight: '100vh' }} />;
+  }
+
   return (
     <main className={styles.landingContainer}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Image
-            src="/logo-horizontal.svg"
-            alt="WishIt"
-            width={150}
-            height={42}
+          <Image src="/logo-horizontal.svg" alt="WishIt" width={140} height={40} priority />
+        </div>
+        <div className={styles.headerActions}>
+          <LanguageSwitcher />
+          <Link href="/login" style={{ textDecoration: "none" }}>
+            <button className={styles.loginBtn}>{t("common.login")}</button>
+          </Link>
+          <Link href="/login" style={{ textDecoration: "none" }}>
+            <button className={styles.signupBtn}>{t("common.signup")}</button>
+          </Link>
+        </div>
+      </header>
+
+      <section className={styles.hero}>
+        <div className={styles.heroContent}>
+          <div className={styles.heroBadge}>
+            <FiZap size={13} /> {t("landing.heroBadge")}
+          </div>
+          <h1 className={styles.heroTitle}>
+            {t("landing.title1")}<span className={styles.gradient}>{t("landing.title2")}</span>{t("landing.title3")}
+          </h1>
+          <p className={styles.heroSubtitle}>
+            {t("landing.subtitle")}
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="/login" style={{ textDecoration: "none" }}>
+              <button className={styles.heroCta}>
+                {t("landing.getStarted")} <FiArrowRight />
+              </button>
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.heroImageWrapper}>
+          <Image 
+            src="/assets/hero-lifestyle-collage.png" 
+            alt="The Ultimate Wishlist Idea" 
+            width={750} 
+            height={750} 
+            className={`${styles.collageHero} ${isHeroVisible ? styles.visible : ""}`}
             priority
           />
         </div>
-        <Link href="/login">
-          <Button variant="secondary">Login</Button>
-        </Link>
-      </header>
+      </section>
 
-      <section className={styles.wishlist}>
-        <div className={styles.wishlistText}>
-          <div className={styles.heroIcon}>
-            <Image
-              src="/icon.svg"
-              alt="Heart"
-              width={80}
-              height={80}
-              className={styles.floatingHeart}
+      <section className={styles.experience}>
+        <div className={styles.storyBlock}>
+          <div className={styles.storyImage}>
+            <Image src="/assets/gift-guide-curation.png" alt="Aesthetic Gift Guides" width={800} height={800} />
+          </div>
+          <div className={styles.storyText}>
+            <span className={styles.tagline}>{t("landing.story1.tagline")}</span>
+            <h2>{t("landing.story1.title1")}<span className={styles.gradient}>{t("landing.story1.title2")}</span></h2>
+            <p>{t("landing.story1.desc")}</p>
+          </div>
+        </div>
+
+        <div className={styles.storyBlock}>
+          <div className={styles.storyImage}>
+            <Image src="/assets/smart-planning-collage.png" alt="Intelligent Organization" width={800} height={800} />
+          </div>
+          <div className={styles.storyText}>
+            <span className={styles.tagline}>{t("landing.story2.tagline")}</span>
+            <h2>{t("landing.story2.title1")}<span className={styles.gradient}>{t("landing.story2.title2")}</span></h2>
+            <p>{t("landing.story2.desc")}</p>
+          </div>
+        </div>
+
+        <div className={styles.storyBlock}>
+          <div className={styles.storyImage} style={{ filter: 'sepia(0.3) hue-rotate(-15deg) brightness(0.9) contrast(1.1)' }}>
+            <Image 
+              src="/assets/community-trends-collage.png" 
+              alt="Community Trends" 
+              width={800} 
+              height={800} 
             />
           </div>
-          <h1>Your Wishlist, Your Style</h1>
-          <p>
-            Track, share, and discover the products you love. Keep your wishlist
-            organized and see what's trending.
-          </p>
-          <a href="/login" className={styles.ctaButton}>
-            Get Started
-          </a>
+          <div className={styles.storyText}>
+            <span className={styles.tagline}>{t("landing.story3.tagline")}</span>
+            <h2>{t("landing.story3.title1")}<span className={styles.gradient}>{t("landing.story3.title2")}</span></h2>
+            <p>{t("landing.story3.desc")}</p>
+          </div>
         </div>
       </section>
 
-      <section id="features" className={styles.features}>
-        <h2>Features & Advantages</h2>
-        <div className={styles.featureList}>
+      <section className={styles.features}>
+        <div className={styles.featureGrid}>
           {features.map((f, idx) => (
-            <div key={idx} className={styles.featureItem}>
-              <div className={styles.iconWrapper}>{f.icon}</div>
+            <div key={idx} className={styles.featureCard}>
+              <div className={styles.featureIcon}>{f.icon}</div>
               <h3>{f.title}</h3>
               <p>{f.description}</p>
             </div>
@@ -97,11 +154,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer id="footer" className={styles.footer}>
-        &copy; 2025 Fashion Wishlist. All rights reserved.{" "}
-        <span className={styles.footerHeart}>
-          <Image src="/icon.svg" alt="Heart" width={16} height={16} />
-        </span>
+      <section className={styles.ctaSection}>
+        <h2>{t("landing.readyToStart")}</h2>
+        <p>{t("landing.ctaSubtitle")}</p>
+        <Link href="/login" style={{ textDecoration: "none" }}>
+          <button className={styles.heroCta} style={{ margin: '0 auto' }}>
+            {t("landing.createYourWishlist")} <FiArrowRight />
+          </button>
+        </Link>
+      </section>
+
+      <footer className={styles.footer}>
+        <span>© 2025 WishIt. {t("common.madeWith")}</span>
+        <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
+        <span>{t("common.forWishlisters")}</span>
       </footer>
     </main>
   );

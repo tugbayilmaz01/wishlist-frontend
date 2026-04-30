@@ -72,9 +72,6 @@ export default function LandingPage() {
 
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <div className={styles.heroBadge}>
-            <FiZap size={13} /> {t("landing.heroBadge")}
-          </div>
           <h1 className={styles.heroTitle}>
             {t("landing.title1")}<span className={styles.gradient}>{t("landing.title2")}</span>{t("landing.title3")}
           </h1>

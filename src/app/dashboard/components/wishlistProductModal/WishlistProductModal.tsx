@@ -1,9 +1,12 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import styles from "./WishlistProductModal.module.scss";
 import Button from "@/components/Button/Button";
 import Select from "@/components/Select/Select";
 import { api } from "@/utils/api";
-import { FiX } from "react-icons/fi";
+import { FiX, FiImage } from "react-icons/fi";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface AddWishlistProductModalProps {
   wishlistId: number;
@@ -15,18 +18,8 @@ interface AddWishlistProductModalProps {
 }
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
 ];
 
 export default function AddWishlistProductModal({
@@ -37,6 +30,7 @@ export default function AddWishlistProductModal({
   onUpdateProduct,
   product,
 }: AddWishlistProductModalProps) {
+  const { t } = useLanguage();
   const isEditMode = !!product;
   const [formData, setFormData] = useState({
     name: "",
@@ -44,6 +38,7 @@ export default function AddWishlistProductModal({
     price: "",
     imageUrl: "",
     plannedMonth: "",
+    category: "",
   });
   const [scrapingUrl, setScrapingUrl] = useState("");
   const [isScraping, setIsScraping] = useState(false);
@@ -57,6 +52,7 @@ export default function AddWishlistProductModal({
         price: String(product.price || ""),
         imageUrl: product.imageUrl || "",
         plannedMonth: product.plannedMonth || "",
+        category: product.category || "",
       });
       setShowManualForm(true);
     } else {
@@ -66,6 +62,7 @@ export default function AddWishlistProductModal({
         price: "",
         imageUrl: "",
         plannedMonth: "",
+        category: "",
       });
       setShowManualForm(false);
       setScrapingUrl("");
@@ -82,15 +79,19 @@ export default function AddWishlistProductModal({
     if (!scrapingUrl) return;
     setIsScraping(true);
     try {
-     
       const res = await api.get(`/scraper?url=${encodeURIComponent(scrapingUrl)}`);
       const data = res; 
 
       if (data && !data.Error) {
+        let cleanDesc = data.description || "";
+        if (cleanDesc.includes("fiyatını öğrenmek") || cleanDesc.includes("online sipariş")) {
+          cleanDesc = "";
+        }
+
         setFormData((prev) => ({
           ...prev,
           name: data.title || prev.name,
-          description: data.description || prev.description,
+          description: cleanDesc || prev.description,
           price: data.price ? String(data.price) : prev.price,
           imageUrl: data.imageUrl || prev.imageUrl,
         }));
@@ -100,7 +101,6 @@ export default function AddWishlistProductModal({
       }
     } catch (err) {
       console.error(err);
-      alert("Failed to fetch product details from URL");
     } finally {
       setIsScraping(false);
     }
@@ -116,6 +116,7 @@ export default function AddWishlistProductModal({
       price: parseFloat(formData.price),
       imageUrl: formData.imageUrl,
       plannedMonth: formData.plannedMonth,
+      category: formData.category,
     };
 
     try {
@@ -133,7 +134,6 @@ export default function AddWishlistProductModal({
       onClose();
     } catch (err) {
       console.error(err);
-      alert("Failed to save product");
     }
   };
 
@@ -145,100 +145,129 @@ export default function AddWishlistProductModal({
         <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
           <FiX size={22} />
         </button>
-        <h2>{isEditMode ? "Edit Product" : "Add Product"}</h2>
         
-        {!isEditMode && (
-          <div className={styles.scraperSection}>
-            <label>
-              Auto-fill from Link (Trendyol, Shopier, etc.)
-              <div className={styles.scraperInputGroup}>
-                <input
-                  type="url"
-                  placeholder="Paste product link here..."
-                  value={scrapingUrl}
-                  onChange={(e) => setScrapingUrl(e.target.value)}
-                />
-                <Button variant="primary" onClick={handleScrape} disabled={isScraping || !scrapingUrl}>
-                  {isScraping ? "Fetching..." : "Fetch Info"}
-                </Button>
+        <div className={styles.modalHeader}>
+          <h2>{isEditMode ? t('wishlistDetail.editProduct') : t('wishlistDetail.addProduct')}</h2>
+        </div>
+
+        <div className={styles.modalContent}>
+          <div className={styles.leftCol}>
+            <div className={styles.imagePreview}>
+              {formData.imageUrl ? (
+                <img src={formData.imageUrl} alt="Product Preview" />
+              ) : (
+                <div className={styles.noImage}>
+                  <FiImage size={40} />
+                  <span>Product Preview</span>
+                </div>
+              )}
+            </div>
+
+            {!isEditMode && (
+              <div className={styles.scraperSection}>
+                <label>
+                  {t('wishlistDetail.autoFill')}
+                  <div className={styles.scraperInputGroup}>
+                    <input
+                      type="url"
+                      placeholder="Paste link here..."
+                      value={scrapingUrl}
+                      onChange={(e) => setScrapingUrl(e.target.value)}
+                    />
+                    <Button variant="primary" onClick={handleScrape} disabled={isScraping || !scrapingUrl}>
+                      {isScraping ? t('wishlistDetail.fetching') : t('wishlistDetail.fetchInfo')}
+                    </Button>
+                  </div>
+                </label>
               </div>
-            </label>
+            )}
+
+            {(!isEditMode && !showManualForm) && (
+              <div className={styles.manualToggle}>
+                <div className={styles.divider}><span>{t('common.or')}</span></div>
+                <button type="button" onClick={() => setShowManualForm(true)} className={styles.manualBtn}>
+                  {t('wishlistDetail.manualEntry')}
+                </button>
+              </div>
+            )}
           </div>
-        )}
 
-        {(!isEditMode && !showManualForm) && (
-          <div className={styles.manualToggle}>
-            <div className={styles.divider}><span>OR</span></div>
-            <button type="button" onClick={() => setShowManualForm(true)} className={styles.manualBtn}>
-              Enter details manually
-            </button>
+          <div className={styles.rightCol}>
+            {(isEditMode || showManualForm) && (
+              <form onSubmit={handleSubmit} className={styles.productForm}>
+                <label className={styles.fullWidth}>
+                  {t('wishlistDetail.productName')}
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+
+                <label>
+                  {t('wishlistDetail.category')}
+                  <input
+                    type="text"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    placeholder="e.g. Birthday"
+                  />
+                </label>
+
+                <label>
+                  {t('wishlistDetail.price')}
+                  <input
+                    type="number"
+                    name="price"
+                    step="any"
+                    value={formData.price}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+
+                <label className={styles.fullWidth}>
+                  {t('wishlistDetail.description')}
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+
+                <label className={styles.fullWidth}>
+                  {t('wishlistDetail.imageUrl')}
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={handleChange}
+                  />
+                </label>
+
+                <label className={styles.fullWidth}>
+                  {t('wishlistDetail.plannedMonth')}
+                  <Select
+                    options={months}
+                    value={formData.plannedMonth}
+                    onChange={(value) =>
+                      setFormData({ ...formData, plannedMonth: value })
+                    }
+                    placeholder={t('wishlistDetail.selectMonth')}
+                  />
+                </label>
+
+                <div className={styles.actions}>
+                  <Button variant="primary">{isEditMode ? t('common.update') : t('common.save')}</Button>
+                </div>
+              </form>
+            )}
           </div>
-        )}
-
-        {(isEditMode || showManualForm) && (
-          <form onSubmit={handleSubmit} className={styles.productForm}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Description
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Price
-            <input
-              type="number"
-              name="price"
-              step="any"
-              value={formData.price}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Image URL
-            <input
-              type="text"
-              name="imageUrl"
-              value={formData.imageUrl}
-              onChange={handleChange}
-            />
-          </label>
-
-
-
-          <label>
-            Planned Month
-            <Select
-              options={months}
-              value={formData.plannedMonth}
-              onChange={(value) =>
-                setFormData({ ...formData, plannedMonth: value })
-              }
-              placeholder="Select Month"
-            />
-          </label>
-
-          <div className={styles.actions}>
-            <Button variant="primary">{isEditMode ? "Update" : "Save"}</Button>
-          </div>
-        </form>
-        )}
+        </div>
       </div>
     </div>
   );

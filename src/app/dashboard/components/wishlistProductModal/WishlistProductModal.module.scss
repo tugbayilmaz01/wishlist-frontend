@@ -158,17 +158,38 @@
   background: linear-gradient(145deg, #fffcfb, #fef2f4);
   padding: 1.5rem;
   border-radius: 28px;
-  border: 1px solid rgba(255, 66, 93, 0.1);
+  border: 1px solid rgba(255, 66, 93, 0.15);
   box-shadow: 0 10px 30px rgba(56, 22, 31, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  label {
+  .scraperHeader {
     display: flex;
-    flex-direction: column;
-    font-weight: 800;
-    color: #38161f;
-    font-size: 0.95rem;
+    align-items: center;
     gap: 0.75rem;
-    letter-spacing: -0.01em;
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #38161f;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .magicIcon {
+      color: #ff425d;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 0 8px rgba(255, 66, 93, 0.3));
+    }
+  }
+
+  .scraperDesc {
+    font-size: 0.85rem;
+    color: #6d5d66;
+    line-height: 1.4;
+    margin: 0;
+    font-weight: 500;
   }
 
   .scraperInputGroup {
@@ -237,7 +258,8 @@
   }
 
   input,
-  textarea {
+  textarea,
+  .selectInput {
     padding: 0.85rem 1rem;
     border: 1.5px solid #e8d0d8;
     border-radius: 14px;
@@ -248,6 +270,8 @@
     background: #fafaf9;
     color: #1a1816;
     width: 100%;
+    appearance: none;
+    cursor: pointer;
 
     &::placeholder {
       color: #c0a0b0;
@@ -258,6 +282,14 @@
       border-color: #ff425d;
       box-shadow: 0 0 0 5px rgba(255, 66, 93, 0.08);
     }
+  }
+
+  .selectInput {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ff425d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+    padding-right: 2.5rem;
   }
 
   textarea {

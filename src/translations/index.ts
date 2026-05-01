@@ -100,22 +100,33 @@ export const translations = {
       emptyTitle: "Your wishlist is empty",
       emptySubtitle: "Start adding the things you love and organize them by month!",
       addFirst: "Add your first product",
-      budgetUsed: "Budget used",
+      budgetUsed: "Planned Budget",
       plannedMonth: "Planned Month",
       productName: "Product Name",
       price: "Price",
       description: "Description",
       imageUrl: "Image URL",
       autoFill: "Auto-fill from Link (Trendyol, etc.)",
+      magicFillTitle: "Magic Fill ✨",
+      magicFillDesc: "Paste a product link below and we'll automatically fetch the details for you.",
       fetchInfo: "Fetch Info",
       fetching: "Fetching...",
       manualEntry: "Enter details manually",
+      linkPlaceholder: "Paste product link here...",
       selectMonth: "Select Month",
       category: "Category",
       selectCategory: "Select Category",
       occasion: "Occasion / Tag",
       productPreview: "Product Preview",
       productUrl: "Product Link",
+      categories: {
+        fashion: "Fashion",
+        tech: "Tech",
+        home: "Home",
+        beauty: "Beauty",
+        gift: "Gift",
+        other: "Other"
+      }
     },
     profile: {
       title: "Profile Settings",
@@ -226,22 +237,33 @@ export const translations = {
       emptyTitle: "Listen henüz boş",
       emptySubtitle: "Sevdiğin ürünleri eklemeye başla ve onları aylara göre organize et!",
       addFirst: "İlk ürününü ekle",
-      budgetUsed: "Harcanan bütçe",
+      budgetUsed: "Planlanan Harcama",
       plannedMonth: "Planlanan Ay",
       productName: "Ürün Adı",
       price: "Fiyat",
       description: "Açıklama",
       imageUrl: "Görsel URL",
       autoFill: "Linkten Otomatik Doldur (Trendyol, vb.)",
+      magicFillTitle: "Sihirli Doldurma ✨",
+      magicFillDesc: "Ürün linkini yapıştırın; isim, fiyat ve görseli sizin için otomatik çekelim.",
       fetchInfo: "Bilgileri Getir",
       fetching: "Getiriliyor...",
       manualEntry: "Bilgileri manuel gir",
+      linkPlaceholder: "Ürün linkini buraya yapıştırın...",
       selectMonth: "Ay Seçiniz",
       category: "Kategori",
       selectCategory: "Kategori Seçiniz",
       occasion: "Durum / Etiket",
       productPreview: "Ürün Önizleme",
       productUrl: "Ürün Linki",
+      categories: {
+        fashion: "Moda",
+        tech: "Teknoloji",
+        home: "Ev & Yaşam",
+        beauty: "Kozmetik",
+        gift: "Hediye",
+        other: "Diğer"
+      }
     },
     profile: {
       title: "Profil Ayarları",
@@ -262,5 +284,5 @@ export type TranslationKey =
   | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
   | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
-  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl"
+  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder"
   | "profile.title" | "profile.name" | "profile.email" | "profile.update" | "profile.success";

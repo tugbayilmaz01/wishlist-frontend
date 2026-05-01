@@ -7,7 +7,7 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2, FiTag } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiDollarSign, FiPlus } from "react-icons/fi";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
 import { useLanguage } from "@/context/LanguageContext";
@@ -16,7 +16,6 @@ interface WishlistProduct {
   id: number;
   name: string;
   price: number;
-  description?: string;
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
@@ -39,6 +38,7 @@ export default function WishlistDetailPage() {
   const [editingProduct, setEditingProduct] = useState<WishlistProduct | null>(
     null
   );
+  const [wishlist, setWishlist] = useState<any>(null);
 
   const [view, setView] = useState<"list" | "month">("list");
   const [filters, setFilters] = useState<{ month: string; category: string }>({ 
@@ -65,9 +65,10 @@ export default function WishlistDetailPage() {
     api
       .get("/wishlists")
       .then((data: any) => {
-        const wishlist = data.find((w: any) => w.id === wishlistId);
-        if (wishlist) {
-          setWishlistProducts(wishlist.products || []);
+        const found = data.find((w: any) => w.id === wishlistId);
+        if (found) {
+          setWishlist(found);
+          setWishlistProducts(found.products || []);
         }
       })
       .catch((err) => {
@@ -114,13 +115,20 @@ export default function WishlistDetailPage() {
   const categoryOptions = Array.from(
     new Set(wishlistProducts.map((p) => p.category).filter(Boolean))
   ) as string[];
+  
+  const totalPrice = useMemo(() => {
+    return filteredProducts.reduce((sum, p) => sum + (p.price || 0), 0);
+  }, [filteredProducts]);
+
+  const totalOriginalPrice = useMemo(() => {
+    return wishlistProducts.reduce((sum, p) => sum + (p.price || 0), 0);
+  }, [wishlistProducts]);
 
   const renderProductCard = (product: WishlistProduct) => (
     <Card
       key={product.id}
       title={product.name}
       subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
-      description={product.description}
       imageUrl={product.imageUrl}
       tag={product.category}
       actions={
@@ -158,61 +166,59 @@ export default function WishlistDetailPage() {
       )}
 
       <div className={styles.header}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <h1>{t('wishlistDetail.title')}</h1>
-          <button
-            onClick={handleShare}
-            style={{
-              background: "none",
-              border: "1px solid #ddd",
-              padding: "8px",
-              borderRadius: "50%",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#38161f",
-              transition: "all 0.2s",
-            }}
-            title={t('common.share')}
-          >
+        <div className={styles.titleArea}>
+          <h1>{wishlist?.name || t('wishlistDetail.title')}</h1>
+          <button onClick={handleShare} className={styles.iconBtn} title={t('common.share')}>
             <FiShare2 size={20} />
           </button>
+          
+          <div className={styles.miniStats}>
+            <span className={styles.miniStat}>
+              <FiDollarSign size={14} />
+              {totalPrice.toLocaleString('tr-TR')} TL
+            </span>
+            <span className={styles.miniStat}>
+              <FiTag size={14} />
+              {filteredProducts.length} {t('common.items')}
+            </span>
+          </div>
         </div>
+        
         <Button
           onClick={() => {
             setEditingProduct(null);
             setIsModalOpen(true);
           }}
+          startIcon={<FiPlus />}
         >
           {t('wishlistDetail.addProduct')}
         </Button>
       </div>
 
       {wishlistProducts.length > 0 && (
-        <div className={styles.headerControls}>
+        <div className={styles.controlsRow}>
           <div className={styles.viewToggle}>
-            <Button
-              variant="primary"
-              active={view === "list"}
+            <button
+              className={`${styles.toggleBtn} ${view === "list" ? styles.active : ""}`}
               onClick={() => setView("list")}
+              title={t('wishlistDetail.listView')}
             >
-              {t('wishlistDetail.listView')}
-            </Button>
-            <Button
-              variant="primary"
-              active={view === "month"}
+              <FiGrid size={18} />
+            </button>
+            <button
+              className={`${styles.toggleBtn} ${view === "month" ? styles.active : ""}`}
               onClick={() => setView("month")}
+              title={t('wishlistDetail.monthlyView')}
             >
-              {t('wishlistDetail.monthlyView')}
-            </Button>
+              <FiCalendar size={18} />
+            </button>
           </div>
 
-          <div className={styles.filterPanelWrapper}>
+          <div className={styles.filterSection}>
             <FilterPanel
               filters={filters}
               options={{ 
-                month: monthOptions,
+                ...(view !== "month" && { month: monthOptions }),
                 category: categoryOptions
               }}
               onChange={(newFilters) =>
@@ -254,24 +260,21 @@ export default function WishlistDetailPage() {
                 (p) => p.plannedMonth === month
               );
 
-              const totalPrice = productsOfMonth.reduce(
+              const totalPriceMonth = productsOfMonth.reduce(
                 (sum, p) => sum + (p.price || 0),
                 0
               );
               return (
                 <div key={month} className={styles.monthColumn}>
-                  <h3>
-                    {month}{" "}
-                    <span
-                      style={{
-                        fontWeight: 500,
-                        fontSize: "0.9rem",
-                        color: "#555",
-                      }}
-                    >
-                      ({totalPrice.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL)
+                  <div className={styles.monthHeader}>
+                    <div className={styles.monthTitle}>
+                      <FiCalendar className={styles.calIcon} />
+                      <h3>{month}</h3>
+                    </div>
+                    <span className={styles.monthBadge}>
+                      {totalPriceMonth.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL
                     </span>
-                  </h3>
+                  </div>
                   <div className={styles.monthProducts}>
                     {productsOfMonth.map(renderProductCard)}
                   </div>

@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FiX, FiImage, FiArrowRight } from "react-icons/fi";
+import { FiX, FiImage, FiArrowRight, FiZap } from "react-icons/fi";
 import styles from "./WishlistProductModal.module.scss";
 import Button from "@/components/Button/Button";
+import Select from "@/components/Select/Select";
 import { api } from "@/utils/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface Product {
   id: string;
   name: string;
-  description: string;
   price: number;
   url: string;
   imageUrl: string;
@@ -90,8 +90,8 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
     setLoading(true);
     try {
       const payload = {
+        id: isEditMode ? product.id : 0,
         name,
-        description: "", // Set empty or remove if backend allows
         price: parseFloat(price) || 0,
         url,
         imageUrl,
@@ -142,23 +142,27 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
             </div>
 
             <div className={styles.scraperSection}>
-              <label>
-                {t("wishlistDetail.autoFill")}
-                <div className={styles.scraperInputGroup}>
-                  <input
-                    type="text"
-                    placeholder={t("wishlistDetail.manualEntry")}
-                    value={scrapeUrl}
-                    onChange={(e) => setScrapeUrl(e.target.value)}
-                  />
-                  <Button 
-                    onClick={handleScrape} 
-                    loading={scraping}
-                  >
-                    {t("wishlistDetail.fetchInfo")}
-                  </Button>
-                </div>
-              </label>
+              <div className={styles.scraperHeader}>
+                <FiZap className={styles.magicIcon} />
+                <h3>{t("wishlistDetail.magicFillTitle")}</h3>
+              </div>
+              <p className={styles.scraperDesc}>
+                {t("wishlistDetail.magicFillDesc")}
+              </p>
+              <div className={styles.scraperInputGroup}>
+                <input
+                  type="text"
+                  placeholder={t("wishlistDetail.linkPlaceholder")}
+                  value={scrapeUrl}
+                  onChange={(e) => setScrapeUrl(e.target.value)}
+                />
+                <Button 
+                  onClick={handleScrape} 
+                  loading={scraping}
+                >
+                  {t("wishlistDetail.fetchInfo")}
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -187,10 +191,18 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
 
               <label>
                 {t("wishlistDetail.category")}
-                <input
+                <Select
+                  options={[
+                    t("wishlistDetail.categories.fashion"),
+                    t("wishlistDetail.categories.tech"),
+                    t("wishlistDetail.categories.home"),
+                    t("wishlistDetail.categories.beauty"),
+                    t("wishlistDetail.categories.gift"),
+                    t("wishlistDetail.categories.other")
+                  ]}
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  placeholder={t("wishlistDetail.category")}
+                  onChange={(val) => setCategory(val)}
+                  placeholder={t("wishlistDetail.selectCategory")}
                 />
               </label>
 

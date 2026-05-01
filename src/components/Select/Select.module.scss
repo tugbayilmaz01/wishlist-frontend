@@ -1,29 +1,39 @@
 .selectContainer {
   position: relative;
   width: 100%;
-  font-family: Arial, sans-serif;
+  font-family: inherit;
   user-select: none;
 }
 
 .selected {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
+  border: 1.5px solid #e8d0d8;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #fafaf9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #1a1816;
+  font-size: 0.95rem;
+
   &:hover {
-    border-color: #007bff;
+    border-color: rgba(255, 66, 93, 0.3);
+    background: #fff8f9;
   }
 }
 
+.selectContainer:focus-within .selected {
+  background: #ffffff;
+  border-color: #ff425d;
+  box-shadow: 0 0 0 5px rgba(255, 66, 93, 0.08);
+}
+
 .arrow {
-  margin-left: 10px;
-  font-size: 0.8em;
-  transition: transform 0.2s ease;
+  color: #ff425d;
+  font-size: 1.2rem;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   &.open {
     transform: rotate(180deg);
   }
@@ -31,31 +41,49 @@
 
 .options {
   position: absolute;
-  top: 110%;
+  top: calc(100% + 8px);
   left: 0;
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fff;
-  max-height: 200px;
+  border: 1px solid #f0e6e9;
+  border-radius: 16px;
+  background-color: #ffffff;
+  max-height: 240px;
   overflow-y: auto;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 0;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(56, 22, 31, 0.12);
+  padding: 6px;
   margin: 0;
   list-style: none;
+  animation: slideDown 0.3s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .options li {
-  padding: 10px;
+  padding: 0.75rem 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6d5d66;
+  transition: all 0.2s ease;
+
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #fff0f3;
+    color: #ff425d;
   }
 }
 
 .options li.active {
-  background-color: #007bff;
-  color: white;
+  background-color: #ff425d;
+  color: #ffffff;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

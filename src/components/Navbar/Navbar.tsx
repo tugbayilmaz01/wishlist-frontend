@@ -54,8 +54,8 @@ export default function Navbar() {
         <Image
           src="/logo-horizontal.svg"
           alt="WishIt"
-          width={130}
-          height={36}
+          width={140}
+          height={40}
           priority
         />
       </Link>

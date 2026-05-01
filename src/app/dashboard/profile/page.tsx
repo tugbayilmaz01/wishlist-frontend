@@ -32,7 +32,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (user) {
       setEmail(user.email || "");
-      setName(user.name || "Fashion Lover");
+      setName(user.name || "");
       setSelectedAvatar(user.avatar || AVATARS[0]);
     }
   }, [user]);
@@ -108,7 +108,7 @@ export default function ProfilePage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Trendy Girl"
+              placeholder="e.g. Alex"
               required
             />
           </div>

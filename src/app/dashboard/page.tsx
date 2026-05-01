@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { FiEdit, FiTrash2, FiHeart } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
+import { useUser } from "@/context/UserContext";
 
 interface Wishlist {
   id: number;
@@ -20,8 +21,8 @@ interface Wishlist {
 
 export default function DashboardPage() {
   const { t } = useLanguage();
+  const { user } = useUser();
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
-  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWishlist, setEditingWishlist] = useState<Wishlist | null>(null);
@@ -29,17 +30,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     loadWishlists();
-    fetchUser();
   }, []);
-
-  const fetchUser = async () => {
-    try {
-      const data: any = await api.get("/users/me");
-      setUserName(data.name || "there");
-    } catch (err) {
-      console.error("Failed to fetch user name:", err);
-    }
-  };
 
   const loadWishlists = async () => {
     setLoading(true);
@@ -99,7 +90,7 @@ export default function DashboardPage() {
     <>
       <div className={styles.header}>
         <div className={styles.welcomeText}>
-          <h1>{t('dashboard.hi')}, {userName}! ✨</h1>
+          <h1>{t('dashboard.hi')}, {user?.name || "there"}! ✨</h1>
           <p>{t('dashboard.subtitle')}</p>
         </div>
         <div className={styles.actions}>

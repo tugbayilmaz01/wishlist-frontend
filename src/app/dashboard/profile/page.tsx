@@ -5,12 +5,23 @@ import styles from "./Profile.module.scss";
 import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import { api } from "@/utils/api";
+import { useUser } from "@/context/UserContext";
 import { FiUser, FiArrowLeft } from "react-icons/fi";
 import Link from "next/link";
 
-const AVATARS = ["👩🏻", "👩🏼", "👩🏽", "👱‍♀️", "👩🏻‍🦰", "🎀", "✨", "🌸", "👑", "💅"];
+const AVATARS = [
+  "/assets/avatars/avatar-1.png",
+  "/assets/avatars/avatar-2.png",
+  "/assets/avatars/avatar-3.png",
+  "/assets/avatars/avatar-4.png",
+  "/assets/avatars/avatar-5.png",
+  "/assets/avatars/avatar-6.png",
+  "/assets/avatars/avatar-7.png",
+  "/assets/avatars/avatar-8.png",
+];
 
 export default function ProfilePage() {
+  const { user, refreshUser } = useUser();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]);
@@ -19,19 +30,12 @@ export default function ProfilePage() {
   const [alertInfo, setAlertInfo] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data: any = await api.get("/users/me");
-        setEmail(data.email || "");
-        setName(data.name || "Fashion Lover");
-        setSelectedAvatar(data.avatar || AVATARS[0]);
-      } catch (err) {
-        console.error("Failed to fetch profile:", err);
-      }
-    };
-    
-    fetchProfile();
-  }, []);
+    if (user) {
+      setEmail(user.email || "");
+      setName(user.name || "Fashion Lover");
+      setSelectedAvatar(user.avatar || AVATARS[0]);
+    }
+  }, [user]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +47,7 @@ export default function ProfilePage() {
         avatar: selectedAvatar
       });
       
+      await refreshUser();
       setAlertInfo({ message: "Profile updated successfully! ✨", type: "success" });
     } catch (err) {
       console.error("Failed to update profile:", err);
@@ -79,7 +84,7 @@ export default function ProfilePage() {
         {/* Avatar Picker Section */}
         <div className={styles.avatarSection}>
           <div className={styles.currentAvatar}>
-            {selectedAvatar}
+            <img src={selectedAvatar} alt="Current avatar" />
           </div>
           <div className={styles.avatarOptions}>
             {AVATARS.map((avatar, idx) => (
@@ -89,7 +94,7 @@ export default function ProfilePage() {
                 className={`${styles.avatarOption} ${selectedAvatar === avatar ? styles.selected : ""}`}
                 onClick={() => setSelectedAvatar(avatar)}
               >
-                {avatar}
+                <img src={avatar} alt={`Avatar option ${idx + 1}`} />
               </button>
             ))}
           </div>

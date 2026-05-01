@@ -8,34 +8,28 @@ import { useEffect, useState, useRef } from "react";
 import styles from "./Navbar.module.scss";
 import { api } from "@/utils/api";
 import { useLanguage } from "../../context/LanguageContext";
+import { useUser } from "../../context/UserContext";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 export default function Navbar() {
   const router = useRouter();
   const { t } = useLanguage();
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const { user } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data: any = await api.get("/users/me");
-        setAvatar(data.avatar);
-      } catch (err) {
-        console.error("Navbar profile fetch failed:", err);
-      }
-    };
-    
-    fetchProfile();
-
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
+    
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -69,7 +63,15 @@ export default function Navbar() {
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
             <div className={styles.avatarWrapper}>
-              {avatar ? <span>{avatar}</span> : <FiUser />}
+              {user?.avatar ? (
+                user.avatar.startsWith("/") ? (
+                  <img src={user.avatar} alt="Avatar" />
+                ) : (
+                  <span>{user.avatar}</span>
+                )
+              ) : (
+                <FiUser />
+              )}
             </div>
             <FiChevronDown className={styles.chevron} />
           </div>

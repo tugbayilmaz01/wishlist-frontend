@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./Dashboard.module.scss";
 
+import { UserProvider } from "@/context/UserContext";
+
 export default function DashboardLayout({
   children,
 }: {
@@ -21,11 +23,13 @@ export default function DashboardLayout({
   }, [router]);
 
   return (
-    <div className={styles.dashboardContainer}>
-      <Navbar />
-      <div className={styles.contentWrapper}>
-        <main className={styles.dashboardMain}>{children}</main>
+    <UserProvider>
+      <div className={styles.dashboardContainer}>
+        <Navbar />
+        <div className={styles.contentWrapper}>
+          <main className={styles.dashboardMain}>{children}</main>
+        </div>
       </div>
-    </div>
+    </UserProvider>
   );
 }

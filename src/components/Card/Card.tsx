@@ -1,5 +1,6 @@
 import styles from "./Card.module.scss";
 import { ReactNode } from "react";
+import { FiHeart, FiStar, FiShoppingBag, FiGift, FiLayers } from "react-icons/fi";
 
 interface CardProps {
   title?: string;
@@ -11,6 +12,7 @@ interface CardProps {
   children?: ReactNode;
   onClick?: () => void;
   actions?: ReactNode;
+  index?: number;
 }
 
 export default function Card({
@@ -23,6 +25,7 @@ export default function Card({
   children,
   onClick,
   actions,
+  index,
 }: CardProps) {
   const imagePath = imageUrl
     ? imageUrl.startsWith("http") ? imageUrl : `/assets${imageUrl}`
@@ -41,8 +44,18 @@ export default function Card({
             }}
           />
         ) : (
-          <div className={styles.cardImagePlaceholder}>
-            {icon ? icon : <span>🛍️</span>}
+          <div className={styles.cardImagePlaceholder} data-style={index !== undefined ? index % 4 : (title ? (title.length % 4) : 0)}>
+            <img 
+              src={
+                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 0 ? "/assets/star-patch-polka.png" : 
+                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 1 ? "/assets/star-patch-pink.png" : 
+                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 2 ? "/assets/star-patch-red.png" : 
+                "/assets/star-patch-denim.png"
+              } 
+              alt="Star Patch"
+              className={styles.starImage}
+            />
+            <div className={styles.shimmer}></div>
           </div>
         )}
         {tag && <span className={styles.cardTag}>{tag}</span>}

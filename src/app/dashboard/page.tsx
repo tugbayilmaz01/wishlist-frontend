@@ -124,9 +124,10 @@ export default function DashboardPage() {
         </div>
       ) : (
         <div className={styles.wishlistGrid}>
-          {wishlists.map((wishlist) => (
+          {wishlists.map((wishlist, index) => (
             <Card
               key={wishlist.id}
+              index={index}
               title={wishlist.name}
               subtitle={`${wishlist.products?.length || 0} ${t('common.items')}`}
               icon={<FiHeart size={32} />}

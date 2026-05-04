@@ -38,16 +38,16 @@ export const translations = {
       trending: "Popular",
       shared: "Shared!",
       story1: {
-        tagline: "Pinterest Wishlist Ideas",
-        title1: "Curate Your ",
-        title2: "Aesthetic.",
-        desc: "From 'dear reader' vibes to 'cool girl' essentials, transform your random links into a beautiful, dense collage of things you truly love."
+        tagline: "Gift Guides for Everyone",
+        title1: "Vibes for Every ",
+        title2: "Lifestyle.",
+        desc: "From art lovers and coffee connoisseurs to wellness enthusiasts—organize and discover unique gifts for every aesthetic in your life."
       },
       story2: {
-        tagline: "Smart Planning",
-        title1: "Wish with ",
-        title2: "Clarity.",
-        desc: "Plan your purchases, track your monthly budget, and achieve your vision board goals. It's about intentional living, curated by you."
+        tagline: "Smart Spending, Iconic Style",
+        title1: "Master the Art of ",
+        title2: "Intentional Shopping.",
+        desc: "From those must-have sneakers to the perfect vintage find—organize your 'essential' bills, track your monthly budget, and finally stay on top of the things you actually love."
       },
       story3: {
         tagline: "Community Curation",
@@ -81,6 +81,8 @@ export const translations = {
       invalidEmail: "Please enter a valid email address.",
       weakPassword: "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
       emptyFields: "Please enter both your email and password.",
+      orContinueWith: "OR CONTINUE WITH",
+      continueWithGoogle: "Google",
     },
     dashboard: {
       hi: "Hi",
@@ -175,16 +177,16 @@ export const translations = {
       trending: "Popüler",
       shared: "Paylaşıldı!",
       story1: {
-        tagline: "Pinterest Listeleri",
-        title1: "Kendi Tarzını ",
-        title2: "Yansıt.",
-        desc: "Kitap tutkunlarından moda ikonlarına kadar, rastgele linklerini sevdiğin şeylerden oluşan estetik bir kolaja dönüştür."
+        tagline: "Herkes İçin Hediye Rehberleri",
+        title1: "Her Tarza ",
+        title2: "Uygun Seçenekler.",
+        desc: "Sanat tutkunlarından kahve gurmelerine ve kişisel bakım meraklılarına kadar; hayatınızdaki her estetiğe uygun hediyeleri tek bir yerde keşfedin ve düzenleyin."
       },
       story2: {
-        tagline: "Akıllı Planlama",
-        title1: "Netlikle ",
-        title2: "Hayal Kur.",
-        desc: "Alışverişlerini planla, aylık bütçeni takip et ve vizyon panondaki hedeflerine ulaş. Bu sadece bir liste değil, bilinçli bir yaşam tarzı."
+        tagline: "Akıllı Harcama, İkonik Tarz",
+        title1: "Bilinçli Alışverişin ",
+        title2: "Mimarı Ol.",
+        desc: "O çok istediğin sneaker'lardan mükemmel vintage parçalara kadar; 'elzem' faturalarını düzenle, aylık bütçeni takip et ve sonunda gerçekten sevdiğin şeylere odaklan."
       },
       story3: {
         tagline: "Topluluk Kürasyonu",
@@ -217,7 +219,9 @@ export const translations = {
       loginError: "Giriş başarısız. Lütfen tekrar deneyin.",
       invalidEmail: "Lütfen geçerli bir e-posta adresi girin.",
       weakPassword: "Şifreniz en az 8 karakter uzunluğunda olmalı; en az bir büyük harf, bir küçük harf ve bir rakam içermelidir.",
-      emptyFields: "Lütfen e-posta ve şifrenizi girin.",
+      emptyFields: "Lütfen hem e-posta hem de şifrenizi girin.",
+      orContinueWith: "VEYA ŞUNUNLA DEVAM ET",
+      continueWithGoogle: "Google",
     },
     dashboard: {
       hi: "Selam",
@@ -281,7 +285,7 @@ export type TranslationKey =
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
   | "landing.story3.tagline" | "landing.story3.title1" | "landing.story3.title2" | "landing.story3.desc"
-  | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields"
+  | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields" | "auth.orContinueWith" | "auth.continueWithGoogle"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
   | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder"

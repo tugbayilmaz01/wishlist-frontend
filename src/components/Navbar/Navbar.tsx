@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import { signOut } from "next-auth/react";
 import styles from "./Navbar.module.scss";
-import { api } from "@/utils/api";
 import { useLanguage } from "../../context/LanguageContext";
 import { useUser } from "../../context/UserContext";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
@@ -32,9 +32,9 @@ export default function Navbar() {
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    await signOut({ callbackUrl: "/login" });
   };
 
   const goToProfile = () => {

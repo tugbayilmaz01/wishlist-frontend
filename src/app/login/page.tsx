@@ -7,7 +7,11 @@ import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import styles from "./Login.module.scss";
 import { FiEye, FiEyeOff, FiArrowRight, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import { FaGoogle } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
+import { signIn, signOut, useSession } from "next-auth/react";
+
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
 
 export default function LoginPage() {
   const { t } = useLanguage();
@@ -28,9 +32,36 @@ export default function LoginPage() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
 
+  const { data: session, status } = useSession();
+
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.idToken) {
+      handleSocialLogin(session.idToken);
+    }
+  }, [status, session]);
+
+  const handleSocialLogin = async (idToken: string) => {
+    try {
+      const data = await api.post("/users/social-login", {
+        token: idToken,
+        provider: "google"
+      });
+
+      localStorage.setItem("token", data.token);
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      setAlertType("error");
+      setAlertMessage(err.message || "Social login failed");
+      
+      if (err.message?.includes("expired") || err.message?.includes("aud")) {
+        signOut({ redirect: false });
+      }
+    }
+  };
 
   const handleLogin = async () => {
     if (!loginEmail || !loginPassword) {
@@ -119,6 +150,7 @@ export default function LoginPage() {
           height={40}
           priority
         />
+        <LanguageSwitcher />
       </div>
 
       <div className={`${styles.card} ${isFlipped ? styles.flipped : ""}`}>
@@ -163,6 +195,20 @@ export default function LoginPage() {
           >
             {loginLoading ? t("auth.signingIn") : t("auth.signIn")}
           </Button>
+
+          <div className={styles.divider}>
+            <span>{t("auth.orContinueWith")}</span>
+          </div>
+
+          <div className={styles.ssoGroup}>
+            <button 
+              className={`${styles.ssoButton} ${styles.google}`}
+              onClick={() => signIn("google")}
+            >
+              <FaGoogle />
+              <span>{t("auth.continueWithGoogle")}</span>
+            </button>
+          </div>
 
           <p className={styles.switch} onClick={() => { setIsFlipped(true); setAlertMessage(""); }}>
             {t("auth.newHere")} <span>{t("auth.createAccount")}</span>
@@ -210,6 +256,20 @@ export default function LoginPage() {
           >
             {signupLoading ? t("auth.creating") : t("auth.startWishing")}
           </Button>
+          <div className={styles.divider}>
+            <span>{t("auth.orContinueWith")}</span>
+          </div>
+
+          <div className={styles.ssoGroup}>
+            <button 
+              className={`${styles.ssoButton} ${styles.google}`}
+              onClick={() => signIn("google")}
+            >
+              <FaGoogle />
+              <span>{t("auth.continueWithGoogle")}</span>
+            </button>
+          </div>
+
           <p className={styles.switch} onClick={() => { setIsFlipped(false); setAlertMessage(""); }}>
             {t("auth.alreadyHave")} <span>{t("auth.loginNow")}</span>
           </p>

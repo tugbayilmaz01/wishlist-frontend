@@ -6,14 +6,15 @@ import {
   FiLogOut,
   FiUser,
 } from "react-icons/fi";
+import { signOut } from "next-auth/react";
 import styles from "./Sidebar.module.scss";
 
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    await signOut({ callbackUrl: "/login" });
   };
 
   const goToProfile = () => {

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { LanguageProvider } from "../context/LanguageContext";
+import { Providers } from "@/components/Providers";
 
 export default function RootLayout({
   children,
@@ -33,9 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        <LanguageProvider>
+        <Providers>
           {children}
-        </LanguageProvider>
+        </Providers>
       </body>
     </html>
   );

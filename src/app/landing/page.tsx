@@ -102,7 +102,7 @@ export default function LandingPage() {
       <section className={styles.experience}>
         <div className={styles.storyBlock}>
           <div className={styles.storyImage}>
-            <Image src="/assets/gift-guide-curation.png" alt="Aesthetic Gift Guides" width={800} height={800} />
+            <Image src="/assets/curate-aesthetic-collage-final-v2.png" alt="Aesthetic Gift Guides" width={800} height={800} />
           </div>
           <div className={styles.storyText}>
             <span className={styles.tagline}>{t("landing.story1.tagline")}</span>
@@ -113,7 +113,7 @@ export default function LandingPage() {
 
         <div className={styles.storyBlock}>
           <div className={styles.storyImage}>
-            <Image src="/assets/smart-planning-collage.png" alt="Intelligent Organization" width={800} height={800} />
+            <Image src="/assets/smart-planning-collage-final-v3.png" alt="Intelligent Organization" width={800} height={800} />
           </div>
           <div className={styles.storyText}>
             <span className={styles.tagline}>{t("landing.story2.tagline")}</span>
@@ -122,28 +122,15 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className={styles.storyBlock}>
-          <div className={styles.storyImage} style={{ filter: 'sepia(0.3) hue-rotate(-15deg) brightness(0.9) contrast(1.1)' }}>
-            <Image 
-              src="/assets/community-trends-collage.png" 
-              alt="Community Trends" 
-              width={800} 
-              height={800} 
-            />
-          </div>
-          <div className={styles.storyText}>
-            <span className={styles.tagline}>{t("landing.story3.tagline")}</span>
-            <h2>{t("landing.story3.title1")}<span className={styles.gradient}>{t("landing.story3.title2")}</span></h2>
-            <p>{t("landing.story3.desc")}</p>
-          </div>
-        </div>
       </section>
 
       <section className={styles.features}>
         <div className={styles.featureGrid}>
           {features.map((f, idx) => (
             <div key={idx} className={styles.featureCard}>
-              <div className={styles.featureIcon}>{f.icon}</div>
+              <div className={styles.featureIcon}>
+                {f.icon}
+              </div>
               <h3>{f.title}</h3>
               <p>{f.description}</p>
             </div>

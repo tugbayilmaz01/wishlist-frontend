@@ -89,7 +89,7 @@ export default function LandingPage() {
 
         <div className={styles.heroImageWrapper}>
           <Image 
-            src="/assets/hero-lifestyle-collage.png" 
+            src="/assets/hero-lifestyle-collage-transparent.png" 
             alt="The Ultimate Wishlist Idea" 
             width={750} 
             height={750} 
@@ -102,7 +102,13 @@ export default function LandingPage() {
       <section className={styles.experience}>
         <div className={styles.storyBlock}>
           <div className={styles.storyImage}>
-            <Image src="/assets/curate-aesthetic-collage-final-v2.png" alt="Aesthetic Gift Guides" width={800} height={800} />
+            <Image 
+              src="/assets/curate-aesthetic-collage-final-v2-transparent.png" 
+              alt="Aesthetic Gift Guides" 
+              width={800} 
+              height={800} 
+              className={styles.multiplyImg}
+            />
           </div>
           <div className={styles.storyText}>
             <span className={styles.tagline}>{t("landing.story1.tagline")}</span>
@@ -113,7 +119,13 @@ export default function LandingPage() {
 
         <div className={styles.storyBlock}>
           <div className={styles.storyImage}>
-            <Image src="/assets/smart-planning-collage-final-v3.png" alt="Intelligent Organization" width={800} height={800} />
+            <Image 
+              src="/assets/smart-planning-collage-final-v3-transparent.png" 
+              alt="Intelligent Organization" 
+              width={800} 
+              height={800} 
+              className={styles.multiplyImg}
+            />
           </div>
           <div className={styles.storyText}>
             <span className={styles.tagline}>{t("landing.story2.tagline")}</span>
@@ -131,6 +143,9 @@ export default function LandingPage() {
               <div className={styles.featureIcon}>
                 {f.icon}
               </div>
+              {[...Array(12)].map((_, i) => (
+                <span key={i} className={styles.sparkle}>✦</span>
+              ))}
               <h3>{f.title}</h3>
               <p>{f.description}</p>
             </div>

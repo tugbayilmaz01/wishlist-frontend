@@ -18,6 +18,7 @@ export const translations = {
       madeWith: "Made with",
       forWishlisters: "for dreamers everywhere.",
       all: "All",
+      learnMore: "Learn More",
     },
     landing: {
       heroBadge: "The smarter way to wishlist",
@@ -56,10 +57,10 @@ export const translations = {
         desc: "See what's trending in the community, discover products that actually live up to the hype, and share your favorites with friends who get your style."
       },
       features: {
-        categories: { title: "Custom Categories", desc: "Organize by category, occasion, or just 'Stuff I Want'." },
-        planning: { title: "Monthly Planning", desc: "Because your bank account has feelings too." },
-        share: { title: "Subtle Hinting", desc: "Share your list so they finally get the right gift." },
-        trending: { title: "What's Hot", desc: "See what everyone else is dreaming about." }
+        categories: { title: "Categorize Your World", desc: "Create lists for every aesthetic, occasion, or obsession. Your space, your rules." },
+        planning: { title: "Master Your Budget", desc: "Plan your shopping by month and keep your bank account happy while staying iconic." },
+        share: { title: "The Art of Sharing", desc: "Send subtle hints (or direct links) so your friends finally get the gift you actually want." },
+        trending: { title: "Community Vibes", desc: "Discover what's trending and find inspiration from a community that shares your style." }
       }
     },
     auth: {
@@ -157,6 +158,7 @@ export const translations = {
       madeWith: "ile yapıldı",
       forWishlisters: "tüm hayal kuranlar için.",
       all: "Hepsi",
+      learnMore: "Daha Fazla Bilgi",
     },
     landing: {
       heroBadge: "Listelemenin en akıllı yolu",
@@ -195,10 +197,10 @@ export const translations = {
         desc: "Toplulukta neler popüler keşfet, gerçekten övüldüğü kadar olan ürünleri bul ve kendi favorilerini tarzını anlayan arkadaşlarınla paylaş."
       },
       features: {
-        categories: { title: "Özel Kategoriler", desc: "Kategoriye, duruma veya sadece 'İstediğim Şeyler'e göre düzenle." },
-        planning: { title: "Aylık Planlama", desc: "Çünkü banka hesabının da duyguları var." },
-        share: { title: "İnce Mesajlar", desc: "Listeni paylaş ki sonunda doğru hediyeyi alsınlar." },
-        trending: { title: "Neler Popüler?", desc: "Başkalarının neler hayal ettiğine göz at." }
+        categories: { title: "Dünyanı Kategorize Et", desc: "Her estetiğe, duruma veya tutkuya özel listeler oluştur. Senin alanın, senin kuralların." },
+        planning: { title: "Bütçenin Mimarı Ol", desc: "Alışverişini aylara göre planla, ikonik tarzını korurken banka hesabını da mutlu et." },
+        share: { title: "Paylaşmanın İnceliği", desc: "Arkadaşlarına zarif ipuçları gönder, sonunda gerçekten istediğin hediyeye kavuş." },
+        trending: { title: "Topluluk Ruhu", desc: "Nelerin trend olduğunu keşfet ve senin tarzını paylaşan bir topluluktan ilham al." }
       }
     },
     auth: {
@@ -280,7 +282,7 @@ export const translations = {
 };
 
 export type TranslationKey = 
-  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all"
+  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore"
   | "landing.heroBadge" | "landing.title1" | "landing.title2" | "landing.title3" | "landing.subtitle" | "landing.getStarted" | "landing.startFree" | "landing.readyToStart" | "landing.ctaSubtitle" | "landing.createYourWishlist" | "landing.trending" | "landing.shared"
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"

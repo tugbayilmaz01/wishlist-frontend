@@ -3,6 +3,7 @@
 import Card from "@/components/Card/Card";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import WishlistCategoryModal from "./components/wishlistCategoryModal/WishlistCategoryModal";
+import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
 import styles from "./Dashboard.module.scss";
 import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
@@ -25,6 +26,8 @@ export default function DashboardPage() {
   const [wishlists, setWishlists] = useState<Wishlist[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [wishlistToDelete, setWishlistToDelete] = useState<number | null>(null);
   const [editingWishlist, setEditingWishlist] = useState<Wishlist | null>(null);
   const router = useRouter();
 
@@ -45,13 +48,19 @@ export default function DashboardPage() {
   };
 
   const handleDeleteWishlist = async (id: number) => {
-    if (!confirm(t('common.delete') + "?"))
-      return;
+    setWishlistToDelete(id);
+    setIsConfirmOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!wishlistToDelete) return;
     try {
-      await api.delete(`/wishlists/${id}`);
-      setWishlists((prev) => prev.filter((w) => w.id !== id));
+      await api.delete(`/wishlists/${wishlistToDelete}`);
+      setWishlists((prev) => prev.filter((w) => w.id !== wishlistToDelete));
+      setWishlistToDelete(null);
+      setIsConfirmOpen(false);
     } catch (err) {
-      console.error(`Dashboard failed to delete wishlist ${id}:`, err);
+      console.error(`Dashboard failed to delete wishlist ${wishlistToDelete}:`, err);
     }
   };
 
@@ -156,6 +165,14 @@ export default function DashboardPage() {
         }}
         initialData={editingWishlist || undefined}
         onSave={handleSaveWishList}
+      />
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={confirmDelete}
+        title={t("common.deleteConfirm")}
+        message={t("common.deleteWishlistDesc")}
       />
     </>
   );

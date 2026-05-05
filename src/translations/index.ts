@@ -19,6 +19,9 @@ export const translations = {
       forWishlisters: "for dreamers everywhere.",
       all: "All",
       learnMore: "Learn More",
+      deleteConfirm: "Are you sure?",
+      deleteWishlistDesc: "This list and all items inside will be permanently deleted. This action cannot be undone.",
+      deleteProductDesc: "This item will be permanently removed from your list.",
     },
     landing: {
       heroBadge: "The smarter way to wishlist",
@@ -92,7 +95,7 @@ export const translations = {
       noWishlists: "You don't have any wishlists yet.",
       createFirst: "Create your first wishlist!",
       categoryName: "Category Name",
-      categoryPlaceholder: "e.g. My Fashion List",
+      categoryPlaceholder: "e.g. Analog Photography",
     },
     wishlistDetail: {
       title: "Wishlist Detail",
@@ -159,6 +162,9 @@ export const translations = {
       forWishlisters: "tüm hayal kuranlar için.",
       all: "Hepsi",
       learnMore: "Daha Fazla Bilgi",
+      deleteConfirm: "Emin misiniz?",
+      deleteWishlistDesc: "Bu liste ile birlikte içindeki tüm ürünler de kalıcı olarak silinecektir. Bu işlem geri alınamaz.",
+      deleteProductDesc: "Bu ürün listenizden kalıcı olarak silinecektir.",
     },
     landing: {
       heroBadge: "Listelemenin en akıllı yolu",
@@ -232,7 +238,7 @@ export const translations = {
       noWishlists: "Henüz bir listen yok.",
       createFirst: "İlk listeni hemen oluştur!",
       categoryName: "Kategori Adı",
-      categoryPlaceholder: "Örn: Moda Listem",
+      categoryPlaceholder: "örn. Analog Fotoğrafçılık",
     },
     wishlistDetail: {
       title: "Liste Detayı",
@@ -282,7 +288,7 @@ export const translations = {
 };
 
 export type TranslationKey = 
-  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore"
+  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc"
   | "landing.heroBadge" | "landing.title1" | "landing.title2" | "landing.title3" | "landing.subtitle" | "landing.getStarted" | "landing.startFree" | "landing.readyToStart" | "landing.ctaSubtitle" | "landing.createYourWishlist" | "landing.trending" | "landing.shared"
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"

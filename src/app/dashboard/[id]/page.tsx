@@ -10,6 +10,7 @@ import styles from "../Dashboard.module.scss";
 import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiDollarSign, FiPlus } from "react-icons/fi";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
+import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface WishlistProduct {
@@ -45,6 +46,8 @@ export default function WishlistDetailPage() {
     month: "All", 
     category: "All" 
   });
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<number | null>(null);
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -87,14 +90,20 @@ export default function WishlistDetailPage() {
   };
 
   const handleDeleteProduct = async (productId: number) => {
-    if (!confirm(t('common.delete') + "?")) return;
+    setProductToDelete(productId);
+    setIsConfirmOpen(true);
+  };
 
+  const confirmDeleteProduct = async () => {
+    if (!productToDelete) return;
     try {
-      await api.delete(`/wishlists/${wishlistId}/products/${productId}`);
-      setWishlistProducts((prev) => prev.filter((p) => p.id !== productId));
+      await api.delete(`/wishlists/${wishlistId}/products/${productToDelete}`);
+      setWishlistProducts((prev) => prev.filter((p) => p.id !== productToDelete));
+      setProductToDelete(null);
+      setIsConfirmOpen(false);
     } catch (err) {
       console.error(
-        `WishlistDetail Failed to delete product ${productId}:`,
+        `WishlistDetail Failed to delete product ${productToDelete}:`,
         err
       );
     }
@@ -291,6 +300,14 @@ export default function WishlistDetailPage() {
         product={editingProduct}
         onAddProduct={handleAddProduct}
         onUpdateProduct={handleUpdateProduct}
+      />
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        onClose={() => setIsConfirmOpen(false)}
+        onConfirm={confirmDeleteProduct}
+        title={t("common.deleteConfirm")}
+        message={t("common.deleteProductDesc")}
       />
     </>
   );

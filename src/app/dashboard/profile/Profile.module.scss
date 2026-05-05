@@ -2,63 +2,63 @@ $primary-color: #38161f;
 $accent-color: #ff425d;
 
 .profileContainer {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px 2rem 4rem;
+  padding: 1.5rem 2rem 4rem; 
   animation: fadeInUp 0.6s ease both;
 }
 
-.header {
-  margin-bottom: 3rem;
+.headerSection {
+  text-align: center;
+  margin-bottom: 2.5rem;
   position: relative;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 66, 93, 0.1);
+  min-height: 80px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
-  .titleWrapper {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-  }
-
-  .iconCircle {
-    width: 54px;
-    height: 54px;
-    background: #fff0f3;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $accent-color;
-    box-shadow: 0 4px 12px rgba(255, 66, 93, 0.08);
-  }
-
-  .textGroup {
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: $primary-color;
-      margin: 0;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-    }
-
-    p {
-      color: #a09098;
-      font-size: 1rem;
-      font-weight: 400;
-      margin: 4px 0 0 0;
-    }
-  }
-
-  &::after {
-    content: '';
+  .backLink {
     position: absolute;
-    bottom: -1px;
+    top: 0;
     left: 0;
-    width: 60px;
-    height: 3px;
-    background: $accent-color;
-    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: $primary-color;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.6rem 1.2rem;
+    background: #fff;
+    border: 1px solid #f0e6e9;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(56, 22, 31, 0.05);
+
+    &:hover {
+      background: #fff0f3;
+      border-color: $accent-color;
+      color: $accent-color;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 66, 93, 0.1);
+    }
+  }
+
+  h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: $primary-color;
+    margin: 0;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  p {
+    color: #a09098;
+    font-size: 1.1rem;
+    margin: 12px 0 0 0;
+    font-weight: 500;
+    opacity: 0.8;
   }
 }
 
@@ -72,6 +72,8 @@ $accent-color: #ff425d;
   flex-direction: row;
   align-items: flex-start;
   gap: 4rem;
+  position: relative;
+  z-index: 5;
 
   @media (max-width: 768px) {
     flex-direction: column;

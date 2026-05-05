@@ -68,19 +68,16 @@ export default function ProfilePage() {
         />
       )}
       <div className={styles.profileContainer}>
-        <div className={styles.header}>
-        <div className={styles.titleWrapper}>
-          <div className={styles.iconCircle}>
-            <FiUser size={24} />
-          </div>
-          <div className={styles.textGroup}>
-            <h1>My Account</h1>
-            <p>Manage your settings and personalization</p>
-          </div>
+        <div className={styles.headerSection}>
+          <Link href="/dashboard" className={styles.backLink}>
+            <FiArrowLeft size={16} />
+            Back to Dashboard
+          </Link>
+          <h1>My Profile</h1>
+          <p>Personalize your experience and account settings</p>
         </div>
-      </div>
 
-      <div className={styles.profileCard}>
+        <div className={styles.profileCard}>
         {/* Avatar Picker Section */}
         <div className={styles.avatarSection}>
           <div className={styles.currentAvatar}>

@@ -165,7 +165,7 @@ export default function LandingPage() {
       </section>
 
       <footer className={styles.footer}>
-        <span>© 2025 WishIt. {t("common.madeWith")}</span>
+        <span>© {new Date().getFullYear()} WishIt. {t("common.madeWith")}</span>
         <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
         <span>{t("common.forWishlisters")}</span>
       </footer>

@@ -7,7 +7,8 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiDollarSign, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink } from "react-icons/fi";
+import { TbCurrencyLira } from "react-icons/tb";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
 import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
@@ -56,7 +57,6 @@ function MonthSection({ month, products, total, renderCard, isUnplanned = false 
 interface Wishlist {
   id: number;
   name: string;
-  description?: string;
   products?: any[];
   isOwner?: boolean;
   owner?: any;
@@ -200,6 +200,16 @@ export default function WishlistDetailPage() {
       tag={product.category}
       actions={
         <>
+          {product.productUrl ? (
+          <FiExternalLink
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(product.productUrl, "_blank");
+            }}
+            style={{ cursor: "pointer", marginRight: "8px", color: "#666" }}
+          />
+        ) : null}
           <FiEdit
             size={18}
             onClick={(e) => {
@@ -244,7 +254,7 @@ export default function WishlistDetailPage() {
           <div className={styles.titleGroup}>
             <h1>{wishlist?.name || t('wishlistDetail.title')}</h1>
             <div className={styles.titleMeta}>
-              <span><FiDollarSign size={12} />{totalPrice.toLocaleString('tr-TR')} TL</span>
+              <span><TbCurrencyLira size={14} style={{ marginBottom: '-2px' }} />{totalPrice.toLocaleString('tr-TR')} TL</span>
               <span className={styles.dot}>·</span>
               <span><FiTag size={12} />{filteredProducts.length} {t('common.items')}</span>
             </div>

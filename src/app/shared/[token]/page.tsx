@@ -8,7 +8,8 @@ import { api } from "@/utils/api";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import { useLanguage } from "@/context/LanguageContext";
-import { FiGrid, FiCalendar, FiChevronDown, FiDollarSign, FiTag } from "react-icons/fi";
+import { FiGrid, FiCalendar, FiChevronDown, FiTag, FiExternalLink } from "react-icons/fi";
+import { TbCurrencyLira } from "react-icons/tb";
 
 interface WishlistProduct {
   id: number;
@@ -82,13 +83,7 @@ export default function SharedWishlistPage() {
     category: "All" 
   });
 
-  useEffect(() => {
-    if (token) {
-      loadSharedWishlist();
-    }
-  }, [token]);
-
-  const loadSharedWishlist = async () => {
+  const loadSharedWishlist = React.useCallback(async () => {
     setLoading(true);
     try {
       const data: any = await api.get(`/wishlists/shared/${token}`);
@@ -99,7 +94,13 @@ export default function SharedWishlistPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token, t]);
+
+  useEffect(() => {
+    if (token) {
+      loadSharedWishlist();
+    }
+  }, [token, loadSharedWishlist]);
 
   const filteredProducts = useMemo(() => {
     if (!wishlist) return [];
@@ -135,6 +136,18 @@ export default function SharedWishlistPage() {
       subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
       imageUrl={product.imageUrl}
       tag={product.category}
+      actions={
+        product.url ? (
+          <FiExternalLink
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(product.url, "_blank");
+            }}
+            style={{ cursor: "pointer", color: "#666" }}
+          />
+        ) : null
+      }
     />
   );
 
@@ -148,7 +161,7 @@ export default function SharedWishlistPage() {
           <div className={styles.titleGroup}>
             <h1>{wishlist.name}</h1>
             <div className={styles.titleMeta}>
-              <span><FiDollarSign size={12} />{totalPrice.toLocaleString('tr-TR')} TL</span>
+              <span><TbCurrencyLira size={14} style={{ marginBottom: '-2px' }} />{totalPrice.toLocaleString('tr-TR')} TL</span>
               <span className={styles.dot}>·</span>
               <span><FiTag size={12} />{filteredProducts.length} {t('common.items')}</span>
             </div>

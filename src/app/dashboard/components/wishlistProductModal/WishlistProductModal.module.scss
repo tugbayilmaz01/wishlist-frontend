@@ -271,7 +271,11 @@
     color: #1a1816;
     width: 100%;
     appearance: none;
-    cursor: pointer;
+    cursor: text;
+
+    &.selectInput {
+      cursor: pointer;
+    }
 
     &::placeholder {
       color: #c0a0b0;

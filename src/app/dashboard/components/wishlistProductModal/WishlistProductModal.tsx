@@ -8,14 +8,14 @@ import Select from "@/components/Select/Select";
 import { api } from "@/utils/api";
 import { useLanguage } from "@/context/LanguageContext";
 
-interface Product {
+interface WishlistProduct {
   id: number;
   name: string;
   price: number;
-  url?: string;
+  productUrl?: string;
   imageUrl?: string;
-  category?: string;
   plannedMonth?: string;
+  category?: string;
 }
 
 interface WishlistProductModalProps {
@@ -53,7 +53,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
     if (product) {
       setName(product.name || "");
       setPrice(product.price?.toString() || "");
-      setUrl(product.url || "");
+      setUrl(product.productUrl || "");
       setImageUrl(product.imageUrl || "");
       setCategory(product.category || "");
       setPlannedMonth(product.plannedMonth || "");
@@ -93,7 +93,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
         id: isEditMode ? product.id : 0,
         name,
         price: parseFloat(price) || 0,
-        url,
+        productUrl: url,
         imageUrl,
         category,
         plannedMonth: plannedMonth || null,

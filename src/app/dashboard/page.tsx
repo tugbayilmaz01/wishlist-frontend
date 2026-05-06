@@ -16,7 +16,6 @@ import { useUser } from "@/context/UserContext";
 interface Wishlist {
   id: number;
   name: string;
-  description?: string;
   products?: any[];
   isOwner?: boolean;
   owner?: any;
@@ -76,12 +75,10 @@ export default function DashboardPage() {
         await api.put(`/wishlists/${data.id}`, {
           id: data.id,
           name: data.name,
-          description: "",
         });
       } else {
         await api.post("/wishlists", {
           name: data.name,
-          description: "",
         });
       }
 

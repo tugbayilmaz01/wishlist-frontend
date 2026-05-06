@@ -12,7 +12,7 @@ import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
 import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
 import { useLanguage } from "@/context/LanguageContext";
-import CollaboratorModal from "../components/collaboratorModal/CollaboratorModal";
+import CollaboratorModal from "@/app/dashboard/components/collaboratorModal/CollaboratorModal";
 import { FiUsers } from "react-icons/fi";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 

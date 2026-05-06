@@ -22,6 +22,9 @@ export const translations = {
       deleteConfirm: "Are you sure?",
       deleteWishlistDesc: "This list and all items inside will be permanently deleted. This action cannot be undone.",
       deleteProductDesc: "This item will be permanently removed from your list.",
+      shared: "Shared",
+      invite: "Invite",
+      remove: "Remove",
     },
     landing: {
       heroBadge: "The smarter way to wishlist",
@@ -62,13 +65,14 @@ export const translations = {
       features: {
         categories: { title: "Categorize Your World", desc: "Create lists for every aesthetic, occasion, or obsession. Your space, your rules." },
         planning: { title: "Master Your Budget", desc: "Plan your shopping by month and keep your bank account happy while staying iconic." },
-        share: { title: "The Art of Sharing", desc: "Send subtle hints (or direct links) so your friends finally get the gift you actually want." },
+        share: { title: "Co-Curate with Friends", desc: "Invite others to your wishlist to plan events, share home needs, or build the ultimate collective gift list." },
         trending: { title: "Community Vibes", desc: "Discover what's trending and find inspiration from a community that shares your style." }
       }
     },
     auth: {
       welcomeBack: "Welcome back!",
       joinTitle: "Join WishIt",
+      email: "Email",
       emailPlaceholder: "Email address",
       passwordPlaceholder: "Password",
       signIn: "Sign In",
@@ -132,7 +136,18 @@ export const translations = {
         beauty: "Beauty",
         gift: "Gift",
         other: "Other"
-      }
+      },
+      inviteTitle: "Invite Collaborators",
+      inviteDesc: "Share this wishlist with friends and shop together! ✨",
+      currentCollaborators: "Current Collaborators",
+      noCollaborators: "No collaborators yet.",
+      collaborators: "Collaborators",
+      noMonthsAssigned: "No months assigned yet",
+      assignMonthDesc: "Edit your products and assign a planned month to see them organized here.",
+      backToList: "Back to list view",
+      unplanned: "Unplanned",
+      backToDashboard: "Back to Dashboard",
+      owner: "Owner",
     },
     profile: {
       title: "Profile Settings",
@@ -165,6 +180,9 @@ export const translations = {
       deleteConfirm: "Emin misiniz?",
       deleteWishlistDesc: "Bu liste ile birlikte içindeki tüm ürünler de kalıcı olarak silinecektir. Bu işlem geri alınamaz.",
       deleteProductDesc: "Bu ürün listenizden kalıcı olarak silinecektir.",
+      shared: "Paylaşılan",
+      invite: "Davet Et",
+      remove: "Kaldır",
     },
     landing: {
       heroBadge: "Listelemenin en akıllı yolu",
@@ -205,13 +223,14 @@ export const translations = {
       features: {
         categories: { title: "Dünyanı Kategorize Et", desc: "Her estetiğe, duruma veya tutkuya özel listeler oluştur. Senin alanın, senin kuralların." },
         planning: { title: "Bütçenin Mimarı Ol", desc: "Alışverişini aylara göre planla, ikonik tarzını korurken banka hesabını da mutlu et." },
-        share: { title: "Paylaşmanın İnceliği", desc: "Arkadaşlarına zarif ipuçları gönder, sonunda gerçekten istediğin hediyeye kavuş." },
+        share: { title: "Birlikte Liste Oluştur", desc: "Arkadaşlarını listene davet et; etkinlikleri planla, ev ihtiyaçlarını paylaş veya ortak bir hediye listesi oluştur." },
         trending: { title: "Topluluk Ruhu", desc: "Nelerin trend olduğunu keşfet ve senin tarzını paylaşan bir topluluktan ilham al." }
       }
     },
     auth: {
       welcomeBack: "Tekrar hoş geldin!",
       joinTitle: "WishIt'e Katıl",
+      email: "E-posta",
       emailPlaceholder: "E-posta adresi",
       passwordPlaceholder: "Şifre",
       signIn: "Giriş Yap",
@@ -275,7 +294,18 @@ export const translations = {
         beauty: "Kozmetik",
         gift: "Hediye",
         other: "Diğer"
-      }
+      },
+      inviteTitle: "Ortak Davet Et",
+      inviteDesc: "Bu listeyi arkadaşlarınla paylaş ve birlikte alışveriş yap! ✨",
+      currentCollaborators: "Mevcut Ortaklar",
+      noCollaborators: "Henüz ortak yok.",
+      collaborators: "Ortaklar",
+      noMonthsAssigned: "Henüz ay bilgisi eklenmedi",
+      assignMonthDesc: "Ürünlerinize planlanan ay ekleyerek burada düzenli görüntüleyin.",
+      backToList: "Liste görünümüne dön",
+      unplanned: "Planlanmamış",
+      backToDashboard: "Dashboard'a Dön",
+      owner: "Sahibi",
     },
     profile: {
       title: "Profil Ayarları",
@@ -288,13 +318,14 @@ export const translations = {
 };
 
 export type TranslationKey = 
-  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc"
+  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc" | "common.shared" | "common.invite" | "common.remove"
   | "landing.heroBadge" | "landing.title1" | "landing.title2" | "landing.title3" | "landing.subtitle" | "landing.getStarted" | "landing.startFree" | "landing.readyToStart" | "landing.ctaSubtitle" | "landing.createYourWishlist" | "landing.trending" | "landing.shared"
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
   | "landing.story3.tagline" | "landing.story3.title1" | "landing.story3.title2" | "landing.story3.desc"
-  | "auth.welcomeBack" | "auth.joinTitle" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields" | "auth.orContinueWith" | "auth.continueWithGoogle"
+  | "auth.welcomeBack" | "auth.joinTitle" | "auth.email" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields" | "auth.orContinueWith" | "auth.continueWithGoogle"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
   | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
-  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder"
+  | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
+  | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"
   | "profile.title" | "profile.name" | "profile.email" | "profile.update" | "profile.success";

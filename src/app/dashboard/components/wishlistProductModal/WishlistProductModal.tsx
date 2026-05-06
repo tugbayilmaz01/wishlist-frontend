@@ -9,12 +9,12 @@ import { api } from "@/utils/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface Product {
-  id: string;
+  id: number;
   name: string;
   price: number;
-  url: string;
-  imageUrl: string;
-  category: string;
+  url?: string;
+  imageUrl?: string;
+  category?: string;
   plannedMonth?: string;
 }
 

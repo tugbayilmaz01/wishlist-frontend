@@ -24,7 +24,7 @@ interface WishlistProductModalProps {
   onAddProduct: (product: any) => void;
   onUpdateProduct: (product: any) => void;
   wishlistId: number;
-  product?: Product;
+  product?: WishlistProduct;
 }
 
 const WishlistProductModal: React.FC<WishlistProductModalProps> = ({

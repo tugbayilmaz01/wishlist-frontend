@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { api } from "@/utils/api";
 import Button from "@/components/Button/Button";
@@ -12,6 +12,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 export default function LoginPage() {
   const { t } = useLanguage();
@@ -134,7 +135,10 @@ export default function LoginPage() {
     }
   };
 
-  if (!mounted) return null;
+  if (!mounted || status === "loading") return <div className={styles.wrapper}><LoadingSpinner /></div>;
+
+  
+  if (status === "authenticated" && !alertMessage) return <div className={styles.wrapper}><LoadingSpinner /></div>;
 
   return (
     <div className={styles.wrapper}>

@@ -1,21 +1,21 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Card from "@/components/Card/Card";
 import styles from "@/app/dashboard/Dashboard.module.scss";
 import { api } from "@/utils/api";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import { useLanguage } from "@/context/LanguageContext";
-import { FiGrid, FiCalendar, FiChevronDown, FiTag, FiExternalLink } from "react-icons/fi";
+import { FiGrid, FiCalendar, FiChevronDown, FiTag, FiExternalLink, FiUser } from "react-icons/fi";
 import { TbCurrencyLira } from "react-icons/tb";
 
 interface WishlistProduct {
   id: number;
   name: string;
   price: number;
-  description?: string;
+  productUrl?: string;
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
@@ -24,8 +24,9 @@ interface WishlistProduct {
 interface Wishlist {
   id: number;
   name: string;
-  description: string;
   products: WishlistProduct[];
+  owner?: any;
+  collaborators?: any[];
 }
 
 const months = [
@@ -137,12 +138,12 @@ export default function SharedWishlistPage() {
       imageUrl={product.imageUrl}
       tag={product.category}
       actions={
-        product.url ? (
+        product.productUrl ? (
           <FiExternalLink
             size={18}
             onClick={(e) => {
               e.stopPropagation();
-              window.open(product.url, "_blank");
+              window.open(product.productUrl, "_blank");
             }}
             style={{ cursor: "pointer", color: "#666" }}
           />
@@ -165,6 +166,27 @@ export default function SharedWishlistPage() {
               <span className={styles.dot}>·</span>
               <span><FiTag size={12} />{filteredProducts.length} {t('common.items')}</span>
             </div>
+          </div>
+        </div>
+        <div className={styles.actionArea}>
+          <div className={styles.avatarStack}>
+            {wishlist.owner && (
+              <div className={`${styles.avatar} ${styles.ownerAvatar}`} title={wishlist.owner.name || wishlist.owner.email}>
+                {wishlist.owner.avatar
+                  ? <img src={wishlist.owner.avatar} alt="" />
+                  : (wishlist.owner.name ? <span>{wishlist.owner.name[0].toUpperCase()}</span> : <FiUser size={16} />)
+                }
+                <div className={styles.ownerBadge}>★</div>
+              </div>
+            )}
+            {wishlist.collaborators?.map((c: any, i: number) => (
+              <div key={i} className={styles.avatar} title={c.name || c.email}>
+                {c.avatar
+                  ? <img src={c.avatar} alt="" />
+                  : (c.name ? <span>{c.name[0].toUpperCase()}</span> : <FiUser size={16} />)
+                }
+              </div>
+            ))}
           </div>
         </div>
       </div>

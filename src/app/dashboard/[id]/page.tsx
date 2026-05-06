@@ -7,7 +7,7 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink, FiUser } from "react-icons/fi";
 import { TbCurrencyLira } from "react-icons/tb";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
@@ -67,7 +67,7 @@ interface WishlistProduct {
   id: number;
   name: string;
   price: number;
-  url?: string;
+  productUrl?: string;
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
@@ -272,7 +272,7 @@ export default function WishlistDetailPage() {
                 >
                   {wishlist.owner.avatar
                     ? <img src={wishlist.owner.avatar} alt="" />
-                    : <span>{wishlist.owner.name?.[0]?.toUpperCase() || "?"}</span>
+                    : (wishlist.owner.name ? <span>{wishlist.owner.name[0].toUpperCase()}</span> : <FiUser size={16} />)
                   }
                   <div className={styles.ownerBadge}>★</div>
                 </div>
@@ -281,7 +281,7 @@ export default function WishlistDetailPage() {
                 <div key={i} className={styles.avatar} title={c.name || c.email}>
                   {c.avatar
                     ? <img src={c.avatar} alt="" />
-                    : <span>{c.name?.[0]?.toUpperCase() || "?"}</span>
+                    : (c.name ? <span>{c.name[0].toUpperCase()}</span> : <FiUser size={16} />)
                   }
                 </div>
               ))}

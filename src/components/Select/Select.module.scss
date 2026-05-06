@@ -7,8 +7,8 @@
 
 .selected {
   border: 1.5px solid #e8d0d8;
-  border-radius: 14px;
-  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  padding: 0.45rem 0.85rem;
   cursor: pointer;
   background-color: #fafaf9;
   display: flex;
@@ -16,7 +16,8 @@
   align-items: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #1a1816;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 600;
 
   &:hover {
     border-color: rgba(255, 66, 93, 0.3);
@@ -32,7 +33,7 @@
 
 .arrow {
   color: #ff425d;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   &.open {
     transform: rotate(180deg);
@@ -58,10 +59,10 @@
 }
 
 .options li {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.85rem;
   cursor: pointer;
-  border-radius: 10px;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
   font-weight: 500;
   color: #6d5d66;
   transition: all 0.2s ease;

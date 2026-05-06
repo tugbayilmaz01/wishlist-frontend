@@ -11,6 +11,7 @@ import {
   FiTrendingUp,
   FiCalendar,
   FiFolder,
+  FiUsers,
 } from "react-icons/fi";
 import styles from "./LandingPage.module.scss";
 import { useLanguage } from "../../context/LanguageContext";
@@ -35,7 +36,7 @@ export default function LandingPage() {
     {
       title: t("landing.features.share.title"),
       description: t("landing.features.share.desc"),
-      icon: <FiShare2 />,
+      icon: <FiUsers />,
     },
     {
       title: t("landing.features.trending.title"),

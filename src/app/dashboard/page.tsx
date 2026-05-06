@@ -18,6 +18,9 @@ interface Wishlist {
   name: string;
   description?: string;
   products?: any[];
+  isOwner?: boolean;
+  owner?: any;
+  collaborators?: any[];
 }
 
 export default function DashboardPage() {
@@ -131,28 +134,49 @@ export default function DashboardPage() {
               title={wishlist.name}
               subtitle={`${wishlist.products?.length || 0} ${t('common.items')}`}
               icon={<FiHeart size={32} />}
+              tag={wishlist.isOwner === false ? t('common.shared') : undefined}
               onClick={() => router.push(`/dashboard/${wishlist.id}`)}
               actions={
-                <>
-                  <FiEdit
-                    size={18}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openEditModal(wishlist);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  />
-                  <FiTrash2
-                    size={18}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteWishlist(wishlist.id);
-                    }}
-                    style={{ cursor: "pointer", color: "#FF425D" }}
-                  />
-                </>
+                wishlist.isOwner ? (
+                  <>
+                    <FiEdit
+                      size={18}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditModal(wishlist);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    />
+                    <FiTrash2
+                      size={18}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteWishlist(wishlist.id);
+                      }}
+                      style={{ cursor: "pointer", color: "#FF425D" }}
+                    />
+                  </>
+                ) : null
               }
-            />
+            >
+              {(wishlist.owner || (wishlist.collaborators && wishlist.collaborators.length > 0)) && (
+                <div className={styles.collaboratorAvatars}>
+                  {wishlist.owner && (
+                    <div className={`${styles.miniAvatar} ${styles.ownerAvatar}`} title={`${t('wishlistDetail.owner')}: ${wishlist.owner.name || wishlist.owner.email}`}>
+                      {wishlist.owner.avatar ? <img src={wishlist.owner.avatar} alt="" /> : (wishlist.owner.name?.[0] || "O")}
+                    </div>
+                  )}
+                  {wishlist.collaborators?.slice(0, 2).map((c, i) => (
+                    <div key={i} className={styles.miniAvatar} title={c.name || c.email}>
+                      {c.avatar ? <img src={c.avatar} alt="" /> : (c.name?.[0] || "U")}
+                    </div>
+                  ))}
+                  {wishlist.collaborators && wishlist.collaborators.length > 2 && (
+                    <div className={styles.moreCount}>+{wishlist.collaborators.length - 2}</div>
+                  )}
+                </div>
+              )}
+            </Card>
           ))}
         </div>
       )}

@@ -27,6 +27,19 @@ export default function Card({
   actions,
   index,
 }: CardProps) {
+  const starPatches = [
+    "/assets/star-patch-polka.png",
+    "/assets/star-patch-pink.png",
+    "/assets/star-patch-red.png",
+    "/assets/star-patch-denim.png",
+    "/assets/star-patch-extra-1.png",
+    "/assets/star-patch-extra-2.png",
+    "/assets/star-patch-extra-3.png",
+    "/assets/star-patch-extra-4.png",
+    "/assets/star-patch-extra-5.png",
+  ];
+
+  const starIndex = (index !== undefined ? index : (title ? title.length : 0)) % starPatches.length;
   const imagePath = imageUrl
     ? imageUrl.startsWith("http") ? imageUrl : `/assets${imageUrl}`
     : null;
@@ -44,14 +57,9 @@ export default function Card({
             }}
           />
         ) : (
-          <div className={styles.cardImagePlaceholder} data-style={index !== undefined ? index % 4 : (title ? (title.length % 4) : 0)}>
+          <div className={styles.cardImagePlaceholder} data-style={starIndex % 4}>
             <img 
-              src={
-                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 0 ? "/assets/star-patch-polka.png" : 
-                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 1 ? "/assets/star-patch-pink.png" : 
-                (index !== undefined ? index : (title ? title.length : 0)) % 4 === 2 ? "/assets/star-patch-red.png" : 
-                "/assets/star-patch-denim.png"
-              } 
+              src={starPatches[starIndex]} 
               alt="Star Patch"
               className={styles.starImage}
             />

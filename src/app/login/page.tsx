@@ -38,13 +38,7 @@ export default function LoginPage() {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (status === "authenticated" && session?.idToken) {
-      handleSocialLogin(session.idToken);
-    }
-  }, [status, session]);
-
-  const handleSocialLogin = async (idToken: string) => {
+  const handleSocialLogin = React.useCallback(async (idToken: string) => {
     try {
       const data = await api.post("/users/social-login", {
         token: idToken,
@@ -61,7 +55,13 @@ export default function LoginPage() {
         signOut({ redirect: false });
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.idToken) {
+      handleSocialLogin(session.idToken);
+    }
+  }, [status, session, handleSocialLogin]);
 
   const handleLogin = async () => {
     if (!loginEmail || !loginPassword) {

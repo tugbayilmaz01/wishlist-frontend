@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Navbar from "@/components/Navbar/Navbar";
@@ -14,13 +14,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const [isAuthed, setIsAuthed] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
+    } else {
+      setIsAuthed(true);
     }
   }, [router]);
+
+  if (!isAuthed) return null;
 
   return (
     <UserProvider>

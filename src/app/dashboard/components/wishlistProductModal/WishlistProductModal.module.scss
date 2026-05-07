@@ -257,6 +257,38 @@
     grid-column: span 2;
   }
 
+  .checkboxLabel {
+    grid-column: span 2;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    cursor: pointer;
+    background: #fffafa;
+    padding: 12px 18px;
+    border-radius: 16px;
+    border: 1.5px dashed #ffd0d9;
+    transition: all 0.2s;
+
+    input {
+      width: 20px !important;
+      height: 20px !important;
+      margin: 0;
+      cursor: pointer;
+      accent-color: #ff425d;
+    }
+
+    span {
+      color: #38161f;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background: #fff0f3;
+      border-color: #ff425d;
+    }
+  }
+
   input,
   textarea,
   .selectInput {

@@ -7,7 +7,7 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink, FiUser } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink, FiUser, FiCheckCircle, FiShoppingBag } from "react-icons/fi";
 import { TbCurrencyLira } from "react-icons/tb";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
@@ -71,6 +71,7 @@ interface WishlistProduct {
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
+  isPurchased?: boolean;
 }
 
 const months = [
@@ -97,9 +98,10 @@ export default function WishlistDetailPage() {
   const [wishlist, setWishlist] = useState<any>(null);
 
   const [view, setView] = useState<"list" | "month">("list");
-  const [filters, setFilters] = useState<{ month: string; category: string }>({ 
+  const [filters, setFilters] = useState<{ month: string; category: string; status: string }>({ 
     month: "All", 
-    category: "All" 
+    category: "All",
+    status: "All"
   });
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isCollaboratorModalOpen, setIsCollaboratorModalOpen] = useState(false);
@@ -171,7 +173,10 @@ export default function WishlistDetailPage() {
     return wishlistProducts.filter(
       (p) => 
         (filters.month === "All" || p.plannedMonth === filters.month) &&
-        (filters.category === "All" || p.category === filters.category)
+        (filters.category === "All" || p.category === filters.category) &&
+        (filters.status === "All" || 
+          (filters.status === "Purchased" && p.isPurchased) || 
+          (filters.status === "Wishlist" && !p.isPurchased))
     );
   }, [wishlistProducts, filters]);
 
@@ -191,6 +196,19 @@ export default function WishlistDetailPage() {
     return wishlistProducts.reduce((sum, p) => sum + (p.price || 0), 0);
   }, [wishlistProducts]);
 
+  const togglePurchased = async (product: WishlistProduct) => {
+    try {
+      const updatedStatus = !product.isPurchased;
+      const response: any = await api.put(`/wishlists/${wishlistId}/products/${product.id}`, {
+        ...product,
+        isPurchased: updatedStatus
+      });
+      handleUpdateProduct(response);
+    } catch (err) {
+      console.error("Failed to toggle purchased status:", err);
+    }
+  };
+
   const renderProductCard = (product: WishlistProduct) => (
     <Card
       key={product.id}
@@ -198,8 +216,25 @@ export default function WishlistDetailPage() {
       subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
       imageUrl={product.imageUrl}
       tag={product.category}
+      isPurchased={product.isPurchased}
       actions={
         <>
+          <div 
+            onClick={(e) => {
+              e.stopPropagation();
+              togglePurchased(product);
+            }}
+            style={{ 
+              cursor: "pointer", 
+              marginRight: "8px", 
+              color: product.isPurchased ? "#27ae60" : "#9d8a94",
+              display: "flex",
+              alignItems: "center"
+            }}
+            title={product.isPurchased ? t("wishlistDetail.unmarkAsPurchased") : t("wishlistDetail.markAsPurchased")}
+          >
+            <FiShoppingBag size={18} />
+          </div>
           {product.productUrl ? (
           <FiExternalLink
             size={18}
@@ -341,10 +376,11 @@ export default function WishlistDetailPage() {
               filters={filters}
               options={{ 
                 ...(view !== "month" && { month: monthOptions }),
-                category: categoryOptions
+                category: categoryOptions,
+                status: ["Wishlist", "Purchased"]
               }}
               onChange={(newFilters) =>
-                setFilters((prev) => ({ ...prev, ...newFilters }))
+                setFilters((prev) => ({ ...prev, ...newFilters as any }))
               }
             />
           </div>

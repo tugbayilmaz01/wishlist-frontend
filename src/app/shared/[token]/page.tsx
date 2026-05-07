@@ -19,6 +19,7 @@ interface WishlistProduct {
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
+  isPurchased?: boolean;
 }
 
 interface Wishlist {
@@ -79,9 +80,10 @@ export default function SharedWishlistPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [view, setView] = useState<"list" | "month">("list");
-  const [filters, setFilters] = useState<{ month: string; category: string }>({ 
+  const [filters, setFilters] = useState<{ month: string; category: string; status: string }>({ 
     month: "All", 
-    category: "All" 
+    category: "All",
+    status: "All"
   });
 
   const loadSharedWishlist = React.useCallback(async () => {
@@ -108,7 +110,10 @@ export default function SharedWishlistPage() {
     return (wishlist.products || []).filter(
       (p) => 
         (filters.month === "All" || p.plannedMonth === filters.month) &&
-        (filters.category === "All" || p.category === filters.category)
+        (filters.category === "All" || p.category === filters.category) &&
+        (filters.status === "All" || 
+          (filters.status === "Purchased" && p.isPurchased) || 
+          (filters.status === "Wishlist" && !p.isPurchased))
     );
   }, [wishlist, filters]);
 
@@ -137,6 +142,7 @@ export default function SharedWishlistPage() {
       subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
       imageUrl={product.imageUrl}
       tag={product.category}
+      isPurchased={product.isPurchased}
       actions={
         product.productUrl ? (
           <FiExternalLink
@@ -214,10 +220,11 @@ export default function SharedWishlistPage() {
             filters={filters}
             options={{ 
               ...(view !== "month" && { month: monthOptions }),
-              category: categoryOptions
+              category: categoryOptions,
+              status: ["Wishlist", "Purchased"]
             }}
             onChange={(newFilters) =>
-              setFilters((prev) => ({ ...prev, ...newFilters }))
+              setFilters((prev) => ({ ...prev, ...newFilters as any }))
             }
           />
         </div>

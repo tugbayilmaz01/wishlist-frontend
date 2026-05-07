@@ -159,6 +159,13 @@ export const translations = {
       unplanned: "Unplanned",
       backToDashboard: "Back to Dashboard",
       owner: "Owner",
+      filterStatus: {
+        all: "All Items",
+        wishlist: "Wishlist Only",
+        purchased: "Purchased Only"
+      },
+      markAsPurchased: "I've purchased this item",
+      unmarkAsPurchased: "Move back to wishlist"
     },
     profile: {
       back: "Back to Dashboard",
@@ -334,6 +341,13 @@ export const translations = {
       unplanned: "Planlanmamış",
       backToDashboard: "Dashboard'a Dön",
       owner: "Sahibi",
+      filterStatus: {
+        all: "Hepsi",
+        wishlist: "Henüz Alınmayanlar",
+        purchased: "Satın Alınanlar"
+      },
+      markAsPurchased: "Bu ürünü satın aldım",
+      unmarkAsPurchased: "Dilek listesine geri taşı"
     },
     profile: {
       back: "Dashboard'a Dön",
@@ -363,4 +377,6 @@ export type TranslationKey =
   | "dashboard.onboarding.title" | "dashboard.onboarding.subtitle" | "dashboard.onboarding.cta" | "dashboard.onboarding.step1Title" | "dashboard.onboarding.step1Desc" | "dashboard.onboarding.step2Title" | "dashboard.onboarding.step2Desc" | "dashboard.onboarding.step3Title" | "dashboard.onboarding.step3Desc"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
   | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"
+  | "wishlistDetail.filterStatus.all" | "wishlistDetail.filterStatus.wishlist" | "wishlistDetail.filterStatus.purchased"
+  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased"
   | "profile.back" | "profile.title" | "profile.subtitle" | "profile.displayName" | "profile.email" | "profile.emailDisabled" | "profile.save" | "profile.saving" | "profile.success" | "profile.error" | "profile.placeholderName";

@@ -41,7 +41,7 @@ export default function LoadingSpinner({
           </svg>
         </div>
 
-        {showText && <p className={styles.text}>Loading...</p>}
+
       </div>
     </div>
   );

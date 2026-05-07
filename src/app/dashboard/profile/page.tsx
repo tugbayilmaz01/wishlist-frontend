@@ -6,6 +6,7 @@ import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
 import { api } from "@/utils/api";
 import { useUser } from "@/context/UserContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { FiUser, FiArrowLeft } from "react-icons/fi";
 import Link from "next/link";
 
@@ -22,9 +23,10 @@ const AVATARS = [
 
 export default function ProfilePage() {
   const { user, refreshUser } = useUser();
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [selectedAvatar, setSelectedAvatar] = useState(AVATARS[0]);
+  const [selectedAvatar, setSelectedAvatar] = useState("");
   
   const [isSaving, setIsSaving] = useState(false);
   const [alertInfo, setAlertInfo] = useState<{ message: string; type: "success" | "error" } | null>(null);
@@ -33,7 +35,7 @@ export default function ProfilePage() {
     if (user) {
       setEmail(user.email || "");
       setName(user.name || "");
-      setSelectedAvatar(user.avatar || AVATARS[0]);
+      setSelectedAvatar(user.avatar || "");
     }
   }, [user]);
 
@@ -48,10 +50,10 @@ export default function ProfilePage() {
       });
       
       await refreshUser();
-      setAlertInfo({ message: "Profile updated successfully! ✨", type: "success" });
+      setAlertInfo({ message: t('profile.success'), type: "success" });
     } catch (err) {
       console.error("Failed to update profile:", err);
-      setAlertInfo({ message: "Failed to save profile.", type: "error" });
+      setAlertInfo({ message: t('profile.error'), type: "error" });
     } finally {
       setIsSaving(false);
       setTimeout(() => setAlertInfo(null), 3000);
@@ -71,17 +73,23 @@ export default function ProfilePage() {
         <div className={styles.headerSection}>
           <Link href="/dashboard" className={styles.backLink}>
             <FiArrowLeft size={16} />
-            Back to Dashboard
+            {t('profile.back')}
           </Link>
-          <h1>My Profile</h1>
-          <p>Personalize your experience and account settings</p>
+          <h1>{t('profile.title')}</h1>
+          <p>{t('profile.subtitle')}</p>
         </div>
 
         <div className={styles.profileCard}>
         {/* Avatar Picker Section */}
         <div className={styles.avatarSection}>
           <div className={styles.currentAvatar}>
-            <img src={selectedAvatar} alt="Current avatar" />
+            {selectedAvatar ? (
+              <img src={selectedAvatar} alt="Current avatar" />
+            ) : (
+              <div className={styles.avatarPlaceholder}>
+                <FiUser size={40} />
+              </div>
+            )}
           </div>
           <div className={styles.avatarOptions}>
             {AVATARS.map((avatar, idx) => (
@@ -100,29 +108,29 @@ export default function ProfilePage() {
         {/* User Details Form */}
         <form className={styles.formSection} onSubmit={handleSave}>
           <div className={styles.formGroup}>
-            <label>Display Name</label>
+            <label>{t('profile.displayName')}</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Alex"
+              placeholder={t('profile.placeholderName')}
               required
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label>Email Address</label>
+            <label>{t('profile.email')}</label>
             <input
               type="email"
               value={email}
               disabled
-              title="Email cannot be changed"
+              title={t('profile.emailDisabled')}
             />
           </div>
 
           <div className={styles.actions}>
             <Button variant="primary" loading={isSaving}>
-              {isSaving ? "Saving..." : "Save Changes"}
+              {isSaving ? t('profile.saving') : t('profile.save')}
             </Button>
           </div>
         </form>

@@ -17,7 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
   width: 100%;
   gap: 1.5rem;
 
@@ -75,6 +76,73 @@
       letter-spacing: 0;
       opacity: 0.7;
       line-height: 1.4;
+    }
+  }
+
+  .titleArea {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+
+    .backBtn {
+      background: #ffffff;
+      border: 1px solid #f0e6e9;
+      color: #a09098;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(56, 22, 31, 0.05);
+
+      &:hover {
+        color: #ff425d;
+        background: #fff0f3;
+        transform: translateX(-3px);
+        border-color: rgba(255, 66, 93, 0.2);
+        box-shadow: 0 6px 20px rgba(255, 66, 93, 0.1);
+      }
+    }
+
+    .titleGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: #38161f;
+        margin: 0;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .titleMeta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #6d5d66;
+        margin-top: 0.25rem;
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          line-height: 1;
+        }
+
+        .dot {
+          color: #e0d0d8;
+          font-weight: 900;
+          margin: 0 0.1rem;
+        }
+      }
     }
   }
 
@@ -195,7 +263,7 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid #fdfaf7;
 
   .viewToggle {
@@ -668,6 +736,50 @@
     color: #b0929a;
     margin-left: 0.5rem;
   }
+}
+
+.wishlistCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  .progressHeader {
+    display: flex;
+    justify-content: flex-end;
+    
+    span {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #ff425d;
+      background: #fff0f3;
+      padding: 2px 6px;
+      border-radius: 6px;
+      letter-spacing: -0.02em;
+    }
+  }
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: #fdfaf7;
+  border-radius: 100px;
+  overflow: hidden;
+  border: 1px solid #f0e6e9;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff425d, #ff8a9a);
+  border-radius: 100px;
+  transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .sharedPage {

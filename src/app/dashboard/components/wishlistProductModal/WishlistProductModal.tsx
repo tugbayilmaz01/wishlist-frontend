@@ -16,6 +16,7 @@ interface WishlistProduct {
   imageUrl?: string;
   plannedMonth?: string;
   category?: string;
+  isPurchased?: boolean;
 }
 
 interface WishlistProductModalProps {
@@ -44,6 +45,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   const [imageUrl, setImageUrl] = useState("");
   const [category, setCategory] = useState("");
   const [plannedMonth, setPlannedMonth] = useState("");
+  const [isPurchased, setIsPurchased] = useState(false);
   
   const [scrapeUrl, setScrapeUrl] = useState("");
   const [scraping, setScraping] = useState(false);
@@ -57,6 +59,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
       setImageUrl(product.imageUrl || "");
       setCategory(product.category || "");
       setPlannedMonth(product.plannedMonth || "");
+      setIsPurchased(product.isPurchased || false);
     } else {
       setName("");
       setPrice("");
@@ -64,6 +67,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
       setImageUrl("");
       setCategory("");
       setPlannedMonth("");
+      setIsPurchased(false);
       setScrapeUrl("");
     }
   }, [product, isOpen]);
@@ -97,6 +101,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
         imageUrl,
         category,
         plannedMonth: plannedMonth || null,
+        isPurchased,
         wishlistId,
       };
 
@@ -222,6 +227,15 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="https://..."
                 />
+              </label>
+
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  checked={isPurchased}
+                  onChange={(e) => setIsPurchased(e.target.checked)}
+                />
+                <span>{t("wishlistDetail.markAsPurchased")}</span>
               </label>
 
               <div className={styles.actions}>

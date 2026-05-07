@@ -193,23 +193,39 @@ export default function DashboardPage() {
                 ) : null
               }
             >
-              {(wishlist.owner || (wishlist.collaborators && wishlist.collaborators.length > 0)) && (
-                <div className={styles.collaboratorAvatars}>
-                  {wishlist.owner && (
-                    <div className={`${styles.miniAvatar} ${styles.ownerAvatar}`} title={`${t('wishlistDetail.owner')}: ${wishlist.owner.name || wishlist.owner.email}`}>
-                      {wishlist.owner.avatar ? <img src={wishlist.owner.avatar} alt="" /> : (wishlist.owner.name?.[0] || "O")}
+              <div className={styles.wishlistCardContent}>
+                {(wishlist.owner || (wishlist.collaborators && wishlist.collaborators.length > 0)) && (
+                  <div className={styles.collaboratorAvatars}>
+                    {wishlist.owner && (
+                      <div className={`${styles.miniAvatar} ${styles.ownerAvatar}`} title={`${t('wishlistDetail.owner')}: ${wishlist.owner.name || wishlist.owner.email}`}>
+                        {wishlist.owner.avatar ? <img src={wishlist.owner.avatar} alt="" /> : (wishlist.owner.name?.[0] || "O")}
+                      </div>
+                    )}
+                    {wishlist.collaborators?.slice(0, 2).map((c, i) => (
+                      <div key={i} className={styles.miniAvatar} title={c.name || c.email}>
+                        {c.avatar ? <img src={c.avatar} alt="" /> : (c.name?.[0] || "U")}
+                      </div>
+                    ))}
+                    {wishlist.collaborators && wishlist.collaborators.length > 2 && (
+                      <div className={styles.moreCount}>+{wishlist.collaborators.length - 2}</div>
+                    )}
+                  </div>
+                )}
+
+                {wishlist.products && wishlist.products.length > 0 && (
+                  <div className={styles.progressContainer}>
+                    <div className={styles.progressHeader}>
+                      <span>{Math.round(((wishlist.products.filter(p => p.isPurchased).length) / wishlist.products.length) * 100)}%</span>
                     </div>
-                  )}
-                  {wishlist.collaborators?.slice(0, 2).map((c, i) => (
-                    <div key={i} className={styles.miniAvatar} title={c.name || c.email}>
-                      {c.avatar ? <img src={c.avatar} alt="" /> : (c.name?.[0] || "U")}
+                    <div className={styles.progressBar}>
+                      <div 
+                        className={styles.progressFill} 
+                        style={{ width: `${(wishlist.products.filter(p => p.isPurchased).length / wishlist.products.length) * 100}%` }}
+                      />
                     </div>
-                  ))}
-                  {wishlist.collaborators && wishlist.collaborators.length > 2 && (
-                    <div className={styles.moreCount}>+{wishlist.collaborators.length - 2}</div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </Card>
           ))}
         </div>

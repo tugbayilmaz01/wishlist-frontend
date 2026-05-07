@@ -7,8 +7,8 @@
 
 .selected {
   border: 1.5px solid #e8d0d8;
-  border-radius: 10px;
-  padding: 0.45rem 0.85rem;
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
   cursor: pointer;
   background-color: #fafaf9;
   display: flex;
@@ -17,11 +17,25 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #1a1816;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
+  min-height: 42px;
 
   &:hover {
-    border-color: rgba(255, 66, 93, 0.3);
+    border-color: rgba(255, 66, 93, 0.4);
     background: #fff8f9;
+  }
+
+  .valueGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .icon {
+      color: #b0929a;
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
   }
 }
 

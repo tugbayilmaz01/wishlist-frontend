@@ -1,6 +1,7 @@
 import styles from "./Card.module.scss";
 import { ReactNode } from "react";
-import { FiHeart, FiStar, FiShoppingBag, FiGift, FiLayers } from "react-icons/fi";
+import { FiHeart, FiStar, FiCheck, FiGift, FiLayers } from "react-icons/fi";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface CardProps {
   title?: string;
@@ -13,6 +14,7 @@ interface CardProps {
   onClick?: () => void;
   actions?: ReactNode;
   index?: number;
+  isPurchased?: boolean;
 }
 
 export default function Card({
@@ -26,7 +28,9 @@ export default function Card({
   onClick,
   actions,
   index,
+  isPurchased,
 }: CardProps) {
+  const { t } = useLanguage();
   const starPatches = [
     "/assets/star-patch-polka.png",
     "/assets/star-patch-pink.png",
@@ -45,7 +49,7 @@ export default function Card({
     : null;
 
   return (
-    <div className={styles.card} onClick={onClick}>
+    <div className={`${styles.card} ${isPurchased ? styles.purchased : ""}`} onClick={onClick}>
       <div className={styles.cardImageWrapper}>
         {imagePath ? (
           <img
@@ -68,11 +72,17 @@ export default function Card({
         )}
         {tag && <span className={styles.cardTag}>{tag}</span>}
         {actions && <div className={styles.cardActions}>{actions}</div>}
+        {isPurchased && (
+          <div className={styles.purchasedBadge}>
+            <FiCheck size={14} />
+            <span className={styles.purchasedText}>BOUGHT</span>
+          </div>
+        )}
       </div>
 
       <div className={styles.cardBody}>
-        {title && <h3 className={styles.cardTitle}>{title}</h3>}
-        {subtitle && <span className={styles.cardPrice}>{subtitle}</span>}
+        {title && <h3 className={`${styles.cardTitle} ${isPurchased ? styles.strikethrough : ""}`}>{title}</h3>}
+        {subtitle && <span className={`${styles.cardPrice} ${isPurchased ? styles.strikethrough : ""}`}>{subtitle}</span>}
         {description && <p className={styles.cardDescription}>{description}</p>}
         {children && <div className={styles.cardChildren}>{children}</div>}
       </div>

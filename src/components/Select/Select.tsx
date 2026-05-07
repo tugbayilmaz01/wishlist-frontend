@@ -7,6 +7,8 @@ interface SelectProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  icon?: React.ReactNode;
+  customLabels?: Record<string, string>;
 }
 
 export default function Select({
@@ -14,6 +16,8 @@ export default function Select({
   value,
   onChange,
   placeholder,
+  icon,
+  customLabels,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,10 +40,20 @@ export default function Select({
     setIsOpen(false);
   };
 
+  const getLabel = (option: string) => {
+    if (customLabels && customLabels[option]) {
+      return customLabels[option];
+    }
+    return option;
+  };
+
   return (
     <div className={styles.selectContainer} ref={containerRef}>
       <div className={styles.selected} onClick={() => setIsOpen(!isOpen)}>
-        {value || placeholder || "Select"}
+        <div className={styles.valueGroup}>
+          {icon && <span className={styles.icon}>{icon}</span>}
+          {getLabel(value) || placeholder || "Select"}
+        </div>
         <FiChevronDown
           className={`${styles.arrow} ${isOpen ? styles.open : ""}`}
         />
@@ -52,7 +66,7 @@ export default function Select({
               className={value === option ? styles.active : ""}
               onClick={() => handleSelect(option)}
             >
-              {option}
+              {getLabel(option)}
             </li>
           ))}
         </ul>

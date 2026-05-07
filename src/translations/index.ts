@@ -94,12 +94,23 @@ export const translations = {
     },
     dashboard: {
       hi: "Hi",
-      subtitle: "Ready to discover and organize your next favorites?",
+      subtitle: "It's a great day to dream about something new.",
       createNew: "Create New Wishlist",
       noWishlists: "You don't have any wishlists yet.",
       createFirst: "Create your first wishlist!",
       categoryName: "Category Name",
       categoryPlaceholder: "e.g. Analog Photography",
+      onboarding: {
+        title: "Ready to start your first wishlist?",
+        subtitle: "The simplest way to keep track of the things you love, plan your budget, and share your lists with friends.",
+        cta: "Create My First List",
+        step1Title: "Create a list",
+        step1Desc: "Organize your wishes by any category you like.",
+        step2Title: "Save your favorites",
+        step2Desc: "Add links or items manually to keep them all in one place.",
+        step3Title: "Plan & Share",
+        step3Desc: "Share with friends and plan your monthly budget.",
+      },
     },
     wishlistDetail: {
       title: "Wishlist Detail",
@@ -150,11 +161,17 @@ export const translations = {
       owner: "Owner",
     },
     profile: {
-      title: "Profile Settings",
-      name: "Full Name",
-      email: "Email Address",
-      update: "Update Profile",
-      success: "Profile updated successfully!",
+      back: "Back to Dashboard",
+      title: "My Profile",
+      subtitle: "Personalize your experience and account settings",
+      displayName: "Name",
+      email: "Email",
+      emailDisabled: "Email cannot be changed",
+      save: "Save Changes",
+      saving: "Saving...",
+      success: "Profile updated successfully! ✨",
+      error: "Failed to save profile.",
+      placeholderName: "e.g. Alex"
     }
   },
   tr: {
@@ -252,12 +269,23 @@ export const translations = {
     },
     dashboard: {
       hi: "Selam",
-      subtitle: "Yeni favorilerini keşfetmeye ve düzenlemeye hazır mısın?",
+      subtitle: "Yeni hayaller kurmak için harika bir gün.",
       createNew: "Yeni Liste Oluştur",
       noWishlists: "Henüz bir listen yok.",
       createFirst: "İlk listeni hemen oluştur!",
       categoryName: "Kategori Adı",
       categoryPlaceholder: "örn. Analog Fotoğrafçılık",
+      onboarding: {
+        title: "İlk listeni oluşturmaya ne dersin?",
+        subtitle: "Sevdiğin şeyleri takip etmenin, bütçeni planlamanın ve listelerini arkadaşlarınla paylaşmanın en kolay yolu.",
+        cta: "İlk Listemi Oluşturayım",
+        step1Title: "Bir liste oluştur",
+        step1Desc: "Dileklerini dilediğin kategorilere göre düzenle.",
+        step2Title: "Favorilerini kaydet",
+        step2Desc: "Linkleri veya ürünleri tek bir yerde topla.",
+        step3Title: "Planla ve Paylaş",
+        step3Desc: "Arkadaşlarınla paylaş ve aylık bütçeni kolayca yönet.",
+      },
     },
     wishlistDetail: {
       title: "Liste Detayı",
@@ -308,11 +336,17 @@ export const translations = {
       owner: "Sahibi",
     },
     profile: {
-      title: "Profil Ayarları",
-      name: "Ad Soyad",
-      email: "E-posta Adresi",
-      update: "Profili Güncelle",
-      success: "Profil başarıyla güncellendi!",
+      back: "Dashboard'a Dön",
+      title: "Profilim",
+      subtitle: "Deneyimini ve hesap ayarlarını kişiselleştir",
+      displayName: "İsim",
+      email: "E-posta",
+      emailDisabled: "E-posta adresi değiştirilemez",
+      save: "Değişiklikleri Kaydet",
+      saving: "Kaydediliyor...",
+      success: "Profil başarıyla güncellendi! ✨",
+      error: "Profil kaydedilemedi.",
+      placeholderName: "örn. Tugba"
     }
   }
 };

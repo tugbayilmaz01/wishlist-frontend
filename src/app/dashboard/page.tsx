@@ -9,7 +9,7 @@ import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button/Button";
-import { FiEdit, FiTrash2, FiHeart } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiHeart, FiFolder, FiZap, FiShare2, FiUser, FiStar } from "react-icons/fi";
 import { useLanguage } from "@/context/LanguageContext";
 import { useUser } from "@/context/UserContext";
 
@@ -98,9 +98,15 @@ export default function DashboardPage() {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.welcomeText}>
-          <h1>{t('dashboard.hi')}, {user?.name || "there"}! ✨</h1>
-          <p>{t('dashboard.subtitle')}</p>
+        <div className={styles.welcomeArea}>
+          <div className={styles.greetingBadge}>
+            <h1>
+              {t('dashboard.hi')}{user?.name ? `, ${user.name}` : ''}
+              <FiStar className={styles.starIcon} size={24} />
+            </h1>
+            <div className={styles.greetingGlow} />
+          </div>
+          <p className={styles.subtitleText}>{t('dashboard.subtitle')}</p>
         </div>
         <div className={styles.actions}>
           <Button
@@ -119,8 +125,39 @@ export default function DashboardPage() {
           <LoadingSpinner showText={false} />
         </div>
       ) : wishlists.length === 0 ? (
-        <div className={styles.emptyState}>
-          <p>{t('dashboard.noWishlists')}</p>
+        <div className={styles.minimalOnboarding}>
+          <div className={styles.onboardingGlow} />
+          <div className={styles.onboardingContent}>
+            <div className={styles.brandIconWrapper}>
+              <img src="/icon.svg" alt="WishIt" className={styles.brandIcon} />
+            </div>
+            
+            <div className={styles.textContent}>
+              <h2>{t('dashboard.onboarding.title')}</h2>
+              <p>{t('dashboard.onboarding.subtitle')}</p>
+            </div>
+
+            <div className={styles.stepJourney}>
+              <div className={styles.journeyNode}>
+                <div className={styles.nodeNumber}>1</div>
+                <div className={styles.nodeIcon}><FiFolder /></div>
+                <span className={styles.nodeText}>{t('dashboard.onboarding.step1Title')}</span>
+              </div>
+              <div className={styles.journeyLine} />
+              <div className={styles.journeyNode}>
+                <div className={styles.nodeNumber}>2</div>
+                <div className={styles.nodeIcon}><FiZap /></div>
+                <span className={styles.nodeText}>{t('dashboard.onboarding.step2Title')}</span>
+              </div>
+              <div className={styles.journeyLine} />
+              <div className={styles.journeyNode}>
+                <div className={styles.nodeNumber}>3</div>
+                <div className={styles.nodeIcon}><FiShare2 /></div>
+                <span className={styles.nodeText}>{t('dashboard.onboarding.step3Title')}</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       ) : (
         <div className={styles.wishlistGrid}>

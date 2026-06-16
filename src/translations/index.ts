@@ -91,6 +91,25 @@ export const translations = {
       emptyFields: "Please enter both your email and password.",
       orContinueWith: "OR CONTINUE WITH",
       continueWithGoogle: "Google",
+      forgotPassword: "Forgot Password?",
+      forgotPasswordTitle: "Reset your password",
+      forgotPasswordSubtitle: "Enter your email and we'll send you a link to reset your password.",
+      forgotPasswordEmail: "Your email address",
+      sendResetLink: "Send Reset Link",
+      sendingResetLink: "Sending...",
+      resetLinkSent: "Check your inbox! A password reset link has been sent to your email.",
+      resetLinkError: "Failed to send reset link. Please try again.",
+      emailNotFound: "No account found with this email address.",
+      backToLogin: "Back to Login",
+      resetPasswordTitle: "Set new password",
+      resetPasswordSubtitle: "Enter your new password below.",
+      newPassword: "New Password",
+      confirmPassword: "Confirm Password",
+      passwordsDoNotMatch: "Passwords do not match.",
+      setNewPassword: "Set New Password",
+      settingPassword: "Setting password...",
+      resetSuccess: "Password updated! You can log in with your new password.",
+      resetError: "Failed to reset password. The link may have expired.",
     },
     dashboard: {
       hi: "Hi",
@@ -100,6 +119,7 @@ export const translations = {
       createFirst: "Create your first wishlist!",
       categoryName: "Category Name",
       categoryPlaceholder: "e.g. Analog Photography",
+      loadError: "Failed to load your wishlists. Please refresh the page.",
       onboarding: {
         title: "Ready to start your first wishlist?",
         subtitle: "The simplest way to keep track of the things you love, plan your budget, and share your lists with friends.",
@@ -165,7 +185,8 @@ export const translations = {
         purchased: "Purchased Only"
       },
       markAsPurchased: "I've purchased this item",
-      unmarkAsPurchased: "Move back to wishlist"
+      unmarkAsPurchased: "Move back to wishlist",
+      shareLinkCopied: "Link copied to clipboard! Share it with the world ✨"
     },
     profile: {
       back: "Back to Dashboard",
@@ -273,6 +294,25 @@ export const translations = {
       emptyFields: "Lütfen hem e-posta hem de şifrenizi girin.",
       orContinueWith: "VEYA ŞUNUNLA DEVAM ET",
       continueWithGoogle: "Google",
+      forgotPassword: "Şifremi Unuttum?",
+      forgotPasswordTitle: "Şifrenizi sıfırlayın",
+      forgotPasswordSubtitle: "E-posta adresinizi girin, size bir sıfırlama bağlantısı gönderelim.",
+      forgotPasswordEmail: "E-posta adresiniz",
+      sendResetLink: "Sıfırlama Bağlantısı Gönder",
+      sendingResetLink: "Gönderiliyor...",
+      resetLinkSent: "Gelen kutunuzu kontrol edin! Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.",
+      resetLinkError: "Sıfırlama bağlantısı gönderilemedi. Lütfen tekrar deneyin.",
+      emailNotFound: "Bu e-posta adresiyle kayıtlı bir hesap bulunamadı.",
+      backToLogin: "Girişe Dön",
+      resetPasswordTitle: "Yeni şifre belirle",
+      resetPasswordSubtitle: "Aşağıya yeni şifrenizi girin.",
+      newPassword: "Yeni Şifre",
+      confirmPassword: "Şifreyi Onayla",
+      passwordsDoNotMatch: "Şifreler eşleşmiyor.",
+      setNewPassword: "Yeni Şifremi Belirle",
+      settingPassword: "Kaydediliyor...",
+      resetSuccess: "Şifre güncellendi! Yeni şifrenizle giriş yapabilirsiniz.",
+      resetError: "Şifre sıfırlanamadı. Bağlantının süresi dolmuş olabilir.",
     },
     dashboard: {
       hi: "Selam",
@@ -282,6 +322,7 @@ export const translations = {
       createFirst: "İlk listeni hemen oluştur!",
       categoryName: "Kategori Adı",
       categoryPlaceholder: "örn. Analog Fotoğrafçılık",
+      loadError: "Listeler yüklenemedi. Lütfen sayfayı yenileyin.",
       onboarding: {
         title: "İlk listeni oluşturmaya ne dersin?",
         subtitle: "Sevdiğin şeyleri takip etmenin, bütçeni planlamanın ve listelerini arkadaşlarınla paylaşmanın en kolay yolu.",
@@ -347,7 +388,8 @@ export const translations = {
         purchased: "Satın Alınanlar"
       },
       markAsPurchased: "Bu ürünü satın aldım",
-      unmarkAsPurchased: "Dilek listesine geri taşı"
+      unmarkAsPurchased: "Dilek listesine geri taşı",
+      shareLinkCopied: "Bağlantı kopyalandı! Herkesle paylaşabilirsin ✨"
     },
     profile: {
       back: "Dashboard'a Dön",
@@ -372,11 +414,13 @@ export type TranslationKey =
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
   | "landing.story3.tagline" | "landing.story3.title1" | "landing.story3.title2" | "landing.story3.desc"
   | "auth.welcomeBack" | "auth.joinTitle" | "auth.email" | "auth.emailPlaceholder" | "auth.passwordPlaceholder" | "auth.signIn" | "auth.signingIn" | "auth.startWishing" | "auth.creating" | "auth.newHere" | "auth.createAccount" | "auth.alreadyHave" | "auth.loginNow" | "auth.signupSuccess" | "auth.signupError" | "auth.loginError" | "auth.invalidEmail" | "auth.weakPassword" | "auth.emptyFields" | "auth.orContinueWith" | "auth.continueWithGoogle"
+  | "auth.forgotPassword" | "auth.forgotPasswordTitle" | "auth.forgotPasswordSubtitle" | "auth.forgotPasswordEmail" | "auth.sendResetLink" | "auth.sendingResetLink" | "auth.resetLinkSent" | "auth.resetLinkError" | "auth.emailNotFound" | "auth.backToLogin"
+  | "auth.resetPasswordTitle" | "auth.resetPasswordSubtitle" | "auth.newPassword" | "auth.confirmPassword" | "auth.passwordsDoNotMatch" | "auth.setNewPassword" | "auth.settingPassword" | "auth.resetSuccess" | "auth.resetError"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
-  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder"
+  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder" | "dashboard.loadError"
   | "dashboard.onboarding.title" | "dashboard.onboarding.subtitle" | "dashboard.onboarding.cta" | "dashboard.onboarding.step1Title" | "dashboard.onboarding.step1Desc" | "dashboard.onboarding.step2Title" | "dashboard.onboarding.step2Desc" | "dashboard.onboarding.step3Title" | "dashboard.onboarding.step3Desc"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
   | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"
   | "wishlistDetail.filterStatus.all" | "wishlistDetail.filterStatus.wishlist" | "wishlistDetail.filterStatus.purchased"
-  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased"
+  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased" | "wishlistDetail.shareLinkCopied"
   | "profile.back" | "profile.title" | "profile.subtitle" | "profile.displayName" | "profile.email" | "profile.emailDisabled" | "profile.save" | "profile.saving" | "profile.success" | "profile.error" | "profile.placeholderName";

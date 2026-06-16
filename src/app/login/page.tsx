@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { api } from "@/utils/api";
 import Button from "@/components/Button/Button";
 import Alert from "@/components/Alert/Alert";
@@ -39,7 +40,7 @@ export default function LoginPage() {
     setMounted(true);
   }, []);
 
-  const handleSocialLogin = React.useCallback(async (idToken: string) => {
+  const handleSocialLogin = React.useCallback(async (idToken: string, silent = false) => {
     try {
       const data = await api.post("/users/social-login", {
         token: idToken,
@@ -49,9 +50,14 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token);
       window.location.href = "/dashboard";
     } catch (err: any) {
+      if (silent) {
+        signOut({ redirect: false });
+        return;
+      }
+
       setAlertType("error");
       setAlertMessage(err.message || "Social login failed");
-      
+
       if (err.message?.includes("expired") || err.message?.includes("aud")) {
         signOut({ redirect: false });
       }
@@ -60,7 +66,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (status === "authenticated" && session?.idToken) {
-      handleSocialLogin(session.idToken);
+      handleSocialLogin(session.idToken, true);
     }
   }, [status, session, handleSocialLogin]);
 
@@ -199,6 +205,12 @@ export default function LoginPage() {
           >
             {loginLoading ? t("auth.signingIn") : t("auth.signIn")}
           </Button>
+
+          <div style={{ textAlign: 'center', marginTop: '-4px' }}>
+            <Link href="/forgot-password" className={styles.forgotLink}>
+              {t("auth.forgotPassword")}
+            </Link>
+          </div>
 
           <div className={styles.divider}>
             <span>{t("auth.orContinueWith")}</span>

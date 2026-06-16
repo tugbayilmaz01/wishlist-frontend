@@ -805,4 +805,197 @@
       margin-bottom: 2rem;
     }
   }
+
+  
+  .dashboardMain {
+    padding: 10px 1rem;
+  }
+
+
+  .header {
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .welcomeArea {
+      .greetingBadge h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    .titleArea {
+      gap: 0.75rem;
+
+      .titleGroup h1 {
+        font-size: 1.6rem;
+      }
+
+      .titleMeta {
+        font-size: 0.82rem;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+    }
+
+    .actions {
+      width: 100%;
+      button {
+        width: 100%;
+      }
+    }
+
+    .actionArea {
+      width: 100%;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+
+      .shareBtn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      button[class] {
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+
+  .wishlistGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.85rem;
+  }
+
+
+  .controlsRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+
+    .viewToggle {
+      width: 100%;
+
+      .toggleBtn {
+        flex: 1;
+        justify-content: center;
+        padding: 7px 10px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .filterSection {
+      width: 100%;
+      overflow-x: auto;
+    }
+  }
+
+
+  .monthSectionProducts {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+    padding: 0 1rem 1rem;
+  }
+
+  .monthSectionHeader {
+    padding: 0.85rem 1rem;
+
+    .monthSectionName {
+      font-size: 0.9rem !important;
+    }
+
+    .monthSectionTotal {
+      font-size: 0.8rem !important;
+    }
+  }
+
+ 
+  .emptyState {
+    padding: 50px 16px;
+
+    .emptyTitle {
+      font-size: 1.2rem;
+    }
+
+    .emptySubtitle {
+      font-size: 0.9rem;
+    }
+  }
+
+  .minimalOnboarding {
+    min-height: 260px;
+
+    .onboardingContent {
+      gap: 1rem;
+      padding: 0 1rem;
+
+      .textContent h2 {
+        font-size: 1.6rem;
+      }
+
+      .textContent p {
+        font-size: 1rem;
+      }
+
+      .stepJourney {
+        gap: 0;
+        .journeyNode .nodeText {
+          font-size: 0.75rem;
+          max-width: 80px;
+        }
+
+        .nodeIcon {
+          width: 40px !important;
+          height: 40px !important;
+          font-size: 1.1rem !important;
+        }
+      }
+    }
+  }
+
+
+  .avatarStack {
+    .avatar {
+      width: 30px !important;
+      height: 30px !important;
+    }
+
+    .addAvatarBtn {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardMain {
+    padding: 8px 0.75rem;
+  }
+
+  .header {
+    .welcomeArea .greetingBadge h1 {
+      font-size: 1.35rem;
+    }
+
+    .titleArea .titleGroup h1 {
+      font-size: 1.35rem;
+    }
+  }
+
+  .wishlistGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .monthSectionProducts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .controlsRow .viewToggle .toggleBtn {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    gap: 4px;
+  }
 }

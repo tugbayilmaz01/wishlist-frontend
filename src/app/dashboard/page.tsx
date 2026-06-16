@@ -4,6 +4,7 @@ import Card from "@/components/Card/Card";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import WishlistCategoryModal from "./components/wishlistCategoryModal/WishlistCategoryModal";
 import ConfirmModal from "@/components/ConfirmModal/ConfirmModal";
+import Alert from "@/components/Alert/Alert";
 import styles from "./Dashboard.module.scss";
 import { api } from "@/utils/api";
 import { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ export default function DashboardPage() {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [wishlistToDelete, setWishlistToDelete] = useState<number | null>(null);
   const [editingWishlist, setEditingWishlist] = useState<Wishlist | null>(null);
+  const [alertInfo, setAlertInfo] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function DashboardPage() {
       setWishlists(data);
     } catch (err) {
       console.error("Dashboard failed to load wishlists:", err);
+      setAlertInfo({ message: t("dashboard.loadError"), type: "error" });
     } finally {
       setLoading(false);
     }
@@ -63,6 +66,7 @@ export default function DashboardPage() {
       setIsConfirmOpen(false);
     } catch (err) {
       console.error(`Dashboard failed to delete wishlist ${wishlistToDelete}:`, err);
+      setAlertInfo({ message: t("common.deleteConfirm"), type: "error" });
     }
   };
 
@@ -97,6 +101,13 @@ export default function DashboardPage() {
 
   return (
     <>
+      {alertInfo && (
+        <Alert
+          message={alertInfo.message}
+          type={alertInfo.type}
+          onClose={() => setAlertInfo(null)}
+        />
+      )}
       <div className={styles.header}>
         <div className={styles.welcomeArea}>
           <div className={styles.greetingBadge}>

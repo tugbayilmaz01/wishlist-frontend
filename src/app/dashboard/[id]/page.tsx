@@ -117,7 +117,7 @@ export default function WishlistDetailPage() {
       const shareUrl = `${window.location.origin}/shared/${token}`;
 
       await navigator.clipboard.writeText(shareUrl);
-      setAlertMessage("Link copied to clipboard! Share it with the world ✨");
+      setAlertMessage(t("wishlistDetail.shareLinkCopied"));
     } catch (err) {
       console.error("Failed to share wishlist:", err);
     }

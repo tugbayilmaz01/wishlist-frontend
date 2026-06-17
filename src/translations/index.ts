@@ -25,6 +25,9 @@ export const translations = {
       shared: "Shared",
       invite: "Invite",
       remove: "Remove",
+      errorTitle: "Oops! Something went wrong",
+      errorDesc: "We encountered an unexpected error while loading your dashboard.",
+      tryAgain: "Try Again",
     },
     landing: {
       heroBadge: "The smarter way to wishlist",
@@ -34,8 +37,8 @@ export const translations = {
       subtitle: "Stop sending random links to yourself. Gather what you love, track your budget, and discover trends—finally, a space just for you.",
       getStarted: "Start Wishing",
       startFree: "Start for free",
-      lovedBy: "",
-      wishlisters: "",
+      lovedBy: "Loved by",
+      wishlisters: "wishlisters",
       featuresTag: "WHAT WE DO",
       featuresTitle: "Everything you need to ",
       featuresTitleGradient: "wish better",
@@ -120,6 +123,7 @@ export const translations = {
       categoryName: "Category Name",
       categoryPlaceholder: "e.g. Analog Photography",
       loadError: "Failed to load your wishlists. Please refresh the page.",
+      deleteError: "Failed to delete wishlist. Please try again.",
       onboarding: {
         title: "Ready to start your first wishlist?",
         subtitle: "The simplest way to keep track of the things you love, plan your budget, and share your lists with friends.",
@@ -186,7 +190,8 @@ export const translations = {
       },
       markAsPurchased: "I've purchased this item",
       unmarkAsPurchased: "Move back to wishlist",
-      shareLinkCopied: "Link copied to clipboard! Share it with the world ✨"
+      shareLinkCopied: "Link copied to clipboard! Share it with the world ✨",
+      purchasedBadge: "BOUGHT"
     },
     profile: {
       back: "Back to Dashboard",
@@ -228,6 +233,9 @@ export const translations = {
       shared: "Paylaşılan",
       invite: "Davet Et",
       remove: "Kaldır",
+      errorTitle: "Hata! Bir şeyler yanlış gitti",
+      errorDesc: "Beklenmedik bir hata oluştu.",
+      tryAgain: "Tekrar Dene",
     },
     landing: {
       heroBadge: "Listelemenin en akıllı yolu",
@@ -237,8 +245,8 @@ export const translations = {
       subtitle: "Kendine WhatsApp'tan link atmayı bırak. Sevdiğin ürünleri biriktir, bütçeni takip et ve trendleri keşfet—sonunda sadece sana özel bir alan.",
       getStarted: "Hayal Kurmaya Başla",
       startFree: "Ücretsiz Başla",
-      lovedBy: "",
-      wishlisters: "",
+      lovedBy: "Tarafından seviliyor",
+      wishlisters: "kullanıcı",
       featuresTag: "NE YAPIYORUZ?",
       featuresTitle: "Daha iyi bir liste için ",
       featuresTitleGradient: "her şey burada",
@@ -323,6 +331,7 @@ export const translations = {
       categoryName: "Kategori Adı",
       categoryPlaceholder: "örn. Analog Fotoğrafçılık",
       loadError: "Listeler yüklenemedi. Lütfen sayfayı yenileyin.",
+      deleteError: "Liste silinemedi. Lütfen tekrar deneyin.",
       onboarding: {
         title: "İlk listeni oluşturmaya ne dersin?",
         subtitle: "Sevdiğin şeyleri takip etmenin, bütçeni planlamanın ve listelerini arkadaşlarınla paylaşmanın en kolay yolu.",
@@ -389,7 +398,8 @@ export const translations = {
       },
       markAsPurchased: "Bu ürünü satın aldım",
       unmarkAsPurchased: "Dilek listesine geri taşı",
-      shareLinkCopied: "Bağlantı kopyalandı! Herkesle paylaşabilirsin ✨"
+      shareLinkCopied: "Bağlantı kopyalandı! Herkesle paylaşabilirsin ✨",
+      purchasedBadge: "SATIN ALINDI"
     },
     profile: {
       back: "Dashboard'a Dön",
@@ -408,7 +418,7 @@ export const translations = {
 };
 
 export type TranslationKey = 
-  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc" | "common.shared" | "common.invite" | "common.remove"
+  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc" | "common.shared" | "common.invite" | "common.remove" | "common.errorTitle" | "common.errorDesc" | "common.tryAgain"
   | "landing.heroBadge" | "landing.title1" | "landing.title2" | "landing.title3" | "landing.subtitle" | "landing.getStarted" | "landing.startFree" | "landing.readyToStart" | "landing.ctaSubtitle" | "landing.createYourWishlist" | "landing.trending" | "landing.shared"
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
@@ -417,10 +427,10 @@ export type TranslationKey =
   | "auth.forgotPassword" | "auth.forgotPasswordTitle" | "auth.forgotPasswordSubtitle" | "auth.forgotPasswordEmail" | "auth.sendResetLink" | "auth.sendingResetLink" | "auth.resetLinkSent" | "auth.resetLinkError" | "auth.emailNotFound" | "auth.backToLogin"
   | "auth.resetPasswordTitle" | "auth.resetPasswordSubtitle" | "auth.newPassword" | "auth.confirmPassword" | "auth.passwordsDoNotMatch" | "auth.setNewPassword" | "auth.settingPassword" | "auth.resetSuccess" | "auth.resetError"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
-  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder" | "dashboard.loadError"
+  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder" | "dashboard.loadError" | "dashboard.deleteError"
   | "dashboard.onboarding.title" | "dashboard.onboarding.subtitle" | "dashboard.onboarding.cta" | "dashboard.onboarding.step1Title" | "dashboard.onboarding.step1Desc" | "dashboard.onboarding.step2Title" | "dashboard.onboarding.step2Desc" | "dashboard.onboarding.step3Title" | "dashboard.onboarding.step3Desc"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
   | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"
   | "wishlistDetail.filterStatus.all" | "wishlistDetail.filterStatus.wishlist" | "wishlistDetail.filterStatus.purchased"
-  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased" | "wishlistDetail.shareLinkCopied"
+  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased" | "wishlistDetail.shareLinkCopied" | "wishlistDetail.purchasedBadge"
   | "profile.back" | "profile.title" | "profile.subtitle" | "profile.displayName" | "profile.email" | "profile.emailDisabled" | "profile.save" | "profile.saving" | "profile.success" | "profile.error" | "profile.placeholderName";

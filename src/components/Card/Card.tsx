@@ -75,7 +75,7 @@ export default function Card({
         {isPurchased && (
           <div className={styles.purchasedBadge}>
             <FiCheck size={14} />
-            <span className={styles.purchasedText}>BOUGHT</span>
+            <span className={styles.purchasedText}>{t("wishlistDetail.purchasedBadge")}</span>
           </div>
         )}
       </div>

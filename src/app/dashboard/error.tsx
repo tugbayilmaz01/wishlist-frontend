@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Button from "@/components/Button/Button";
 import { FiAlertTriangle, FiRefreshCw } from "react-icons/fi";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Error({
   error,
@@ -11,6 +12,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useLanguage();
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -42,13 +44,13 @@ export default function Error({
         <FiAlertTriangle size={40} />
       </div>
       <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#38161f', marginBottom: '0.5rem' }}>
-        Oops! Something went wrong
+        {t("common.errorTitle")}
       </h2>
       <p style={{ color: '#b0929a', marginBottom: '2rem', maxWidth: '300px' }}>
-        We encountered an unexpected error while loading your dashboard.
+        {t("common.errorDesc")}
       </p>
       <Button onClick={() => reset()} startIcon={<FiRefreshCw />}>
-        Try Again
+        {t("common.tryAgain")}
       </Button>
     </div>
   );

@@ -65,7 +65,7 @@ export default function LandingPage() {
           <Link href="/login" style={{ textDecoration: "none" }}>
             <button className={styles.loginBtn}>{t("common.login")}</button>
           </Link>
-          <Link href="/login" style={{ textDecoration: "none" }}>
+          <Link href="/login?mode=signup" style={{ textDecoration: "none" }}>
             <button className={styles.signupBtn}>{t("common.signup")}</button>
           </Link>
         </div>
@@ -80,7 +80,7 @@ export default function LandingPage() {
             {t("landing.subtitle")}
           </p>
           <div className={styles.heroActions}>
-            <Link href="/login" style={{ textDecoration: "none" }}>
+            <Link href="/login?mode=signup" style={{ textDecoration: "none" }}>
               <button className={styles.heroCta}>
                 {t("landing.getStarted")} <FiArrowRight />
               </button>
@@ -157,7 +157,7 @@ export default function LandingPage() {
       <section className={styles.ctaSection}>
         <h2>{t("landing.readyToStart")}</h2>
         <p>{t("landing.ctaSubtitle")}</p>
-        <Link href="/login" style={{ textDecoration: "none" }}>
+        <Link href="/login?mode=signup" style={{ textDecoration: "none" }}>
           <button className={styles.heroCta} style={{ margin: '0 auto' }}>
             {t("landing.createYourWishlist")} <FiArrowRight />
           </button>

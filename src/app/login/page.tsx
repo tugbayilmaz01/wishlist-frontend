@@ -38,6 +38,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined" && window.location.search.includes("mode=signup")) {
+      setIsFlipped(true);
+    }
   }, []);
 
   const handleSocialLogin = React.useCallback(async (idToken: string, silent = false) => {
@@ -70,7 +73,8 @@ export default function LoginPage() {
     }
   }, [status, session, handleSocialLogin]);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!loginEmail || !loginPassword) {
       setAlertType("error");
       setAlertMessage(t("auth.emptyFields"));
@@ -101,7 +105,8 @@ export default function LoginPage() {
     }
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!signupEmail || !signupPassword) {
       setAlertType("error");
       setAlertMessage(t("auth.emptyFields"));
@@ -172,8 +177,9 @@ export default function LoginPage() {
               <p>{alertMessage}</p>
             </div>
           )}
-          <div className={styles.inputGroup}>
-            <input
+          <form onSubmit={handleLogin}>
+            <div className={styles.inputGroup}>
+              <input
               type="email"
               placeholder={t("auth.emailPlaceholder")}
               value={loginEmail}
@@ -196,15 +202,16 @@ export default function LoginPage() {
                 {showLoginPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
               </button>
             </div>
-          </div>
-          <Button 
-            onClick={handleLogin} 
-            loading={loginLoading} 
-            endIcon={<FiArrowRight />}
-            style={{ width: '100%', marginTop: '10px' }}
-          >
-            {loginLoading ? t("auth.signingIn") : t("auth.signIn")}
-          </Button>
+            </div>
+            <Button 
+              type="submit"
+              loading={loginLoading} 
+              endIcon={<FiArrowRight />}
+              style={{ width: '100%', marginTop: '10px' }}
+            >
+              {loginLoading ? t("auth.signingIn") : t("auth.signIn")}
+            </Button>
+          </form>
 
           <div style={{ textAlign: 'center', marginTop: '-4px' }}>
             <Link href="/forgot-password" className={styles.forgotLink}>
@@ -239,8 +246,9 @@ export default function LoginPage() {
               <p>{alertMessage}</p>
             </div>
           )}
-          <div className={styles.inputGroup}>
-            <input
+          <form onSubmit={handleSignup}>
+            <div className={styles.inputGroup}>
+              <input
               type="email"
               placeholder={t("auth.emailPlaceholder")}
               value={signupEmail}
@@ -263,15 +271,16 @@ export default function LoginPage() {
                 {showSignupPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
               </button>
             </div>
-          </div>
-          <Button 
-            onClick={handleSignup} 
-            loading={signupLoading} 
-            endIcon={<FiArrowRight />}
-            style={{ width: '100%', marginTop: '10px' }}
-          >
-            {signupLoading ? t("auth.creating") : t("auth.startWishing")}
-          </Button>
+            </div>
+            <Button 
+              type="submit" 
+              loading={signupLoading} 
+              endIcon={<FiArrowRight />}
+              style={{ width: '100%', marginTop: '10px' }}
+            >
+              {signupLoading ? t("auth.creating") : t("auth.startWishing")}
+            </Button>
+          </form>
           <div className={styles.divider}>
             <span>{t("auth.orContinueWith")}</span>
           </div>

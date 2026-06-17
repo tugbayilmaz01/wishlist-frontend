@@ -162,7 +162,15 @@ export default function SharedWishlistPage() {
   if (error || !wishlist) return <div className={styles.emptyState}><h2>{error || "Wishlist not found"}</h2></div>;
 
   return (
-    <div className={styles.dashboardMain}>
+    <div className={styles.dashboardMain} style={{ padding: '2rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <img src="/logo-horizontal.svg" alt="WishIt" style={{ height: '36px', cursor: 'pointer' }} onClick={() => window.location.href = '/landing'} />
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button onClick={() => window.location.href = '/login'} style={{ background: 'transparent', border: '2px solid #ff425d', color: '#ff425d', padding: '8px 20px', borderRadius: '24px', cursor: 'pointer', fontWeight: 600, fontSize: '14px' }}>{t("common.login")}</button>
+          <button onClick={() => window.location.href = '/login?mode=signup'} style={{ background: '#ff425d', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '24px', cursor: 'pointer', fontWeight: 600, fontSize: '14px' }}>{t("common.signup")}</button>
+        </div>
+      </div>
+
       <div className={styles.header}>
         <div className={styles.titleArea}>
           <div className={styles.titleGroup}>

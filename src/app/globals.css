@@ -32,7 +32,7 @@ button,
   background-color: #ff425d;
   border-radius: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: darken(#ff425d, 5%); }
+::-webkit-scrollbar-thumb:hover { background: #e6394f; }
 
 
 @keyframes fadeInUp {

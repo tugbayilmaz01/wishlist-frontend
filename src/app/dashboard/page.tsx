@@ -66,7 +66,7 @@ export default function DashboardPage() {
       setIsConfirmOpen(false);
     } catch (err) {
       console.error(`Dashboard failed to delete wishlist ${wishlistToDelete}:`, err);
-      setAlertInfo({ message: t("common.deleteConfirm"), type: "error" });
+      setAlertInfo({ message: t("dashboard.deleteError"), type: "error" });
     }
   };
 
@@ -182,7 +182,7 @@ export default function DashboardPage() {
               tag={wishlist.isOwner === false ? t('common.shared') : undefined}
               onClick={() => router.push(`/dashboard/${wishlist.id}`)}
               actions={
-                wishlist.isOwner ? (
+                wishlist.isOwner !== false ? (
                   <>
                     <FiEdit
                       size={18}

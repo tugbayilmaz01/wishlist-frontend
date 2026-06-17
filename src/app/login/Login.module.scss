@@ -110,6 +110,13 @@ $primary-color: #38161f;
   gap: 15px;
 }
 
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .inlineAlert {
   display: flex;
   align-items: flex-start;

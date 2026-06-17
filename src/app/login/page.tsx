@@ -148,7 +148,7 @@ export default function LoginPage() {
 
   if (!mounted || status === "loading") return <div className={styles.wrapper}><LoadingSpinner /></div>;
 
-  
+
   if (status === "authenticated" && !alertMessage) return <div className={styles.wrapper}><LoadingSpinner /></div>;
 
   return (
@@ -177,35 +177,35 @@ export default function LoginPage() {
               <p>{alertMessage}</p>
             </div>
           )}
-          <form onSubmit={handleLogin}>
+          <form className={styles.form} onSubmit={handleLogin}>
             <div className={styles.inputGroup}>
               <input
-              type="email"
-              placeholder={t("auth.emailPlaceholder")}
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-              className={styles.input}
-            />
-            <div className={styles.passwordWrapper}>
-              <input
-                type={showLoginPassword ? "text" : "password"}
-                placeholder={t("auth.passwordPlaceholder")}
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                type="email"
+                placeholder={t("auth.emailPlaceholder")}
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
                 className={styles.input}
               />
-              <button
-                type="button"
-                className={styles.eyeIcon}
-                onClick={() => setShowLoginPassword(!showLoginPassword)}
-              >
-                {showLoginPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-              </button>
+              <div className={styles.passwordWrapper}>
+                <input
+                  type={showLoginPassword ? "text" : "password"}
+                  placeholder={t("auth.passwordPlaceholder")}
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className={styles.input}
+                />
+                <button
+                  type="button"
+                  className={styles.eyeIcon}
+                  onClick={() => setShowLoginPassword(!showLoginPassword)}
+                >
+                  {showLoginPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                </button>
+              </div>
             </div>
-            </div>
-            <Button 
+            <Button
               type="submit"
-              loading={loginLoading} 
+              loading={loginLoading}
               endIcon={<FiArrowRight />}
               style={{ width: '100%', marginTop: '10px' }}
             >
@@ -224,7 +224,7 @@ export default function LoginPage() {
           </div>
 
           <div className={styles.ssoGroup}>
-            <button 
+            <button
               className={`${styles.ssoButton} ${styles.google}`}
               onClick={() => signIn("google")}
             >
@@ -246,35 +246,35 @@ export default function LoginPage() {
               <p>{alertMessage}</p>
             </div>
           )}
-          <form onSubmit={handleSignup}>
+          <form className={styles.form} onSubmit={handleSignup}>
             <div className={styles.inputGroup}>
               <input
-              type="email"
-              placeholder={t("auth.emailPlaceholder")}
-              value={signupEmail}
-              onChange={(e) => setSignupEmail(e.target.value)}
-              className={styles.input}
-            />
-            <div className={styles.passwordWrapper}>
-              <input
-                type={showSignupPassword ? "text" : "password"}
-                placeholder={t("auth.passwordPlaceholder")}
-                value={signupPassword}
-                onChange={(e) => setSignupPassword(e.target.value)}
+                type="email"
+                placeholder={t("auth.emailPlaceholder")}
+                value={signupEmail}
+                onChange={(e) => setSignupEmail(e.target.value)}
                 className={styles.input}
               />
-              <button
-                type="button"
-                className={styles.eyeIcon}
-                onClick={() => setShowSignupPassword(!showSignupPassword)}
-              >
-                {showSignupPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-              </button>
+              <div className={styles.passwordWrapper}>
+                <input
+                  type={showSignupPassword ? "text" : "password"}
+                  placeholder={t("auth.passwordPlaceholder")}
+                  value={signupPassword}
+                  onChange={(e) => setSignupPassword(e.target.value)}
+                  className={styles.input}
+                />
+                <button
+                  type="button"
+                  className={styles.eyeIcon}
+                  onClick={() => setShowSignupPassword(!showSignupPassword)}
+                >
+                  {showSignupPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                </button>
+              </div>
             </div>
-            </div>
-            <Button 
-              type="submit" 
-              loading={signupLoading} 
+            <Button
+              type="submit"
+              loading={signupLoading}
               endIcon={<FiArrowRight />}
               style={{ width: '100%', marginTop: '10px' }}
             >
@@ -286,7 +286,7 @@ export default function LoginPage() {
           </div>
 
           <div className={styles.ssoGroup}>
-            <button 
+            <button
               className={`${styles.ssoButton} ${styles.google}`}
               onClick={() => signIn("google")}
             >

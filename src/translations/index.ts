@@ -80,7 +80,7 @@ export const translations = {
       passwordPlaceholder: "Password",
       signIn: "Sign In",
       signingIn: "Signing in...",
-      startWishing: "Start wishing",
+      startWishing: "Start Wishing",
       creating: "Creating...",
       newHere: "New here?",
       createAccount: "Create an account",

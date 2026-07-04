@@ -7,7 +7,22 @@ import AddWishlistProductModal from "../components/wishlistProductModal/Wishlist
 import FilterPanel from "@/components/FilterPanel/FilterPanel";
 import Button from "@/components/Button/Button";
 import styles from "../Dashboard.module.scss";
-import { FiEdit, FiTrash2, FiShare2, FiTag, FiGrid, FiCalendar, FiPlus, FiUserPlus, FiArrowLeft, FiChevronDown, FiExternalLink, FiUser, FiCheckCircle, FiShoppingBag } from "react-icons/fi";
+import {
+  FiEdit,
+  FiTrash2,
+  FiShare2,
+  FiTag,
+  FiGrid,
+  FiCalendar,
+  FiPlus,
+  FiUserPlus,
+  FiArrowLeft,
+  FiChevronDown,
+  FiExternalLink,
+  FiUser,
+  FiCheckCircle,
+  FiShoppingBag,
+} from "react-icons/fi";
 import { TbCurrencyLira } from "react-icons/tb";
 import { api } from "@/utils/api";
 import Alert from "@/components/Alert/Alert";
@@ -16,8 +31,15 @@ import { useLanguage } from "@/context/LanguageContext";
 import CollaboratorModal from "@/app/dashboard/components/collaboratorModal/CollaboratorModal";
 import { FiUsers } from "react-icons/fi";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
+import confetti from "canvas-confetti";
 
-function MonthSection({ month, products, total, renderCard, isUnplanned = false }: {
+function MonthSection({
+  month,
+  products,
+  total,
+  renderCard,
+  isUnplanned = false,
+}: {
   month: string;
   products: any[];
   total: number;
@@ -27,16 +49,31 @@ function MonthSection({ month, products, total, renderCard, isUnplanned = false 
   const { t } = useLanguage();
   const [open, setOpen] = useState(true);
   return (
-    <div className={`${styles.monthSection} ${isUnplanned ? styles.unplanned : ""}`}>
-      <button className={styles.monthSectionHeader} onClick={() => setOpen(o => !o)}>
+    <div
+      className={`${styles.monthSection} ${isUnplanned ? styles.unplanned : ""}`}
+    >
+      <button
+        className={styles.monthSectionHeader}
+        onClick={() => setOpen((o) => !o)}
+      >
         <div className={styles.monthSectionLeft}>
-          <span className={`${styles.monthDot} ${isUnplanned ? styles.unplannedDot : ""}`} />
-          <span className={styles.monthSectionName}>{isUnplanned ? t("wishlistDetail.unplanned") : month}</span>
-          <span className={styles.monthSectionCount}>{products.length} {t("common.items")}</span>
+          <span
+            className={`${styles.monthDot} ${isUnplanned ? styles.unplannedDot : ""}`}
+          />
+          <span className={styles.monthSectionName}>
+            {isUnplanned ? t("wishlistDetail.unplanned") : month}
+          </span>
+          <span className={styles.monthSectionCount}>
+            {products.length} {t("common.items")}
+          </span>
         </div>
         <div className={styles.monthSectionRight}>
           <span className={styles.monthSectionTotal}>
-            {total.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL
+            {total.toLocaleString("tr-TR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            TL
           </span>
           <FiChevronDown
             size={18}
@@ -52,7 +89,6 @@ function MonthSection({ month, products, total, renderCard, isUnplanned = false 
     </div>
   );
 }
-
 
 interface Wishlist {
   id: number;
@@ -75,12 +111,19 @@ interface WishlistProduct {
 }
 
 const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
-
-
-
 
 export default function WishlistDetailPage() {
   const { t } = useLanguage();
@@ -90,18 +133,22 @@ export default function WishlistDetailPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wishlistProducts, setWishlistProducts] = useState<WishlistProduct[]>(
-    []
+    [],
   );
   const [editingProduct, setEditingProduct] = useState<WishlistProduct | null>(
-    null
+    null,
   );
   const [wishlist, setWishlist] = useState<any>(null);
 
   const [view, setView] = useState<"list" | "month">("list");
-  const [filters, setFilters] = useState<{ month: string; category: string; status: string }>({ 
-    month: "All", 
+  const [filters, setFilters] = useState<{
+    month: string;
+    category: string;
+    status: string;
+  }>({
+    month: "All",
     category: "All",
-    status: "All"
+    status: "All",
   });
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [isCollaboratorModalOpen, setIsCollaboratorModalOpen] = useState(false);
@@ -112,12 +159,36 @@ export default function WishlistDetailPage() {
 
   const handleShare = async () => {
     try {
-      const response: any = await api.post(`/wishlists/${wishlistId}/share`, {});
+      const response: any = await api.post(
+        `/wishlists/${wishlistId}/share`,
+        {},
+      );
       const token = response.token;
       const shareUrl = `${window.location.origin}/shared/${token}`;
 
       await navigator.clipboard.writeText(shareUrl);
       setAlertMessage(t("wishlistDetail.shareLinkCopied"));
+
+      confetti({
+        particleCount: 50,
+        angle: 60,
+        spread: 60,
+        origin: { x: 0.05, y: 0.85 },
+      });
+
+      confetti({
+        particleCount: 50,
+        angle: 120,
+        spread: 60,
+        origin: { x: 0.95, y: 0.85 },
+      });
+
+      confetti({
+        particleCount: 60,
+        angle: 90,
+        spread: 100,
+        origin: { x: 0.5, y: 0.7 },
+      });
     } catch (err) {
       console.error("Failed to share wishlist:", err);
     }
@@ -145,7 +216,7 @@ export default function WishlistDetailPage() {
 
   const handleUpdateProduct = (updated: WishlistProduct) => {
     setWishlistProducts((prev) =>
-      prev.map((p) => (p.id === updated.id ? updated : p))
+      prev.map((p) => (p.id === updated.id ? updated : p)),
     );
   };
 
@@ -158,36 +229,38 @@ export default function WishlistDetailPage() {
     if (!productToDelete) return;
     try {
       await api.delete(`/wishlists/${wishlistId}/products/${productToDelete}`);
-      setWishlistProducts((prev) => prev.filter((p) => p.id !== productToDelete));
+      setWishlistProducts((prev) =>
+        prev.filter((p) => p.id !== productToDelete),
+      );
       setProductToDelete(null);
       setIsConfirmOpen(false);
     } catch (err) {
       console.error(
         `WishlistDetail Failed to delete product ${productToDelete}:`,
-        err
+        err,
       );
     }
   };
 
   const filteredProducts = useMemo(() => {
     return wishlistProducts.filter(
-      (p) => 
+      (p) =>
         (filters.month === "All" || p.plannedMonth === filters.month) &&
         (filters.category === "All" || p.category === filters.category) &&
-        (filters.status === "All" || 
-          (filters.status === "Purchased" && p.isPurchased) || 
-          (filters.status === "Wishlist" && !p.isPurchased))
+        (filters.status === "All" ||
+          (filters.status === "Purchased" && p.isPurchased) ||
+          (filters.status === "Wishlist" && !p.isPurchased)),
     );
   }, [wishlistProducts, filters]);
 
   const monthOptions = Array.from(
-    new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean))
+    new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean)),
   ) as string[];
 
   const categoryOptions = Array.from(
-    new Set(wishlistProducts.map((p) => p.category).filter(Boolean))
+    new Set(wishlistProducts.map((p) => p.category).filter(Boolean)),
   ) as string[];
-  
+
   const totalPrice = useMemo(() => {
     return filteredProducts.reduce((sum, p) => sum + (p.price || 0), 0);
   }, [filteredProducts]);
@@ -199,10 +272,13 @@ export default function WishlistDetailPage() {
   const togglePurchased = async (product: WishlistProduct) => {
     try {
       const updatedStatus = !product.isPurchased;
-      const response: any = await api.put(`/wishlists/${wishlistId}/products/${product.id}`, {
-        ...product,
-        isPurchased: updatedStatus
-      });
+      const response: any = await api.put(
+        `/wishlists/${wishlistId}/products/${product.id}`,
+        {
+          ...product,
+          isPurchased: updatedStatus,
+        },
+      );
       handleUpdateProduct(response);
     } catch (err) {
       console.error("Failed to toggle purchased status:", err);
@@ -213,7 +289,11 @@ export default function WishlistDetailPage() {
     <Card
       key={product.id}
       title={product.name}
-      subtitle={product.price ? `${product.price.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL` : ""}
+      subtitle={
+        product.price
+          ? `${product.price.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} TL`
+          : ""
+      }
       imageUrl={product.imageUrl}
       tag={product.category}
       isPurchased={product.isPurchased}
@@ -223,32 +303,36 @@ export default function WishlistDetailPage() {
       }}
       actions={
         <>
-          <div 
+          <div
             onClick={(e) => {
               e.stopPropagation();
               togglePurchased(product);
             }}
-            style={{ 
-              cursor: "pointer", 
-              marginRight: "8px", 
+            style={{
+              cursor: "pointer",
+              marginRight: "8px",
               color: product.isPurchased ? "#27ae60" : "#9d8a94",
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
             }}
-            title={product.isPurchased ? t("wishlistDetail.unmarkAsPurchased") : t("wishlistDetail.markAsPurchased")}
+            title={
+              product.isPurchased
+                ? t("wishlistDetail.unmarkAsPurchased")
+                : t("wishlistDetail.markAsPurchased")
+            }
           >
             <FiShoppingBag size={18} />
           </div>
           {product.productUrl ? (
-          <FiExternalLink
-            size={18}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.open(product.productUrl, "_blank");
-            }}
-            style={{ cursor: "pointer", marginRight: "8px", color: "#666" }}
-          />
-        ) : null}
+            <FiExternalLink
+              size={18}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(product.productUrl, "_blank");
+              }}
+              style={{ cursor: "pointer", marginRight: "8px", color: "#666" }}
+            />
+          ) : null}
           <FiEdit
             size={18}
             onClick={(e) => {
@@ -283,52 +367,69 @@ export default function WishlistDetailPage() {
 
       <div className={styles.header}>
         <div className={styles.titleArea}>
-          <button 
-            onClick={() => router.push("/dashboard")} 
+          <button
+            onClick={() => router.push("/dashboard")}
             className={styles.backBtn}
-            title={t('wishlistDetail.backToDashboard')}
+            title={t("wishlistDetail.backToDashboard")}
           >
             <FiArrowLeft size={20} />
           </button>
           <div className={styles.titleGroup}>
-            <h1>{wishlist?.name || t('wishlistDetail.title')}</h1>
+            <h1>{wishlist?.name || t("wishlistDetail.title")}</h1>
             <div className={styles.titleMeta}>
-              <span><TbCurrencyLira size={14} style={{ marginBottom: '-2px' }} />{totalPrice.toLocaleString('tr-TR')} TL</span>
+              <span>
+                <TbCurrencyLira size={14} style={{ marginBottom: "-2px" }} />
+                {totalPrice.toLocaleString("tr-TR")} TL
+              </span>
               <span className={styles.dot}>·</span>
-              <span><FiTag size={12} />{filteredProducts.length} {t('common.items')}</span>
+              <span>
+                <FiTag size={12} />
+                {filteredProducts.length} {t("common.items")}
+              </span>
             </div>
           </div>
         </div>
 
         <div className={styles.actionArea}>
-       
-          {(wishlist?.owner || (wishlist?.collaborators?.length ?? 0) > 0 || wishlist?.isOwner) && (
+          {(wishlist?.owner ||
+            (wishlist?.collaborators?.length ?? 0) > 0 ||
+            wishlist?.isOwner) && (
             <div className={styles.avatarStack}>
               {wishlist?.owner && (
                 <div
                   className={`${styles.avatar} ${styles.ownerAvatar}`}
                   title={wishlist.owner.name || wishlist.owner.email}
                 >
-                  {wishlist.owner.avatar
-                    ? <img src={wishlist.owner.avatar} alt="" />
-                    : (wishlist.owner.name ? <span>{wishlist.owner.name[0].toUpperCase()}</span> : <FiUser size={16} />)
-                  }
+                  {wishlist.owner.avatar ? (
+                    <img src={wishlist.owner.avatar} alt="" />
+                  ) : wishlist.owner.name ? (
+                    <span>{wishlist.owner.name[0].toUpperCase()}</span>
+                  ) : (
+                    <FiUser size={16} />
+                  )}
                   <div className={styles.ownerBadge}>★</div>
                 </div>
               )}
               {wishlist?.collaborators?.map((c: any, i: number) => (
-                <div key={i} className={styles.avatar} title={c.name || c.email}>
-                  {c.avatar
-                    ? <img src={c.avatar} alt="" />
-                    : (c.name ? <span>{c.name[0].toUpperCase()}</span> : <FiUser size={16} />)
-                  }
+                <div
+                  key={i}
+                  className={styles.avatar}
+                  title={c.name || c.email}
+                >
+                  {c.avatar ? (
+                    <img src={c.avatar} alt="" />
+                  ) : c.name ? (
+                    <span>{c.name[0].toUpperCase()}</span>
+                  ) : (
+                    <FiUser size={16} />
+                  )}
                 </div>
               ))}
               {wishlist?.isOwner && (
                 <button
                   onClick={() => setIsCollaboratorModalOpen(true)}
                   className={styles.addAvatarBtn}
-                  title={t('common.invite')}
+                  title={t("common.invite")}
                 >
                   <FiUserPlus size={15} />
                 </button>
@@ -336,13 +437,11 @@ export default function WishlistDetailPage() {
             </div>
           )}
 
-    
           <button onClick={handleShare} className={styles.shareBtn}>
             <FiShare2 size={16} />
-            <span>{t('common.share')}</span>
+            <span>{t("common.share")}</span>
           </button>
 
-      
           <Button
             variant="primary"
             onClick={() => {
@@ -351,7 +450,7 @@ export default function WishlistDetailPage() {
             }}
             startIcon={<FiPlus />}
           >
-            {t('wishlistDetail.addProduct')}
+            {t("wishlistDetail.addProduct")}
           </Button>
         </div>
       </div>
@@ -364,27 +463,27 @@ export default function WishlistDetailPage() {
               onClick={() => setView("list")}
             >
               <FiGrid size={15} />
-              {t('wishlistDetail.listView')}
+              {t("wishlistDetail.listView")}
             </button>
             <button
               className={`${styles.toggleBtn} ${view === "month" ? styles.active : ""}`}
               onClick={() => setView("month")}
             >
               <FiCalendar size={15} />
-              {t('wishlistDetail.monthlyView')}
+              {t("wishlistDetail.monthlyView")}
             </button>
           </div>
 
           <div className={styles.filterSection}>
             <FilterPanel
               filters={filters}
-              options={{ 
+              options={{
                 ...(view !== "month" && { month: monthOptions }),
                 category: categoryOptions,
-                status: ["Wishlist", "Purchased"]
+                status: ["Wishlist", "Purchased"],
               }}
               onChange={(newFilters) =>
-                setFilters((prev) => ({ ...prev, ...newFilters as any }))
+                setFilters((prev) => ({ ...prev, ...(newFilters as any) }))
               }
             />
           </div>
@@ -396,9 +495,11 @@ export default function WishlistDetailPage() {
       ) : wishlistProducts.length === 0 ? (
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>✨</div>
-          <h2 className={styles.emptyTitle}>{t('wishlistDetail.emptyTitle')}</h2>
+          <h2 className={styles.emptyTitle}>
+            {t("wishlistDetail.emptyTitle")}
+          </h2>
           <p className={styles.emptySubtitle}>
-            {t('wishlistDetail.emptySubtitle')}
+            {t("wishlistDetail.emptySubtitle")}
           </p>
           <Button
             onClick={() => {
@@ -406,7 +507,7 @@ export default function WishlistDetailPage() {
               setIsModalOpen(true);
             }}
           >
-            {t('wishlistDetail.addFirst')}
+            {t("wishlistDetail.addFirst")}
           </Button>
         </div>
       ) : view === "list" ? (
@@ -415,7 +516,9 @@ export default function WishlistDetailPage() {
         </div>
       ) : !filteredProducts.some((p: any) => p.plannedMonth) ? (
         <div className={styles.monthlyEmptyState}>
-          <div className={styles.monthlyEmptyIcon}><FiCalendar size={36} /></div>
+          <div className={styles.monthlyEmptyIcon}>
+            <FiCalendar size={36} />
+          </div>
           <h3>{t("wishlistDetail.noMonthsAssigned")}</h3>
           <p>{t("wishlistDetail.assignMonthDesc")}</p>
           <button
@@ -439,10 +542,17 @@ export default function WishlistDetailPage() {
       ) : (
         <div className={styles.monthlyAccordion}>
           {months
-            .filter((month) => filteredProducts.some((p: any) => p.plannedMonth === month))
+            .filter((month) =>
+              filteredProducts.some((p: any) => p.plannedMonth === month),
+            )
             .map((month) => {
-              const productsOfMonth = filteredProducts.filter((p: any) => p.plannedMonth === month);
-              const totalPriceMonth = productsOfMonth.reduce((sum: number, p: any) => sum + (p.price || 0), 0);
+              const productsOfMonth = filteredProducts.filter(
+                (p: any) => p.plannedMonth === month,
+              );
+              const totalPriceMonth = productsOfMonth.reduce(
+                (sum: number, p: any) => sum + (p.price || 0),
+                0,
+              );
               return (
                 <MonthSection
                   key={month}
@@ -457,7 +567,9 @@ export default function WishlistDetailPage() {
             <MonthSection
               month={t("wishlistDetail.unplanned")}
               products={filteredProducts.filter((p: any) => !p.plannedMonth)}
-              total={filteredProducts.filter((p: any) => !p.plannedMonth).reduce((sum: number, p: any) => sum + (p.price || 0), 0)}
+              total={filteredProducts
+                .filter((p: any) => !p.plannedMonth)
+                .reduce((sum: number, p: any) => sum + (p.price || 0), 0)}
               renderCard={renderProductCard}
               isUnplanned
             />
@@ -490,13 +602,13 @@ export default function WishlistDetailPage() {
         onCollaboratorAdded={(c) => {
           setWishlist((prev: any) => ({
             ...prev,
-            collaborators: [...(prev.collaborators || []), c]
+            collaborators: [...(prev.collaborators || []), c],
           }));
         }}
         onCollaboratorRemoved={(id) => {
           setWishlist((prev: any) => ({
             ...prev,
-            collaborators: prev.collaborators.filter((c: any) => c.id !== id)
+            collaborators: prev.collaborators.filter((c: any) => c.id !== id),
           }));
         }}
       />

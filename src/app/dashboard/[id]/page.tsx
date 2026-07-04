@@ -217,6 +217,10 @@ export default function WishlistDetailPage() {
       imageUrl={product.imageUrl}
       tag={product.category}
       isPurchased={product.isPurchased}
+      onClick={() => {
+        setEditingProduct(product);
+        setIsModalOpen(true);
+      }}
       actions={
         <>
           <div 

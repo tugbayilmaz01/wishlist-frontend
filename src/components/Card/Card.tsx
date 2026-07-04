@@ -49,7 +49,7 @@ export default function Card({
     : null;
 
   return (
-    <div className={`${styles.card} ${isPurchased ? styles.purchased : ""}`} onClick={onClick}>
+    <div className={`${styles.card} ${isPurchased ? styles.purchased : ""} ${onClick ? styles.clickable : ""}`} onClick={onClick}>
       <div className={styles.cardImageWrapper}>
         {imagePath ? (
           <img

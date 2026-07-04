@@ -137,6 +137,10 @@ export default function LoginPage() {
 
       setAlertType("success");
       setAlertMessage(t("auth.signupSuccess"));
+      setLoginEmail(signupEmail);
+      setLoginPassword("");
+      setSignupEmail("");
+      setSignupPassword("");
       setIsFlipped(false);
     } catch (err: any) {
       setAlertType("error");
@@ -233,7 +237,12 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <p className={styles.switch} onClick={() => { setIsFlipped(true); setAlertMessage(""); }}>
+          <p className={styles.switch} onClick={() => { 
+            setIsFlipped(true); 
+            setAlertMessage(""); 
+            setLoginEmail("");
+            setLoginPassword("");
+          }}>
             {t("auth.newHere")} <span>{t("auth.createAccount")}</span>
           </p>
         </div>
@@ -295,7 +304,12 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <p className={styles.switch} onClick={() => { setIsFlipped(false); setAlertMessage(""); }}>
+          <p className={styles.switch} onClick={() => { 
+            setIsFlipped(false); 
+            setAlertMessage(""); 
+            setSignupEmail("");
+            setSignupPassword("");
+          }}>
             {t("auth.alreadyHave")} <span>{t("auth.loginNow")}</span>
           </p>
         </div>

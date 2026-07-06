@@ -16,13 +16,15 @@ export const translations = {
       items: "items",
       or: "OR",
       madeWith: "Made with",
-      forWishlisters: "for dreamers everywhere.",
+      forWishlisters: "for dreamers everywhere",
       all: "All",
       learnMore: "Learn More",
       deleteConfirm: "Are you sure?",
       deleteWishlistDesc: "This list and all items inside will be permanently deleted. This action cannot be undone.",
       deleteProductDesc: "This item will be permanently removed from your list.",
       shared: "Shared",
+      sharedBy: "A wishlist by",
+      userNotFound: "The person you want to invite is not on WishIt yet.",
       invite: "Invite",
       remove: "Remove",
       errorTitle: "Oops! Something went wrong",
@@ -43,7 +45,7 @@ export const translations = {
       featuresTitle: "Everything you need to ",
       featuresTitleGradient: "wish better",
       readyToStart: "Ready to organize your dreams?",
-      ctaSubtitle: "Create your first wishlist in seconds. No credit card, no pressure.",
+      ctaSubtitle: "Create your first wishlist in seconds. Free, effortless, and entirely yours.",
       createYourWishlist: "Create your wishlist",
       trending: "Popular",
       shared: "Shared!",
@@ -118,6 +120,7 @@ export const translations = {
       hi: "Hi",
       subtitle: "It's a great day to dream about something new.",
       createNew: "Create New Wishlist",
+      editWishlist: "Edit Wishlist",
       noWishlists: "You don't have any wishlists yet.",
       createFirst: "Create your first wishlist!",
       categoryName: "Category Name",
@@ -224,13 +227,15 @@ export const translations = {
       items: "ürün",
       or: "VEYA",
       madeWith: "ile yapıldı",
-      forWishlisters: "tüm hayal kuranlar için.",
+      forWishlisters: "tüm hayal kuranlar için",
       all: "Hepsi",
       learnMore: "Daha Fazla Bilgi",
       deleteConfirm: "Emin misiniz?",
       deleteWishlistDesc: "Bu liste ile birlikte içindeki tüm ürünler de kalıcı olarak silinecektir. Bu işlem geri alınamaz.",
       deleteProductDesc: "Bu ürün listenizden kalıcı olarak silinecektir.",
       shared: "Paylaşılan",
+      sharedBy: "Sahibi:",
+      userNotFound: "Davet etmek istediğin kişi henüz WishIt'te değil.",
       invite: "Davet Et",
       remove: "Kaldır",
       errorTitle: "Hata! Bir şeyler yanlış gitti",
@@ -251,7 +256,7 @@ export const translations = {
       featuresTitle: "Daha iyi bir liste için ",
       featuresTitleGradient: "her şey burada",
       readyToStart: "Hayallerini düzenlemeye hazır mısın?",
-      ctaSubtitle: "Saniyeler içinde ilk listeni oluştur. Kredi kartı yok, baskı yok.",
+      ctaSubtitle: "Saniyeler içinde ilk listeni oluştur. Ücretsiz, zahmetsiz ve tamamen sana özel.",
       createYourWishlist: "Listeni Oluştur",
       trending: "Popüler",
       shared: "Paylaşıldı!",
@@ -326,6 +331,7 @@ export const translations = {
       hi: "Selam",
       subtitle: "Yeni hayaller kurmak için harika bir gün.",
       createNew: "Yeni Liste Oluştur",
+      editWishlist: "Listeyi Düzenle",
       noWishlists: "Henüz bir listen yok.",
       createFirst: "İlk listeni hemen oluştur!",
       categoryName: "Kategori Adı",
@@ -418,7 +424,7 @@ export const translations = {
 };
 
 export type TranslationKey = 
-  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc" | "common.shared" | "common.invite" | "common.remove" | "common.errorTitle" | "common.errorDesc" | "common.tryAgain"
+  | "common.login" | "common.signup" | "common.logout" | "common.add" | "common.save" | "common.cancel" | "common.delete" | "common.edit" | "common.update" | "common.loading" | "common.share" | "common.welcome" | "common.items" | "common.or" | "common.madeWith" | "common.forWishlisters" | "common.all" | "common.learnMore" | "common.deleteConfirm" | "common.deleteWishlistDesc" | "common.deleteProductDesc" | "common.shared" | "common.sharedBy" | "common.userNotFound" | "common.invite" | "common.remove" | "common.errorTitle" | "common.errorDesc" | "common.tryAgain"
   | "landing.heroBadge" | "landing.title1" | "landing.title2" | "landing.title3" | "landing.subtitle" | "landing.getStarted" | "landing.startFree" | "landing.readyToStart" | "landing.ctaSubtitle" | "landing.createYourWishlist" | "landing.trending" | "landing.shared"
   | "landing.story1.tagline" | "landing.story1.title1" | "landing.story1.title2" | "landing.story1.desc"
   | "landing.story2.tagline" | "landing.story2.title1" | "landing.story2.title2" | "landing.story2.desc"
@@ -427,7 +433,7 @@ export type TranslationKey =
   | "auth.forgotPassword" | "auth.forgotPasswordTitle" | "auth.forgotPasswordSubtitle" | "auth.forgotPasswordEmail" | "auth.sendResetLink" | "auth.sendingResetLink" | "auth.resetLinkSent" | "auth.resetLinkError" | "auth.emailNotFound" | "auth.backToLogin"
   | "auth.resetPasswordTitle" | "auth.resetPasswordSubtitle" | "auth.newPassword" | "auth.confirmPassword" | "auth.passwordsDoNotMatch" | "auth.setNewPassword" | "auth.settingPassword" | "auth.resetSuccess" | "auth.resetError"
   | "landing.features.categories.title" | "landing.features.categories.desc" | "landing.features.planning.title" | "landing.features.planning.desc" | "landing.features.share.title" | "landing.features.share.desc" | "landing.features.trending.title" | "landing.features.trending.desc"
-  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder" | "dashboard.loadError" | "dashboard.deleteError"
+  | "dashboard.hi" | "dashboard.subtitle" | "dashboard.createNew" | "dashboard.editWishlist" | "dashboard.noWishlists" | "dashboard.createFirst" | "dashboard.categoryName" | "dashboard.categoryPlaceholder" | "dashboard.loadError" | "dashboard.deleteError"
   | "dashboard.onboarding.title" | "dashboard.onboarding.subtitle" | "dashboard.onboarding.cta" | "dashboard.onboarding.step1Title" | "dashboard.onboarding.step1Desc" | "dashboard.onboarding.step2Title" | "dashboard.onboarding.step2Desc" | "dashboard.onboarding.step3Title" | "dashboard.onboarding.step3Desc"
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
   | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"

@@ -8,12 +8,14 @@ interface FilterPanelProps {
   filters: Record<string, string>;
   options: Record<string, string[]>;
   onChange: (filters: Record<string, string>) => void;
+  customMonthLabels?: Record<string, string>;
 }
 
 export default function FilterPanel({
   filters,
   options,
   onChange,
+  customMonthLabels,
 }: FilterPanelProps) {
   const { t } = useLanguage();
   const handleChange = (key: string, value: string) => {
@@ -71,8 +73,10 @@ export default function FilterPanel({
                   "All": t("wishlistDetail.filterStatus.all"),
                   "Wishlist": t("wishlistDetail.filterStatus.wishlist"),
                   "Purchased": t("wishlistDetail.filterStatus.purchased")
-                } : (key === "month" && filters[key] === "All" ? { "All": t("wishlistDetail.filterStatus.all") } : 
-                     (key === "category" && filters[key] === "All" ? { "All": t("wishlistDetail.filterStatus.all") } : undefined))}
+                } : key === "month" ? {
+                  "All": t("wishlistDetail.filterStatus.all"),
+                  ...customMonthLabels
+                } : { "All": t("wishlistDetail.filterStatus.all") }}
               ></Select>
             </div>
           ))}

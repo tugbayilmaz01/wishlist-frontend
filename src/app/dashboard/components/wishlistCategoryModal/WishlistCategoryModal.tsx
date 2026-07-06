@@ -52,7 +52,7 @@ export default function AddWishlistCategoryModal({
         </button>
 
         <h2>
-          {initialData ? t("dashboard.createNew") : t("dashboard.createNew")}
+          {initialData ? t("dashboard.editWishlist") : t("dashboard.createNew")}
         </h2>
         <form onSubmit={handleSubmit}>
           <label>

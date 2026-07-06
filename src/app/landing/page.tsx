@@ -165,9 +165,19 @@ export default function LandingPage() {
       </section>
 
       <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} WishIt. {t("common.madeWith")}</span>
-        <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
-        <span>{t("common.forWishlisters")}</span>
+        {language === "tr" ? (
+          <>
+            <span>© {new Date().getFullYear()} WishIt. {t("common.forWishlisters")}</span>
+            <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
+            <span>{t("common.madeWith")}.</span>
+          </>
+        ) : (
+          <>
+            <span>© {new Date().getFullYear()} WishIt. {t("common.madeWith")}</span>
+            <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
+            <span>{t("common.forWishlisters")}.</span>
+          </>
+        )}
       </footer>
     </main>
   );

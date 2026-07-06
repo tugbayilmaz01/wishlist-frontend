@@ -64,10 +64,10 @@ export default function Navbar() {
           >
             <div className={styles.avatarWrapper}>
               {user?.avatar ? (
-                user.avatar.startsWith("/") ? (
+                (user.avatar.startsWith("/") || user.avatar.startsWith("http")) ? (
                   <img src={user.avatar} alt="Avatar" />
                 ) : (
-                  <span>{user.avatar}</span>
+                  <span>{user.avatar[0].toUpperCase()}</span>
                 )
               ) : (
                 <FiUser />

@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5062/api";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5062/api";
 
 interface RequestOptions extends RequestInit {
   headers?: Record<string, string>;
@@ -41,8 +42,19 @@ async function request(endpoint: string, options: RequestOptions = {}) {
   }
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || "Something went wrong");
+    let errorMessage = "Something went wrong";
+    try {
+      const contentType = response.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        const errorData = await response.json();
+        errorMessage =
+          errorData.message || errorData.title || JSON.stringify(errorData);
+      } else {
+        const text = await response.text();
+        if (text) errorMessage = text;
+      }
+    } catch {}
+    throw new Error(errorMessage);
   }
 
   if (response.status === 204) return null;

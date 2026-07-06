@@ -49,7 +49,11 @@ export default function CollaboratorModal({
       onCollaboratorAdded(newCollaborator);
       setEmail("");
     } catch (err: any) {
-      setError(err.message || "Failed to invite user");
+      const msg: string = err.message || "";
+      const isNotFound =
+        msg.toLowerCase().includes("not found") ||
+        msg.toLowerCase().includes("bulunamadı");
+      setError(isNotFound ? t("common.userNotFound") : msg || t("common.errorTitle"));
     } finally {
       setLoading(false);
     }

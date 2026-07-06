@@ -515,7 +515,57 @@ export default function WishlistDetailPage() {
 
           {wishlistProducts.length === 0 ? (
             <div className={styles.emptyState}>
-              <div className={styles.emptyIcon}>✨</div>
+              <div className={styles.emptyIcon}>
+                <svg
+                  className={styles.brandIcon}
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M32 48 H68 V76 C68 79 66 81 63 81 H37 C34 81 32 79 32 76 Z"
+                    fill="#38161f"
+                  />
+
+                  <path
+                    d="M28 38 C28 37 29 36 30 36 H70 C71 36 72 37 72 38 V44 C72 45 71 46 70 46 H30 C29 46 28 45 28 44 Z"
+                    fill="#38161f"
+                  />
+
+                  <path d="M47 36 H53 V81 H47 Z" fill="#ff425d" />
+
+                  <path d="M32 58 H68 V63 H32 Z" fill="#ff425d" />
+
+                  <path
+                    d="M50 36 C42 27 34 32 44 38 C48 40 50 36 50 36 C50 36 52 40 56 38 C66 32 58 27 50 36 Z"
+                    fill="#ff425d"
+                  />
+
+                  <g transform="translate(14, 16)">
+                    <path
+                      d="M10 0 L13 7 L20 10 L13 13 L10 20 L7 13 L0 10 L7 7 Z"
+                      fill="#FFD700"
+                      className={`${styles.sparkleStar} ${styles.star1}`}
+                    />
+                  </g>
+
+                  <g transform="translate(12, 58)">
+                    <path
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                      fill="#ff425d"
+                      className={`${styles.sparkleStar} ${styles.star2}`}
+                    />
+                  </g>
+
+                  <g transform="translate(74, 20)">
+                    <path
+                      d="M10 0 L13 7 L20 10 L13 13 L10 20 L7 13 L0 10 L7 7 Z"
+                      fill="#FFA500"
+                      className={`${styles.sparkleStar} ${styles.star3}`}
+                    />
+                  </g>
+                </svg>
+              </div>
               <h2 className={styles.emptyTitle}>
                 {t("wishlistDetail.emptyTitle")}
               </h2>

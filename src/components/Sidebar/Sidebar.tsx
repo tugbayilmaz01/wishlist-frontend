@@ -38,7 +38,7 @@ export default function Sidebar() {
             {!collapsed && (
               <Image
                 src="/logo-horizontal.svg"
-                alt="WishIt"
+                alt="Wishtra"
                 width={140}
                 height={40}
                 priority

@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
       <div className={`${styles.blob} ${styles.blob3}`} />
 
       <div className={styles.logoTop}>
-        <Image src="/logo-horizontal.svg" alt="WishIt" width={140} height={40} priority />
+        <Image src="/logo-horizontal.svg" alt="Wishtra" width={140} height={40} priority />
         <LanguageSwitcher />
       </div>
 

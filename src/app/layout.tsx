@@ -16,10 +16,10 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "WishIt - Your Personal Wishlist",
-  description: "Organize and manage your wishlists with WishIt",
+  title: "Wishtra - Your Personal Wishlist",
+  description: "Organize and manage your wishlists with Wishtra",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.svg",
   },
 };
 

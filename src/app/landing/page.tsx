@@ -58,7 +58,7 @@ export default function LandingPage() {
     <main className={styles.landingContainer}>
       <header className={styles.header}>
         <div className={styles.logo}>
-          <Image src="/logo-horizontal.svg" alt="WishIt" width={140} height={40} priority />
+          <Image src="/logo-horizontal.svg" alt="Wishtra" width={140} height={40} priority />
         </div>
         <div className={styles.headerActions}>
           <LanguageSwitcher />
@@ -167,13 +167,13 @@ export default function LandingPage() {
       <footer className={styles.footer}>
         {language === "tr" ? (
           <>
-            <span>© {new Date().getFullYear()} WishIt. {t("common.forWishlisters")}</span>
+            <span>© {new Date().getFullYear()} Wishtra. {t("common.forWishlisters")}</span>
             <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
             <span>{t("common.madeWith")}.</span>
           </>
         ) : (
           <>
-            <span>© {new Date().getFullYear()} WishIt. {t("common.madeWith")}</span>
+            <span>© {new Date().getFullYear()} Wishtra. {t("common.madeWith")}</span>
             <FiHeart size={13} style={{ color: "#ff425d", margin: "0 4px" }} />
             <span>{t("common.forWishlisters")}.</span>
           </>

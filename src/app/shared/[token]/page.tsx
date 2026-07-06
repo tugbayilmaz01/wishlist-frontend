@@ -164,7 +164,7 @@ export default function SharedWishlistPage() {
   return (
     <div className={styles.dashboardMain} style={{ padding: '1.25rem 2rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <img src="/logo-horizontal.svg" alt="WishIt" style={{ height: '36px', cursor: 'pointer' }} onClick={() => window.location.href = '/landing'} />
+        <img src="/logo-horizontal.svg" alt="Wishtra" style={{ height: '36px', cursor: 'pointer' }} onClick={() => window.location.href = '/landing'} />
         <div style={{ display: 'flex', gap: '12px' }}>
           <button onClick={() => window.location.href = '/login'} style={{ background: 'transparent', border: '2px solid #ff425d', color: '#ff425d', padding: '8px 20px', borderRadius: '24px', cursor: 'pointer', fontWeight: 600, fontSize: '14px' }}>{t("common.login")}</button>
           <button onClick={() => window.location.href = '/login?mode=signup'} style={{ background: '#ff425d', border: 'none', color: '#fff', padding: '10px 20px', borderRadius: '24px', cursor: 'pointer', fontWeight: 600, fontSize: '14px' }}>{t("common.signup")}</button>

@@ -411,6 +411,19 @@
      
         animation: logoTwinkle 3s ease-in-out infinite;
       }
+
+      .sparkleStar {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: starSparkle 2s ease-in-out infinite;
+
+        &.star1 { animation-delay: 0s; }
+        &.star2 { animation-delay: 0.3s; }
+        &.star3 { animation-delay: 0.6s; }
+        &.star4 { animation-delay: 0.9s; }
+        &.star5 { animation-delay: 1.2s; }
+        &.star6 { animation-delay: 1.5s; }
+      }
     }
 
     .textContent {
@@ -514,6 +527,17 @@
 @keyframes logoTwinkle {
   0%, 100% { filter: brightness(1) drop-shadow(0 0 0px rgba(255, 66, 93, 0)); }
   50% { filter: brightness(1.4) drop-shadow(0 0 15px rgba(255, 66, 93, 0.3)); }
+}
+
+@keyframes starSparkle {
+  0%, 100% {
+    transform: scale(0.7) rotate(-10deg) translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2) rotate(15deg) translateY(-4px);
+    opacity: 1;
+  }
 }
 
 @keyframes spin {

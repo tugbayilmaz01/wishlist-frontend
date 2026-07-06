@@ -326,6 +326,15 @@ export default function WishlistDetailPage() {
           >
             <FiShoppingBag size={18} />
           </div>
+          <FiEdit
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              setEditingProduct(product);
+              setIsModalOpen(true);
+            }}
+            style={{ cursor: "pointer", marginRight: "8px" }}
+          />
           {product.productUrl ? (
             <FiExternalLink
               size={18}
@@ -336,15 +345,6 @@ export default function WishlistDetailPage() {
               style={{ cursor: "pointer", marginRight: "8px", color: "#666" }}
             />
           ) : null}
-          <FiEdit
-            size={18}
-            onClick={(e) => {
-              e.stopPropagation();
-              setEditingProduct(product);
-              setIsModalOpen(true);
-            }}
-            style={{ cursor: "pointer", marginRight: "8px" }}
-          />
           <FiTrash2
             size={18}
             onClick={(e) => {

@@ -233,3 +233,13 @@
   0% { transform: scale(0); }
   100% { transform: scale(1); }
 }
+
+@media (max-width: 768px) {
+  .cardActions {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+    padding: 6px !important;
+  }
+}

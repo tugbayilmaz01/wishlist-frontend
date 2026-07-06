@@ -38,7 +38,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
 }) => {
   const { t } = useLanguage();
   const isEditMode = !!product;
-  
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState<string>("");
   const [url, setUrl] = useState("");
@@ -46,7 +46,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   const [category, setCategory] = useState("");
   const [plannedMonth, setPlannedMonth] = useState("");
   const [isPurchased, setIsPurchased] = useState(false);
-  
+
   const [scrapeUrl, setScrapeUrl] = useState("");
   const [scraping, setScraping] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -75,13 +75,13 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   const handleScrape = async () => {
     if (!scrapeUrl) return;
     setScraping(true);
+    setUrl(scrapeUrl);
     try {
       const { data } = await api.post("/scrape", { url: scrapeUrl });
       setName(data.title || "");
-      
+
       setPrice(data.price?.toString() || "");
       setImageUrl(data.image || "");
-      setUrl(scrapeUrl);
     } catch (error) {
       console.error("Scrape error:", error);
     } finally {
@@ -106,10 +106,16 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
       };
 
       if (isEditMode) {
-        const response: any = await api.put(`/wishlists/${wishlistId}/products/${product.id}`, payload);
+        const response: any = await api.put(
+          `/wishlists/${wishlistId}/products/${product.id}`,
+          payload,
+        );
         onUpdateProduct(response);
       } else {
-        const response: any = await api.post(`/wishlists/${wishlistId}/products`, payload);
+        const response: any = await api.post(
+          `/wishlists/${wishlistId}/products`,
+          payload,
+        );
         onAddProduct(response.product || response);
       }
       onClose();
@@ -125,12 +131,21 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
+        <button
+          type="button"
+          className={styles.closeBtn}
+          onClick={onClose}
+          aria-label="Close"
+        >
           <FiX size={22} />
         </button>
 
         <div className={styles.modalHeader}>
-          <h2>{isEditMode ? t("wishlistDetail.editProduct") : t("wishlistDetail.addProduct")}</h2>
+          <h2>
+            {isEditMode
+              ? t("wishlistDetail.editProduct")
+              : t("wishlistDetail.addProduct")}
+          </h2>
         </div>
 
         <div className={styles.modalContent}>
@@ -161,10 +176,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
                   value={scrapeUrl}
                   onChange={(e) => setScrapeUrl(e.target.value)}
                 />
-                <Button 
-                  onClick={handleScrape} 
-                  loading={scraping}
-                >
+                <Button onClick={handleScrape} loading={scraping}>
                   {t("wishlistDetail.fetchInfo")}
                 </Button>
               </div>
@@ -203,7 +215,7 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
                     t("wishlistDetail.categories.home"),
                     t("wishlistDetail.categories.beauty"),
                     t("wishlistDetail.categories.gift"),
-                    t("wishlistDetail.categories.other")
+                    t("wishlistDetail.categories.other"),
                   ]}
                   value={category}
                   onChange={(val) => setCategory(val)}
@@ -239,7 +251,11 @@ const WishlistProductModal: React.FC<WishlistProductModalProps> = ({
               </label>
 
               <div className={styles.actions}>
-                <Button type="submit" loading={loading} endIcon={<FiArrowRight />}>
+                <Button
+                  type="submit"
+                  loading={loading}
+                  endIcon={<FiArrowRight />}
+                >
                   {isEditMode ? t("common.update") : t("common.save")}
                 </Button>
               </div>

@@ -167,6 +167,7 @@ export const translations = {
       occasion: "Occasion / Tag",
       productPreview: "Product Preview",
       productUrl: "Product Link",
+      goToProduct: "Go to Product",
       categories: {
         fashion: "Fashion",
         tech: "Tech",
@@ -378,6 +379,7 @@ export const translations = {
       occasion: "Durum / Etiket",
       productPreview: "Ürün Önizleme",
       productUrl: "Ürün Linki",
+      goToProduct: "Ürüne Git",
       categories: {
         fashion: "Moda",
         tech: "Teknoloji",
@@ -438,5 +440,5 @@ export type TranslationKey =
   | "wishlistDetail.title" | "wishlistDetail.addProduct" | "wishlistDetail.editProduct" | "wishlistDetail.listView" | "wishlistDetail.monthlyView" | "wishlistDetail.emptyTitle" | "wishlistDetail.emptySubtitle" | "wishlistDetail.addFirst" | "wishlistDetail.budgetUsed" | "wishlistDetail.plannedMonth" | "wishlistDetail.productName" | "wishlistDetail.price" | "wishlistDetail.description" | "wishlistDetail.imageUrl" | "wishlistDetail.autoFill" | "wishlistDetail.fetchInfo" | "wishlistDetail.fetching" | "wishlistDetail.manualEntry" | "wishlistDetail.selectMonth" | "wishlistDetail.category" | "wishlistDetail.selectCategory" | "wishlistDetail.occasion" | "wishlistDetail.productPreview" | "wishlistDetail.productUrl" | "wishlistDetail.magicFillTitle" | "wishlistDetail.magicFillDesc" | "wishlistDetail.linkPlaceholder" | "wishlistDetail.inviteTitle" | "wishlistDetail.inviteDesc" | "wishlistDetail.currentCollaborators" | "wishlistDetail.noCollaborators" | "wishlistDetail.collaborators" | "wishlistDetail.noMonthsAssigned" | "wishlistDetail.assignMonthDesc" | "wishlistDetail.backToList" | "wishlistDetail.unplanned" | "wishlistDetail.backToDashboard" | "wishlistDetail.owner"
   | "wishlistDetail.categories.fashion" | "wishlistDetail.categories.tech" | "wishlistDetail.categories.home" | "wishlistDetail.categories.beauty" | "wishlistDetail.categories.gift" | "wishlistDetail.categories.other"
   | "wishlistDetail.filterStatus.all" | "wishlistDetail.filterStatus.wishlist" | "wishlistDetail.filterStatus.purchased"
-  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased" | "wishlistDetail.shareLinkCopied" | "wishlistDetail.purchasedBadge"
+  | "wishlistDetail.markAsPurchased" | "wishlistDetail.unmarkAsPurchased" | "wishlistDetail.shareLinkCopied" | "wishlistDetail.purchasedBadge" | "wishlistDetail.goToProduct"
   | "profile.back" | "profile.title" | "profile.subtitle" | "profile.displayName" | "profile.email" | "profile.emailDisabled" | "profile.save" | "profile.saving" | "profile.success" | "profile.error" | "profile.placeholderName";

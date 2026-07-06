@@ -1119,3 +1119,39 @@
     gap: 4px;
   }
 }
+
+.goToProductBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ff425d;
+  background: #fff0f3;
+  padding: 6px 12px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 66, 93, 0.08);
+
+  &:hover {
+    background: #ff425d;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 66, 93, 0.15);
+  }
+
+  svg {
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: translate(2px, -1px);
+  }
+}

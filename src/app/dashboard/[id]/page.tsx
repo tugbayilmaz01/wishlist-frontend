@@ -110,23 +110,22 @@ interface WishlistProduct {
   isPurchased?: boolean;
 }
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+function formatMonthLabel(value: string, language: string): string {
+  if (!value) return "";
+  try {
+    const [year, month] = value.split("-");
+    const date = new Date(Number(year), Number(month) - 1, 1);
+    return date.toLocaleString(language === "tr" ? "tr-TR" : "en-US", {
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return value;
+  }
+}
 
 export default function WishlistDetailPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const params = useParams();
   const router = useRouter();
   const wishlistId = Number(params.id);
@@ -255,7 +254,11 @@ export default function WishlistDetailPage() {
 
   const monthOptions = Array.from(
     new Set(wishlistProducts.map((p) => p.plannedMonth).filter(Boolean)),
-  ) as string[];
+  ).sort() as string[];
+
+  const monthLabels = Object.fromEntries(
+    monthOptions.map((m) => [m, formatMonthLabel(m, language)]),
+  );
 
   const categoryOptions = Array.from(
     new Set(wishlistProducts.map((p) => p.category).filter(Boolean)),
@@ -365,216 +368,243 @@ export default function WishlistDetailPage() {
         />
       )}
 
-      <div className={styles.header}>
-        <div className={styles.titleArea}>
-          <button
-            onClick={() => router.push("/dashboard")}
-            className={styles.backBtn}
-            title={t("wishlistDetail.backToDashboard")}
-          >
-            <FiArrowLeft size={20} />
-          </button>
-          <div className={styles.titleGroup}>
-            <h1>{wishlist?.name || t("wishlistDetail.title")}</h1>
-            <div className={styles.titleMeta}>
-              <span>
-                <TbCurrencyLira size={14} style={{ marginBottom: "-2px" }} />
-                {totalPrice.toLocaleString("tr-TR")} TL
-              </span>
-              <span className={styles.dot}>·</span>
-              <span>
-                <FiTag size={12} />
-                {filteredProducts.length} {t("common.items")}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.actionArea}>
-          {(wishlist?.owner ||
-            (wishlist?.collaborators?.length ?? 0) > 0 ||
-            wishlist?.isOwner) && (
-            <div className={styles.avatarStack}>
-              {wishlist?.owner && (
-                <div
-                  className={`${styles.avatar} ${styles.ownerAvatar}`}
-                  title={wishlist.owner.name || wishlist.owner.email}
-                >
-                  {wishlist.owner.avatar ? (
-                    <img src={wishlist.owner.avatar} alt="" />
-                  ) : wishlist.owner.name ? (
-                    <span>{wishlist.owner.name[0].toUpperCase()}</span>
-                  ) : (
-                    <FiUser size={16} />
-                  )}
-                  <div className={styles.ownerBadge}>★</div>
-                </div>
-              )}
-              {wishlist?.collaborators?.map((c: any, i: number) => (
-                <div
-                  key={i}
-                  className={styles.avatar}
-                  title={c.name || c.email}
-                >
-                  {c.avatar ? (
-                    <img src={c.avatar} alt="" />
-                  ) : c.name ? (
-                    <span>{c.name[0].toUpperCase()}</span>
-                  ) : (
-                    <FiUser size={16} />
-                  )}
-                </div>
-              ))}
-              {wishlist?.isOwner && (
-                <button
-                  onClick={() => setIsCollaboratorModalOpen(true)}
-                  className={styles.addAvatarBtn}
-                  title={t("common.invite")}
-                >
-                  <FiUserPlus size={15} />
-                </button>
-              )}
-            </div>
-          )}
-
-          <button onClick={handleShare} className={styles.shareBtn}>
-            <FiShare2 size={16} />
-            <span>{t("common.share")}</span>
-          </button>
-
-          <Button
-            variant="primary"
-            onClick={() => {
-              setEditingProduct(null);
-              setIsModalOpen(true);
-            }}
-            startIcon={<FiPlus />}
-          >
-            {t("wishlistDetail.addProduct")}
-          </Button>
-        </div>
-      </div>
-
-      {wishlistProducts.length > 0 && (
-        <div className={styles.controlsRow}>
-          <div className={styles.viewToggle}>
-            <button
-              className={`${styles.toggleBtn} ${view === "list" ? styles.active : ""}`}
-              onClick={() => setView("list")}
-            >
-              <FiGrid size={15} />
-              {t("wishlistDetail.listView")}
-            </button>
-            <button
-              className={`${styles.toggleBtn} ${view === "month" ? styles.active : ""}`}
-              onClick={() => setView("month")}
-            >
-              <FiCalendar size={15} />
-              {t("wishlistDetail.monthlyView")}
-            </button>
-          </div>
-
-          <div className={styles.filterSection}>
-            <FilterPanel
-              filters={filters}
-              options={{
-                ...(view !== "month" && { month: monthOptions }),
-                category: categoryOptions,
-                status: ["Wishlist", "Purchased"],
-              }}
-              onChange={(newFilters) =>
-                setFilters((prev) => ({ ...prev, ...(newFilters as any) }))
-              }
-            />
-          </div>
-        </div>
-      )}
-
       {isLoading ? (
-        <LoadingSpinner />
-      ) : wishlistProducts.length === 0 ? (
-        <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>✨</div>
-          <h2 className={styles.emptyTitle}>
-            {t("wishlistDetail.emptyTitle")}
-          </h2>
-          <p className={styles.emptySubtitle}>
-            {t("wishlistDetail.emptySubtitle")}
-          </p>
-          <Button
-            onClick={() => {
-              setEditingProduct(null);
-              setIsModalOpen(true);
-            }}
-          >
-            {t("wishlistDetail.addFirst")}
-          </Button>
-        </div>
-      ) : view === "list" ? (
-        <div className={styles.wishlistGrid}>
-          {filteredProducts.map(renderProductCard)}
-        </div>
-      ) : !filteredProducts.some((p: any) => p.plannedMonth) ? (
-        <div className={styles.monthlyEmptyState}>
-          <div className={styles.monthlyEmptyIcon}>
-            <FiCalendar size={36} />
-          </div>
-          <h3>{t("wishlistDetail.noMonthsAssigned")}</h3>
-          <p>{t("wishlistDetail.assignMonthDesc")}</p>
-          <button
-            style={{
-              marginTop: "0.5rem",
-              background: "transparent",
-              border: "1.5px solid #f0e6e9",
-              borderRadius: "10px",
-              padding: "8px 20px",
-              fontSize: "0.85rem",
-              fontWeight: 700,
-              color: "#9d8a94",
-              cursor: "pointer",
-              fontFamily: "inherit",
-            }}
-            onClick={() => setView("list")}
-          >
-            {t("wishlistDetail.backToList")}
-          </button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "60vh",
+          }}
+        >
+          <LoadingSpinner />
         </div>
       ) : (
-        <div className={styles.monthlyAccordion}>
-          {months
-            .filter((month) =>
-              filteredProducts.some((p: any) => p.plannedMonth === month),
-            )
-            .map((month) => {
-              const productsOfMonth = filteredProducts.filter(
-                (p: any) => p.plannedMonth === month,
-              );
-              const totalPriceMonth = productsOfMonth.reduce(
-                (sum: number, p: any) => sum + (p.price || 0),
-                0,
-              );
-              return (
-                <MonthSection
-                  key={month}
-                  month={month}
-                  products={productsOfMonth}
-                  total={totalPriceMonth}
-                  renderCard={renderProductCard}
+        <>
+          <div className={styles.header}>
+            <div className={styles.titleArea}>
+              <button
+                onClick={() => router.push("/dashboard")}
+                className={styles.backBtn}
+                title={t("wishlistDetail.backToDashboard")}
+              >
+                <FiArrowLeft size={20} />
+              </button>
+              <div className={styles.titleGroup}>
+                <h1>{wishlist?.name || t("wishlistDetail.title")}</h1>
+                <div className={styles.titleMeta}>
+                  <span>
+                    <TbCurrencyLira
+                      size={14}
+                      style={{ marginBottom: "-2px" }}
+                    />
+                    {totalPrice.toLocaleString("tr-TR")} TL
+                  </span>
+                  <span className={styles.dot}>·</span>
+                  <span>
+                    <FiTag size={12} />
+                    {filteredProducts.length} {t("common.items")}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.actionArea}>
+              {(wishlist?.owner ||
+                (wishlist?.collaborators?.length ?? 0) > 0 ||
+                wishlist?.isOwner) && (
+                <div className={styles.avatarStack}>
+                  {wishlist?.owner && (
+                    <div
+                      className={`${styles.avatar} ${styles.ownerAvatar}`}
+                      title={wishlist.owner.name || wishlist.owner.email}
+                    >
+                      {wishlist.owner.avatar ? (
+                        <img src={wishlist.owner.avatar} alt="" />
+                      ) : wishlist.owner.name ? (
+                        <span>{wishlist.owner.name[0].toUpperCase()}</span>
+                      ) : (
+                        <FiUser size={16} />
+                      )}
+                      <div className={styles.ownerBadge}>★</div>
+                    </div>
+                  )}
+                  {wishlist?.collaborators?.map((c: any, i: number) => (
+                    <div
+                      key={i}
+                      className={styles.avatar}
+                      title={c.name || c.email}
+                    >
+                      {c.avatar ? (
+                        <img src={c.avatar} alt="" />
+                      ) : c.name ? (
+                        <span>{c.name[0].toUpperCase()}</span>
+                      ) : (
+                        <FiUser size={16} />
+                      )}
+                    </div>
+                  ))}
+                  {wishlist?.isOwner && (
+                    <button
+                      onClick={() => setIsCollaboratorModalOpen(true)}
+                      className={styles.addAvatarBtn}
+                      title={t("common.invite")}
+                    >
+                      <FiUserPlus size={15} />
+                    </button>
+                  )}
+                </div>
+              )}
+
+              <button onClick={handleShare} className={styles.shareBtn}>
+                <FiShare2 size={16} />
+                <span>{t("common.share")}</span>
+              </button>
+
+              <Button
+                variant="primary"
+                onClick={() => {
+                  setEditingProduct(null);
+                  setIsModalOpen(true);
+                }}
+                startIcon={<FiPlus />}
+              >
+                {t("wishlistDetail.addProduct")}
+              </Button>
+            </div>
+          </div>
+
+          {wishlistProducts.length > 0 && (
+            <div
+              className={styles.controlsRow}
+              style={{ marginBottom: "1rem", paddingBottom: "0.75rem" }}
+            >
+              <div className={styles.viewToggle}>
+                <button
+                  className={`${styles.toggleBtn} ${view === "list" ? styles.active : ""}`}
+                  onClick={() => setView("list")}
+                >
+                  <FiGrid size={15} />
+                  {t("wishlistDetail.listView")}
+                </button>
+                <button
+                  className={`${styles.toggleBtn} ${view === "month" ? styles.active : ""}`}
+                  onClick={() => setView("month")}
+                >
+                  <FiCalendar size={15} />
+                  {t("wishlistDetail.monthlyView")}
+                </button>
+              </div>
+
+              <div className={styles.filterSection}>
+                <FilterPanel
+                  filters={filters}
+                  options={{
+                    ...(view !== "month" && { month: monthOptions }),
+                    category: categoryOptions,
+                    status: ["Wishlist", "Purchased"],
+                  }}
+                  customMonthLabels={monthLabels}
+                  onChange={(newFilters) =>
+                    setFilters((prev) => ({ ...prev, ...(newFilters as any) }))
+                  }
                 />
-              );
-            })}
-          {filteredProducts.filter((p: any) => !p.plannedMonth).length > 0 && (
-            <MonthSection
-              month={t("wishlistDetail.unplanned")}
-              products={filteredProducts.filter((p: any) => !p.plannedMonth)}
-              total={filteredProducts
-                .filter((p: any) => !p.plannedMonth)
-                .reduce((sum: number, p: any) => sum + (p.price || 0), 0)}
-              renderCard={renderProductCard}
-              isUnplanned
-            />
+              </div>
+            </div>
           )}
-        </div>
+
+          {wishlistProducts.length === 0 ? (
+            <div className={styles.emptyState}>
+              <div className={styles.emptyIcon}>✨</div>
+              <h2 className={styles.emptyTitle}>
+                {t("wishlistDetail.emptyTitle")}
+              </h2>
+              <p className={styles.emptySubtitle}>
+                {t("wishlistDetail.emptySubtitle")}
+              </p>
+              <Button
+                onClick={() => {
+                  setEditingProduct(null);
+                  setIsModalOpen(true);
+                }}
+              >
+                {t("wishlistDetail.addFirst")}
+              </Button>
+            </div>
+          ) : view === "list" ? (
+            <div key={view} className={styles.wishlistGrid}>
+              {filteredProducts.map(renderProductCard)}
+            </div>
+          ) : !filteredProducts.some((p: any) => p.plannedMonth) ? (
+            <div className={styles.monthlyEmptyState}>
+              <div className={styles.monthlyEmptyIcon}>
+                <FiCalendar size={36} />
+              </div>
+              <h3>{t("wishlistDetail.noMonthsAssigned")}</h3>
+              <p>{t("wishlistDetail.assignMonthDesc")}</p>
+              <button
+                style={{
+                  marginTop: "0.5rem",
+                  background: "transparent",
+                  border: "1.5px solid #f0e6e9",
+                  borderRadius: "10px",
+                  padding: "8px 20px",
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  color: "#9d8a94",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                }}
+                onClick={() => setView("list")}
+              >
+                {t("wishlistDetail.backToList")}
+              </button>
+            </div>
+          ) : (
+            <div key={view} className={styles.monthlyAccordion}>
+              {Array.from(
+                new Set(
+                  filteredProducts
+                    .map((p: any) => p.plannedMonth)
+                    .filter(Boolean),
+                ),
+              )
+                .sort()
+                .map((month: any) => {
+                  const productsOfMonth = filteredProducts.filter(
+                    (p: any) => p.plannedMonth === month,
+                  );
+                  const totalPriceMonth = productsOfMonth.reduce(
+                    (sum: number, p: any) => sum + (p.price || 0),
+                    0,
+                  );
+                  return (
+                    <MonthSection
+                      key={month}
+                      month={formatMonthLabel(month, language)}
+                      products={productsOfMonth}
+                      total={totalPriceMonth}
+                      renderCard={renderProductCard}
+                    />
+                  );
+                })}
+              {filteredProducts.filter((p: any) => !p.plannedMonth).length >
+                0 && (
+                <MonthSection
+                  month={t("wishlistDetail.unplanned")}
+                  products={filteredProducts.filter(
+                    (p: any) => !p.plannedMonth,
+                  )}
+                  total={filteredProducts
+                    .filter((p: any) => !p.plannedMonth)
+                    .reduce((sum: number, p: any) => sum + (p.price || 0), 0)}
+                  renderCard={renderProductCard}
+                  isUnplanned
+                />
+              )}
+            </div>
+          )}
+        </>
       )}
 
       <AddWishlistProductModal

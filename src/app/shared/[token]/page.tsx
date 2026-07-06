@@ -162,8 +162,8 @@ export default function SharedWishlistPage() {
   if (error || !wishlist) return <div className={styles.emptyState}><h2>{error || "Wishlist not found"}</h2></div>;
 
   return (
-    <div className={styles.dashboardMain} style={{ padding: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+    <div className={styles.dashboardMain} style={{ padding: '1.25rem 2rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <img src="/logo-horizontal.svg" alt="WishIt" style={{ height: '36px', cursor: 'pointer' }} onClick={() => window.location.href = '/landing'} />
         <div style={{ display: 'flex', gap: '12px' }}>
           <button onClick={() => window.location.href = '/login'} style={{ background: 'transparent', border: '2px solid #ff425d', color: '#ff425d', padding: '8px 20px', borderRadius: '24px', cursor: 'pointer', fontWeight: 600, fontSize: '14px' }}>{t("common.login")}</button>
@@ -171,7 +171,7 @@ export default function SharedWishlistPage() {
         </div>
       </div>
 
-      <div className={styles.header}>
+      <div className={styles.header} style={{ marginTop: 0, marginBottom: '0.75rem' }}>
         <div className={styles.titleArea}>
           <div className={styles.titleGroup}>
             <h1>{wishlist.name}</h1>
@@ -180,6 +180,47 @@ export default function SharedWishlistPage() {
               <span className={styles.dot}>·</span>
               <span><FiTag size={12} />{filteredProducts.length} {t('common.items')}</span>
             </div>
+            {wishlist.owner && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginTop: '10px',
+                padding: '6px 14px',
+                background: 'rgba(255, 66, 93, 0.07)',
+                borderRadius: '20px',
+                width: 'fit-content',
+                fontSize: '0.82rem',
+                color: '#9d8a94',
+                fontWeight: 500,
+              }}>
+                <div style={{
+                  width: '22px',
+                  height: '22px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #ff425d, #ff8fa3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: '#fff',
+                  flexShrink: 0,
+                  overflow: 'hidden',
+                }}>
+                  {wishlist.owner.avatar
+                    ? <img src={wishlist.owner.avatar} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    : (wishlist.owner.name ? wishlist.owner.name[0].toUpperCase() : <FiUser size={12} />)
+                  }
+                </div>
+                <span>
+                  {t('common.sharedBy')}{' '}
+                  <strong style={{ color: '#6b4f5c' }}>
+                    {wishlist.owner.name || wishlist.owner.email}
+                  </strong>
+                </span>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.actionArea}>
@@ -205,7 +246,7 @@ export default function SharedWishlistPage() {
         </div>
       </div>
 
-      <div className={styles.controlsRow}>
+      <div className={styles.controlsRow} style={{ marginBottom: '1rem', paddingBottom: '0.75rem' }}>
         <div className={styles.viewToggle}>
           <button
             className={`${styles.toggleBtn} ${view === "list" ? styles.active : ""}`}

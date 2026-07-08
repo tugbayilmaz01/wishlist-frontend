@@ -415,10 +415,7 @@ export default function WishlistDetailPage() {
                 wishlist?.isOwner) && (
                 <div className={styles.avatarStack}>
                   {wishlist?.owner && (
-                    <div
-                      className={`${styles.avatar} ${styles.ownerAvatar}`}
-                      title={wishlist.owner.name || wishlist.owner.email}
-                    >
+                    <div className={`${styles.avatar} ${styles.ownerAvatar}`}>
                       {wishlist.owner.avatar ? (
                         <img src={wishlist.owner.avatar} alt="" />
                       ) : wishlist.owner.name ? (
@@ -427,14 +424,13 @@ export default function WishlistDetailPage() {
                         <FiUser size={16} />
                       )}
                       <div className={styles.ownerBadge}>★</div>
+                      <div className={styles.customTooltip}>
+                        {wishlist.owner.name || wishlist.owner.email}
+                      </div>
                     </div>
                   )}
                   {wishlist?.collaborators?.map((c: any, i: number) => (
-                    <div
-                      key={i}
-                      className={styles.avatar}
-                      title={c.name || c.email}
-                    >
+                    <div key={i} className={styles.avatar}>
                       {c.avatar ? (
                         <img src={c.avatar} alt="" />
                       ) : c.name ? (
@@ -442,6 +438,9 @@ export default function WishlistDetailPage() {
                       ) : (
                         <FiUser size={16} />
                       )}
+                      <div className={styles.customTooltip}>
+                        {c.name || c.email}
+                      </div>
                     </div>
                   ))}
                   {wishlist?.isOwner && (

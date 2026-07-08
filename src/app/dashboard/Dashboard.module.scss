@@ -175,7 +175,6 @@
         color: #ff425d;
         position: relative;
         box-shadow: 0 2px 6px rgba(56, 22, 31, 0.1);
-        overflow: hidden;
         flex-shrink: 0;
 
         &:first-child {
@@ -189,12 +188,12 @@
 
         .ownerBadge {
           position: absolute;
-          top: -3px;
-          right: -3px;
+          top: -4px;
+          right: -4px;
           background: #ff425d;
           color: #fff;
-          width: 13px;
-          height: 13px;
+          width: 14px;
+          height: 14px;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -208,10 +207,51 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
+          border-radius: 8px;
         }
 
         span {
           line-height: 1;
+        }
+
+        .customTooltip {
+          position: absolute;
+          bottom: calc(100% + 6px);
+          left: 50%;
+          transform: translateX(-50%) translateY(4px);
+          background-color: #38161f;
+          color: #fff;
+          padding: 4px 8px;
+          border-radius: 6px;
+          font-size: 0.7rem;
+          font-weight: 600;
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: none;
+          z-index: 100;
+          box-shadow: 0 4px 10px rgba(56, 22, 31, 0.2);
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 4px;
+            border-style: solid;
+            border-color: #38161f transparent transparent transparent;
+          }
+        }
+
+        &:hover {
+          z-index: 10;
+          .customTooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+          }
         }
       }
 

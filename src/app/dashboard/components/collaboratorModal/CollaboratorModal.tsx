@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CollaboratorModal.module.scss";
 import Button from "@/components/Button/Button";
 import { FiX, FiUserPlus, FiTrash2, FiMail } from "react-icons/fi";
@@ -35,6 +35,14 @@ export default function CollaboratorModal({
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) {
+      setEmail("");
+      setError("");
+      setLoading(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
